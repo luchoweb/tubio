@@ -1,10 +1,17 @@
+import Head from "next/head";
+
 import Layout from "../components/layouts/layout";
 
 function AboutPage() {
   return (
-    <Layout>
-      <div>About Next.js!</div>
-    </Layout>
+    <>
+      <Head>
+        <title>About us &bull; BizBio</title>
+      </Head>
+      <Layout>
+        <div>About Next.js!</div>
+      </Layout>
+    </>
   )
 }
 

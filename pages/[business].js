@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useState, useEffect } from 'react';
 
 import Layout from '../components/layouts/layout';
@@ -14,20 +15,27 @@ const Business = ({ biz }) => {
   }, [biz]);
 
   return (
-    <>
-      {loading ? (
-        <p>Loading...</p>
-      ) : !biz.message ? (
-          <BusinessLayout>
-            <div>Business: {biz.username}</div>
-          </BusinessLayout>
-        ) : (
-          <Layout>
-            <p>{biz.message}</p>
-          </Layout>
-        )
-      }
-    </>
+    loading ? (
+      <p>Loading...</p>
+    ) : !biz.message ? (
+      <>
+        <Head>
+          <title>{biz.name} &bull; BizBio</title>
+        </Head>
+        <BusinessLayout>
+          <div>Business: {biz.username}</div>
+        </BusinessLayout>
+      </>
+    ) : (
+      <>
+        <Head>
+          <title>{biz.message}</title>
+        </Head>
+        <Layout>
+          <p>{biz.message}</p>
+        </Layout>
+      </>
+    )
   );
 }
 
