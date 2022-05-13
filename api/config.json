@@ -1,9 +1,0 @@
-{
-  "database": {
-      "host": "localhost",
-      "port": 3306,
-      "user": "bizb_io_user",
-      "password": "Lucho@1320@#",
-      "database": "bizb_io"
-  }
-}
