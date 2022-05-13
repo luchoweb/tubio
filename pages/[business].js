@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 
+import Layout from '../components/layouts/layout';
+import BusinessLayout from '../components/layouts/business';
+
 const Business = ({ biz }) => {
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(biz)
     if ( biz ) {
       setLoading(false);
     }
@@ -16,9 +18,13 @@ const Business = ({ biz }) => {
       {loading ? (
         <p>Loading...</p>
       ) : !biz.message ? (
-          <div>Business: {biz.username}</div>
+          <BusinessLayout>
+            <div>Business: {biz.username}</div>
+          </BusinessLayout>
         ) : (
-          <p>{biz.message}</p>
+          <Layout>
+            <p>{biz.message}</p>
+          </Layout>
         )
       }
     </>
