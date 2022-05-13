@@ -20,7 +20,15 @@ async function getById(id) {
 async function getByUsername(username) {
 	const biz = await db.Business.findOne({ where: { username } });
 	if (!biz) throw 'Business not found';
-	return biz;
+
+	let links = [];
+	const { id: business_id } = biz.dataValues;
+	links = await db.Links.findAll({ where: { business_id } });
+
+	return {
+		biz,
+		links
+	};
 }
 
 async function create(params) {

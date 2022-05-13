@@ -10,6 +10,7 @@ app.use(cors());
 
 // api routes
 app.use('/business/', require('./business/biz.controller'));
+app.use('/links/', require('./links/link.controller'));
 
 // global error handler
 app.use(errorHandler);
