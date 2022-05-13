@@ -1,5 +1,11 @@
+import Layout from "../components/layouts/layout";
+
 function AboutPage() {
-  return <div>About Next.js!</div>
+  return (
+    <Layout>
+      <div>About Next.js!</div>
+    </Layout>
+  )
 }
 
-export default AboutPage
+export default AboutPage;
