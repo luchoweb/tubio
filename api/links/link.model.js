@@ -8,7 +8,8 @@ function model(sequelize) {
         title: { type: DataTypes.STRING, allowNull: false },
         link: { type: DataTypes.STRING, allowNull: false },
         icon: { type: DataTypes.STRING, allowNull: false },
-        order: { type: DataTypes.INTEGER, allowNull: false }
+        order: { type: DataTypes.INTEGER, allowNull: false },
+        color: { type: DataTypes.STRING, allowNull: true }
     };
 
     const options = {};
