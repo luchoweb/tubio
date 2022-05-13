@@ -95,7 +95,8 @@ const Business = ({ info }) => {
 }
 
 export async function getServerSideProps(context) {
-  const res = await fetch(`http://localhost:4000/business/@${context.query.business}`)
+  const { NODE_ENV, NEXT_PUBLIC_API_URL, NEXT_PUBLIC_API_PORT } = process.env;
+  const res = await fetch(`http${NODE_ENV !== 'development' ? 's' : ''}://${NEXT_PUBLIC_API_URL}:${NEXT_PUBLIC_API_PORT}/business/@${context.query.business}`)
   const info = await res.json();
   return { props: { info } }
 }
