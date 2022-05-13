@@ -1,27 +1,41 @@
+import Head from 'next/head';
 import { useState, useEffect } from 'react';
+
+import Layout from '../components/layouts/layout';
+import BusinessLayout from '../components/layouts/business';
 
 const Business = ({ biz }) => {
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(biz)
     if ( biz ) {
       setLoading(false);
     }
   }, [biz]);
 
   return (
-    <>
-      {loading ? (
-        <p>Loading...</p>
-      ) : !biz.message ? (
+    loading ? (
+      <p>Loading...</p>
+    ) : !biz.message ? (
+      <>
+        <Head>
+          <title>{biz.name} &bull; BizBio</title>
+        </Head>
+        <BusinessLayout>
           <div>Business: {biz.username}</div>
-        ) : (
+        </BusinessLayout>
+      </>
+    ) : (
+      <>
+        <Head>
+          <title>{biz.message}</title>
+        </Head>
+        <Layout>
           <p>{biz.message}</p>
-        )
-      }
-    </>
+        </Layout>
+      </>
+    )
   );
 }
 
