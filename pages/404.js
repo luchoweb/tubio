@@ -7,7 +7,7 @@ function NotFoundage() {
   return (
     <>
       <Head>
-        <title>Error 404 &bull; BizBio</title>
+        <title>Error 404 &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
       </Head>
       <Layout>
         <div className="container pt-5 pb-5 text-center">

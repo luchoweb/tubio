@@ -10,7 +10,7 @@ function HomePage() {
   return (
     <>
       <Head>
-        <title>BizBio &bull; 1 enlace para todo</title>
+        <title>{process.env.NEXT_PUBLIC_APP_NAME} &bull; 1 enlace para todo</title>
       </Head>
       <Layout>
         <section className="hero pt-5 pb-5 bg-light">

@@ -4,7 +4,7 @@ function LoginPage() {
   return (
     <>
       <Head>
-        <title>Iniciar sesión &bull; BizBio</title>
+        <title>Iniciar sesión &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
       </Head>
       <div>Iniciar sesión</div>
     </>

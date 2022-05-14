@@ -22,7 +22,7 @@ const Business = ({ info }) => {
     ) : !info.message ? (
       <>
         <Head>
-          <title>{info.biz.name} &bull; BizBio</title>
+          <title>{info.biz.name} &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
           <style>
             {`body {
               background-color: ${info.biz.background} !important;

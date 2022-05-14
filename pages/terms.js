@@ -6,7 +6,7 @@ function TermsPage() {
   return (
     <>
       <Head>
-        <title>Términos y condiciones &bull; BizBio</title>
+        <title>Términos y condiciones &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
       </Head>
       <Layout>
         <div className="container">
