@@ -1,1 +1,43 @@
-.page {}
+header {
+  .navigation {
+    a {
+      color: #000;
+      font-size: 1.2em;
+      text-decoration: none;
+
+      &:hover {
+        opacity: .7;
+      }
+    }
+  }
+}
+
+.page {
+  .hero {
+    &-title {
+      font-weight: 600;
+      line-height: .85em;
+    }
+
+    &-intro {
+      font-size: 1.2em;
+    }
+
+    &-col {
+      &-img {
+        position: relative;
+
+        &-screen {
+          border-radius: 2rem;
+          left: 50%;
+          position: absolute;
+          top: 0;
+          transform: translateX(-50%);
+          width: 230px;
+        }
+      }
+    }
+  }
+}
+
+footer {}

@@ -1,3 +1,5 @@
+import "../../styles/components/layouts/private.module.scss";
+
 export default function PrivateLayout({ children }) {
   return (
     <>
