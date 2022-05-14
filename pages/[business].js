@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Layout from '../components/layouts/layout';
 import BusinessLayout from '../components/layouts/business';
 import LinkBtn from '../components/link';
+import Link from 'next/link';
 
 const Business = ({ info }) => {
 
@@ -66,10 +67,16 @@ const Business = ({ info }) => {
     ) : (
       <>
         <Head>
-          <title>{info.message}</title>
+          <title>Error 404 &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
         </Head>
         <Layout>
-          <p>{info.message}</p>
+          <div className='container pt-5 pb-5'>
+            <h1 className='mb-3'>Error</h1>
+            <h5 className='m-0 fw-normal'>
+              <span className='me-2'>El perfil que intenta ver no existe o ha sido eliminado.</span>
+              <Link href="/"><a><strong>Volver al inicio</strong></a></Link>
+            </h5>
+          </div>
         </Layout>
       </>
     )
