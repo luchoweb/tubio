@@ -37,7 +37,9 @@ function HomePage() {
                   <small>
                     <span>Al crear un perfil usted acepta nuestros </span>
                     <Link href="terms">
-                      <a className="text-muted">términos y condiciones</a>
+                      <a className="text-muted">
+                        <strong>términos y condiciones</strong>
+                      </a>
                     </Link>
                   </small>
                 </p>
