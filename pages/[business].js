@@ -1,10 +1,13 @@
-import Head from 'next/head';
 import { useState, useEffect } from 'react';
+
+import Head from 'next/head';
+import Link from 'next/link';
 
 import Layout from '../components/layouts/layout';
 import BusinessLayout from '../components/layouts/business';
+
 import LinkBtn from '../components/link';
-import Link from 'next/link';
+
 
 const Business = ({ info }) => {
 
@@ -41,7 +44,7 @@ const Business = ({ info }) => {
         </Head>
         <BusinessLayout>
           <header className='biz-info pt-5 mb-5 text-center'>
-            <figure className='biz-info-avatar mb-3'>
+            <figure className='biz-info-avatar mb-4'>
               <img src={info.biz.avatar} alt={info.biz.name} />
             </figure>
             <h1 className='biz-info-name'>
