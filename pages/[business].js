@@ -61,7 +61,7 @@ const Business = ({ info }) => {
               { info.links.length ? info.links.map((link, index) => (
                 <LinkBtn data={link} key={`Link-${index}`} />
               )) : (
-                <p className='biz-copy'>No hay links para mostrar.</p>
+                <p className='biz-copy text-center'>No hay links para mostrar.</p>
               ) }
             </ul>
           </nav>

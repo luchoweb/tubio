@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function BusinessLayout({ bg, children }) {
   return (
     <>
@@ -8,9 +10,9 @@ export default function BusinessLayout({ bg, children }) {
 
         <footer>
           <div className="container">
-            <a href="https://bizbio.co" className="biz-copy" target="_blank" rel="noopener">
-              &copy; {process.env.NEXT_PUBLIC_APP_NAME}
-            </a>
+            <Link href="/" rel="noopener">
+             <a className="biz-copy"><small>&copy; {process.env.NEXT_PUBLIC_APP_NAME}</small></a>
+            </Link>
           </div>
         </footer>
       </main>
