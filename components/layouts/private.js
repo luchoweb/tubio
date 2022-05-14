@@ -1,7 +1,7 @@
 export default function PrivateLayout({ children }) {
   return (
     <>
-      <main className="page">{children}</main>
+      <main className="private">{children}</main>
     </>
   )
 }

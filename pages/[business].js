@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 import Layout from '../components/layouts/layout';
 import BusinessLayout from '../components/layouts/business';
+import LinkBtn from '../components/link';
 
 const Business = ({ info }) => {
 
@@ -22,8 +23,7 @@ const Business = ({ info }) => {
         <Head>
           <title>{info.biz.name} &bull; BizBio</title>
           <style>
-            {`
-            body {
+            {`body {
               background-color: ${info.biz.background} !important;
               color: ${info.biz.text_color} !important
             }
@@ -35,9 +35,8 @@ const Business = ({ info }) => {
 
             .biz-copy {
               color: ${info.biz.text_color}
-            }
-          `}
-        </style>
+            }`}
+          </style>
         </Head>
         <BusinessLayout>
           <header className='biz-info pt-5 mb-5 text-center'>
@@ -56,26 +55,9 @@ const Business = ({ info }) => {
           <nav className='biz-links mb-5'>
             <ul className='biz-links-list'>
               { info.links.length ? info.links.map((link, index) => (
-                <li
-                  className='biz-links-list-item mb-4'
-                  key={`k-${index}`}
-                >
-                  <a
-                    style={{
-                      borderColor: link.color,
-                      color: link.color
-                    }}
-                    href={link.link}
-                    className='biz-links-link'
-                    target="_blank"
-                    rel='noopener'
-                  >
-                    <i className={`${link.icon} fa-2x me-4`}></i>
-                    <span>{ link.title }</span>
-                  </a>
-                </li>
+                <LinkBtn data={link} key={`Link-${index}`} />
               )) : (
-                <p>No links</p>
+                <p className='biz-copy'>No hay links para mostrar.</p>
               ) }
             </ul>
           </nav>
