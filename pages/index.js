@@ -6,7 +6,7 @@ function HomePage() {
   return (
     <>
       <Head>
-        <title>BizBio &bull; 1 link for all</title>
+        <title>BizBio &bull; Todo en 1 enlace</title>
       </Head>
       <Layout>
         <div>Welcome to Next.js!</div>
