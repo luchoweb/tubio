@@ -1,5 +1,4 @@
 export default function LinkBtn({ data }) {
-  console.log(data);
   return (
     <li
       className='biz-links-list-item mb-4'

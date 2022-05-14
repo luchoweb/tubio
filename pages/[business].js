@@ -1,9 +1,13 @@
-import Head from 'next/head';
 import { useState, useEffect } from 'react';
+
+import Head from 'next/head';
+import Link from 'next/link';
 
 import Layout from '../components/layouts/layout';
 import BusinessLayout from '../components/layouts/business';
+
 import LinkBtn from '../components/link';
+
 
 const Business = ({ info }) => {
 
@@ -21,7 +25,7 @@ const Business = ({ info }) => {
     ) : !info.message ? (
       <>
         <Head>
-          <title>{info.biz.name} &bull; BizBio</title>
+          <title>{info.biz.name} &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
           <style>
             {`body {
               background-color: ${info.biz.background} !important;
@@ -40,7 +44,7 @@ const Business = ({ info }) => {
         </Head>
         <BusinessLayout>
           <header className='biz-info pt-5 mb-5 text-center'>
-            <figure className='biz-info-avatar mb-3'>
+            <figure className='biz-info-avatar mb-4'>
               <img src={info.biz.avatar} alt={info.biz.name} />
             </figure>
             <h1 className='biz-info-name'>
@@ -66,10 +70,16 @@ const Business = ({ info }) => {
     ) : (
       <>
         <Head>
-          <title>{info.message}</title>
+          <title>Error 404 &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
         </Head>
         <Layout>
-          <p>{info.message}</p>
+          <div className='container pt-5 pb-5'>
+            <h1 className='mb-3'>Error</h1>
+            <h5 className='m-0 fw-normal'>
+              <span className='me-2'>El perfil que intenta ver no existe o ha sido eliminado.</span>
+              <Link href="/"><a><strong>Volver al inicio</strong></a></Link>
+            </h5>
+          </div>
         </Layout>
       </>
     )
@@ -78,9 +88,13 @@ const Business = ({ info }) => {
 
 export async function getServerSideProps(context) {
   const { NODE_ENV, NEXT_PUBLIC_API_URL, NEXT_PUBLIC_API_PORT } = process.env;
-  const res = await fetch(`http${NODE_ENV !== 'development' ? 's' : ''}://${NEXT_PUBLIC_API_URL}:${NEXT_PUBLIC_API_PORT}/business/@${context.query.business}`)
-  const info = await res.json();
-  return { props: { info } }
+  try {
+    const res = await fetch(`http${NODE_ENV !== 'development' ? 's' : ''}://${NEXT_PUBLIC_API_URL}:${NEXT_PUBLIC_API_PORT}/business/@${context.query.business}`)
+    const info = await res.json();
+    return { props: { info } }
+  } catch(e) {
+    return { props: { info: { message: 'error' } } }
+  }
 }
 
 export default Business;

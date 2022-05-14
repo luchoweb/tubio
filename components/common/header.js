@@ -9,7 +9,7 @@ export default function PublicHeader() {
         <div className="row align-items-center">
           <div className="col-6">
             <Link href="/">
-              <a><Image src={Logo} alt="BizBio" height={59} width={117} /></a>
+              <a><Image src={Logo} alt={process.env.NEXT_PUBLIC_APP_NAME} height={59} width={117} /></a>
             </Link>
           </div>
           <div className="col-6 d-flex justify-content-end">

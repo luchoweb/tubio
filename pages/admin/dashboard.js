@@ -6,7 +6,7 @@ function DashboardPage() {
   return (
     <>
       <Head>
-        <title>Panel &bull; BizBio</title>
+        <title>Panel &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
       </Head>
       <PrivateLayout>
         <h1>Panel</h1>
