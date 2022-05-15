@@ -1,9 +1,11 @@
-import "../../styles/components/layouts/private.module.scss";
+import { AuthUserProvider } from "../../firebase/authUserContext";
 
 export default function PrivateLayout({ children }) {
   return (
-    <>
-      <main className="private">{children}</main>
-    </>
-  )
+    <AuthUserProvider>
+      <main className="private">
+        {children}
+      </main>
+    </AuthUserProvider>
+  );
 }

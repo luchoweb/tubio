@@ -22,7 +22,7 @@ function LoginPage() {
             <Image src={Logo} alt={AppName} height={59} width={117} />
 
             <div className="row justify-content-center">
-              <div className="col-12 col-md-9 col-lg-6">
+              <div className="col-10 col-md-9 col-lg-6 col-xl-5">
                 <form className="form-horizontal mt-5" onSubmit={handleSubmit(onSubmit)}>
                   <h4>Iniciar sersión</h4>
                   <p className="mb-5">Ingrese su correo electrónico y contraseña para acceder.</p>

@@ -13,9 +13,7 @@ export default function MyApp({ Component, pageProps }) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-
       <Component {...pageProps} />
-
       <Script src="https://kit.fontawesome.com/4e1f6b21a2.js" strategy="afterInteractive"></Script>
     </>
   )
