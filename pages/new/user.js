@@ -43,7 +43,7 @@ function NewBizPage() {
                     {errors?.email && <span className="form-error">Verifique su e-mail</span>}
                   </div>
 
-                  <div className="form-group mb-4 text-start">
+                  <div className="form-group mb-5 text-start">
                     <label htmlFor="password">Contraseña</label>
                     <input
                       id="password"
