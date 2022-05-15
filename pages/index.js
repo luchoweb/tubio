@@ -21,7 +21,7 @@ function HomePage() {
   
                 <p className="hero-intro m-0 mb-5 text-center text-md-start">Crea y personaliza tu perfil personal o el de tu marca y enlaza todas tus redes sociales, página o tienda en linea, menú, etc, en 1 solo link y <strong>GRATIS</strong>.</p>
 
-                <Link href="new">
+                <Link href="new/user">
                   <a className="btn btn-dark btn-lg d-block d-lg-inline-block me-lg-4">
                     <i className="fa fa-clipboard-user me-2"></i>
                     <span>Crear mi perfil</span>
@@ -37,7 +37,9 @@ function HomePage() {
                   <small>
                     <span>Al crear un perfil usted acepta nuestros </span>
                     <Link href="terms">
-                      <a className="text-muted">términos y condiciones</a>
+                      <a className="text-muted">
+                        <strong>términos y condiciones</strong>
+                      </a>
                     </Link>
                   </small>
                 </p>

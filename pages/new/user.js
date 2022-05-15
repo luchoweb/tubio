@@ -6,15 +6,18 @@ import PublicFooter from "../../components/common/footer";
 
 import Logo from "../../images/logo-web.png";
 
-function LoginPage() {
+function NewBizPage() {
   const AppName = process.env.NEXT_PUBLIC_APP_NAME;
+
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+  const onSubmit = data => {
+    console.log(data)
+  };
 
   return (
     <>
       <Head>
-        <title>Iniciar sesión &bull; {AppName}</title>
+        <title>Nuevo usuario &bull; {AppName}</title>
       </Head>
       <main className="form-new">
         <div className="container">
@@ -24,8 +27,8 @@ function LoginPage() {
             <div className="row justify-content-center">
               <div className="col-10 col-md-9 col-lg-6 col-xl-5">
                 <form className="form-horizontal mt-5" onSubmit={handleSubmit(onSubmit)}>
-                  <h4>Iniciar sersión</h4>
-                  <p className="mb-5">Ingrese su correo electrónico y contraseña para acceder.</p>
+                  <h4 className="text-center">Nuevo usuario</h4>
+                  <p className="text-center mb-5">Ingrese su correo electrónico y una contraseña para empezar.</p>
                   <div className="form-group mb-4 text-start">
                     <label htmlFor="email">Correo electrónico</label>
                     <input
@@ -51,12 +54,12 @@ function LoginPage() {
                         maxLength: 10
                       })}
                     />
-                    {errors?.password && <span className="form-error">Verifique su contraseña</span>}
+                    {errors?.password && <span className="form-error">Su contraseña debe ser mínimo de 8 y máximo de 10 carácteres.</span>}
                   </div>
 
                   <button role="submit" className="btn btn-dark">
-                    <span>Ingresar</span>
-                    <i className="fa fa-sign-in ms-2"></i>
+                    <span>Crear usuario</span>
+                    <i className="fa fa-user-plus ms-2"></i>
                   </button>
                 </form>
               </div>
@@ -69,4 +72,4 @@ function LoginPage() {
   )
 }
 
-export default LoginPage;
+export default NewBizPage;
