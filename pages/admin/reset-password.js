@@ -1,50 +1,47 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 import { useForm } from 'react-hook-form';
 
 import { useAuth } from "../../firebase/authUserContext";
+import { translateFirebaseErrors } from "../../helpers";
 import PublicFooter from "../../components/common/footer";
 
 import Logo from "../../images/logo-web.png";
-import { translateFirebaseErrors } from "../../helpers";
 
-function LoginPage() {
-  const router = useRouter();
+function ResetPasswdPage() {
   const AppName = process.env.NEXT_PUBLIC_APP_NAME;
+  const titlePage = 'Reestablecer contraseña';
 
+  const { sendPasswordResetEmail } = useAuth();
+
+  const [emailSent, setEmailSent] = useState(false);
   const [error, setError] = useState(null);
-
-  const { authUser, loading, signInWithEmailAndPassword } = useAuth();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => {
-    setError(null)
-    signInWithEmailAndPassword(data.email, data.password)
-    .then(formatAuthUser => {
-      localStorage.setItem("userData", JSON.stringify(
-        {
-          email: formatAuthUser.user.email,
-          uid: formatAuthUser.user.uid
-        }
-      ));
-      router.push('/admin/dashboard');
-    })
-    .catch(error => {
-      setError(
-        translateFirebaseErrors(error)
-      )
-    });
+    setError(null);
+    setEmailSent(false);
+
+    sendPasswordResetEmail(data.email)
+      .then(res => {
+        console.log(res);
+        setEmailSent(true);
+      })
+      .catch(error => {
+        setError(
+          translateFirebaseErrors(error)
+        )
+      });
   };
 
   return (
     <>
       <Head>
-        <title>Iniciar sesión &bull; {AppName}</title>
+        <title>{titlePage} &bull; {AppName}</title>
       </Head>
       <main className="form-new">
         <div className="container">
@@ -58,8 +55,19 @@ function LoginPage() {
             <div className="row justify-content-center">
               <div className="col-10 col-md-9 col-lg-6 col-xl-5">
                 <form className="form-horizontal mt-5" onSubmit={handleSubmit(onSubmit)}>
-                  <h4>Iniciar sersión</h4>
-                  <p className="mb-5">Ingrese su correo electrónico y contraseña para acceder.</p>
+                  <h4>{titlePage}</h4>
+                  <p className="mb-5">Ingrese su correo electrónico, se le enviará un enlace para reestablecer la contraseña.</p>
+
+                  { emailSent && (
+                    <div className="alert alert-success mb-5">
+                      <p className="m-0">
+                        <span className="ms-2">Ha sido envio un enlace al correo ingresado.</span>
+                        <Link href="/admin">
+                          <a className="alert-link ms-2">Iniciar sesión</a>
+                        </Link>
+                      </p>
+                    </div>
+                  )}
 
                   { error && (
                     <div className="alert alert-danger mb-5">
@@ -68,8 +76,8 @@ function LoginPage() {
                       </p>
                     </div>
                   )}
-  
-                  <div className="form-group mb-4 text-start">
+
+                  <div className="form-group mb-5 text-start">
                     <label htmlFor="email">Correo electrónico</label>
                     <input
                       id="email"
@@ -83,32 +91,17 @@ function LoginPage() {
                     {errors?.email && <span className="form-error">Verifique su e-mail</span>}
                   </div>
 
-                  <div className="form-group mb-5 text-start">
-                    <label htmlFor="password">Contraseña</label>
-                    <input
-                      id="password"
-                      type="password"
-                      className={`form-control${errors?.password ? ' is-invalid' : ''}`}
-                      {...register("password", {
-                        required: true,
-                        minLength: 6,
-                        maxLength: 10
-                      })}
-                    />
-                    {errors?.password && <span className="form-error">Verifique su contraseña</span>}
-                  </div>
-
                   <button role="submit" className="btn btn-dark">
-                    <span>Ingresar</span>
-                    <i className="fa fa-sign-in ms-2"></i>
+                    <span>Enviar enlace</span>
+                    <i className="fa fa-link ms-2"></i>
                   </button>
 
                   <div className="form-group mt-4">
-                    <Link href="/admin/reset-password">
+                    <Link href="/admin">
                       <a>
                         <small className="text-muted">
-                          <i className="fa fa-lock me-2"></i>
-                          <span>Reestablecer contraseña</span>
+                          <i className="fa fa-arrow-left me-2"></i>
+                          <span>Volver</span>
                         </small>
                       </a>
                     </Link>
@@ -124,4 +117,4 @@ function LoginPage() {
   )
 }
 
-export default LoginPage;
+export default ResetPasswdPage;

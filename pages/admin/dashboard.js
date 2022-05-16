@@ -1,6 +1,5 @@
 import Head from "next/head";
 
-import LoggedIn from "../../firebase/loggedIn";
 import PrivateLayout from "../../components/layouts/private";
 
 function DashboardPage() {
@@ -10,8 +9,11 @@ function DashboardPage() {
         <title>Panel &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
       </Head>
       <PrivateLayout>
-        <LoggedIn />
-        <h1>Panel</h1>
+        <section className="dashboard pt-4 pb-4 bg-light">
+          <div className="container">
+            <h1>Panel</h1>
+          </div>
+        </section>
       </PrivateLayout>
     </>
   )

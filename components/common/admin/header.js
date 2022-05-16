@@ -1,14 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import Logo from "../../images/logo-web.png";
 
-export default function PublicHeader() {
+import { useAuth } from "../../../firebase/authUserContext";
+
+import Logo from "../../../images/logo-web.png";
+
+export default function PrivateHeader() {
+  const { signOut } = useAuth();
+
   return (
     <header className="pt-2 pb-2">
       <div className="container">
         <div className="row align-items-center">
           <div className="col-6">
-            <Link href="/">
+            <Link href="/admin/dashboard">
               <a><Image src={Logo} alt={process.env.NEXT_PUBLIC_APP_NAME} height={59} width={117} /></a>
             </Link>
           </div>
@@ -16,12 +21,10 @@ export default function PublicHeader() {
             <nav className="navigation">
               <ul className="list-unstyled m-0 p-0 d-flex align-items-center">
                 <li className="me-4">
-                  <Link href="/admin">
-                    <a className="d-flex align-items-center">
-                      <span>Ingresar</span>
-                      <i className="fa fa-sign-in ms-2"></i>
-                    </a>
-                  </Link>
+                  <a href="#" className="d-flex align-items-center" onClick={signOut}>
+                    <span>Salir</span>
+                    <i className="fa fa-sign-out ms-2"></i>
+                  </a>
                 </li>
               </ul>
             </nav>
