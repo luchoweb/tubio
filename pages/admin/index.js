@@ -19,7 +19,7 @@ function LoginPage() {
 
   const [error, setError] = useState(null);
 
-  const { authUser, loading, signInWithEmailAndPassword } = useAuth();
+  const { signInWithEmailAndPassword } = useAuth();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => {
