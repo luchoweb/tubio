@@ -1,8 +1,13 @@
+import { useState } from "react";
+
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+
 import { useForm } from 'react-hook-form';
 
+import { useAuth } from "../../firebase/authUserContext";
+import { translateFirebaseErrors } from "../../helpers";
 import PublicFooter from "../../components/common/footer";
 
 import Logo from "../../images/logo-web.png";
@@ -10,8 +15,28 @@ import Logo from "../../images/logo-web.png";
 function ResetPasswdPage() {
   const AppName = process.env.NEXT_PUBLIC_APP_NAME;
   const titlePage = 'Reestablecer contraseña';
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+
+  const { sendPasswordResetEmail } = useAuth();
+
+  const [emailSent, setEmailSent] = useState(false);
+  const [error, setError] = useState(null);
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = data => {
+    setError(null);
+    setEmailSent(false);
+
+    sendPasswordResetEmail(data.email)
+      .then(res => {
+        console.log(res);
+        setEmailSent(true);
+      })
+      .catch(error => {
+        setError(
+          translateFirebaseErrors(error)
+        )
+      });
+  };
 
   return (
     <>
@@ -32,6 +57,26 @@ function ResetPasswdPage() {
                 <form className="form-horizontal mt-5" onSubmit={handleSubmit(onSubmit)}>
                   <h4>{titlePage}</h4>
                   <p className="mb-5">Ingrese su correo electrónico, se le enviará un enlace para reestablecer la contraseña.</p>
+
+                  { emailSent && (
+                    <div className="alert alert-success mb-5">
+                      <p className="m-0">
+                        <span className="ms-2">Ha sido envio un enlace al correo ingresado.</span>
+                        <Link href="/admin">
+                          <a className="alert-link ms-2">Iniciar sesión</a>
+                        </Link>
+                      </p>
+                    </div>
+                  )}
+
+                  { error && (
+                    <div className="alert alert-danger mb-5">
+                      <p className="m-0">
+                        <span className="ms-2">{error.message}.</span>
+                      </p>
+                    </div>
+                  )}
+
                   <div className="form-group mb-5 text-start">
                     <label htmlFor="email">Correo electrónico</label>
                     <input

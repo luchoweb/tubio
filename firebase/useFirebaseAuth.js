@@ -29,6 +29,9 @@ export default function useFirebaseAuth() {
   const createUserWithEmailAndPassword = (email, password) => 
     firebase.auth().createUserWithEmailAndPassword(email, password);
 
+  const sendPasswordResetEmail = (email) => 
+    firebase.auth().sendPasswordResetEmail(email);
+
   const signOut = () => 
     firebase.auth().signOut().then(clear);
 
@@ -43,6 +46,7 @@ export default function useFirebaseAuth() {
     loading,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
+    sendPasswordResetEmail,
     signOut
   };
 }

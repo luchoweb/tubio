@@ -6,6 +6,7 @@ const authUserContext = createContext({
   loading: true,
   signInWithEmailAndPassword: async () => {},
   createUserWithEmailAndPassword: async () => {},
+  sendPasswordResetEmail: async () => {},
   signOut: async () => {}
 });
 
