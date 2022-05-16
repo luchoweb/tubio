@@ -26,28 +26,15 @@ const Business = ({ info }) => {
       <>
         <Head>
           <title>{info.biz.name} &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
-          <style>
-            {`body {
-              background-color: ${info.biz.background} !important;
-              color: ${info.biz.text_color} !important
-            }
-
-            .biz-links-link {
-              border-color: ${info.biz.text_color};
-              color: ${info.biz.text_color}
-            }
-
-            .biz-copy {
-              color: ${info.biz.text_color}
-            }`}
-          </style>
         </Head>
         <BusinessLayout>
-          <header className='biz-info pt-5 mb-5 text-center'>
+          <header className='w-100 biz-info pt-4 pb-4 mb-5 text-center' style={{
+            backgroundColor: info.biz.background
+          }}>
             <figure className='biz-info-avatar mb-4'>
               <img src={info.biz.avatar} alt={info.biz.name} />
             </figure>
-            <h1 className='biz-info-name'>
+            <h1 className='biz-info-name' style={{color: info.biz.text_color}}>
               {info.biz.name}
               { info.biz.verified > 0 && (
                 <span className='biz-verified ms-2'>
