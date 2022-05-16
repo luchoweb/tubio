@@ -16,7 +16,7 @@ export default function PublicHeader() {
             <nav className="navigation">
               <ul className="list-unstyled m-0 p-0 d-flex align-items-center">
                 <li className="me-4">
-                  <Link href="admin">
+                  <Link href="/admin">
                     <a className="d-flex align-items-center">
                       <span>Ingresar</span>
                       <i className="fa fa-sign-in ms-2"></i>

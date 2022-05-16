@@ -1,11 +1,11 @@
-import { AuthUserProvider } from "../../firebase/authUserContext";
+import LoggedIn from "../../firebase/loggedIn";
 
 export default function PrivateLayout({ children }) {
   return (
-    <AuthUserProvider>
+    <LoggedIn>
       <main className="private">
         {children}
       </main>
-    </AuthUserProvider>
+    </LoggedIn>
   );
 }

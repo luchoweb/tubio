@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import firebase from './firebase';
 
-const authUser = (user) => ({
+const formatAuthUser = (user) => ({
   uid: user.uid,
   email: user.email
 });
@@ -18,16 +18,19 @@ export default function useFirebaseAuth() {
     }
 
     setLoading(true)
-    var formattedUser = formatAuthUser(authState);
+    let formattedUser = formatAuthUser(authState);
     setAuthUser(formattedUser);    
     setLoading(false);
   };
 
-  const signInWithEmailAndPassword = (email, password) => firebase.auth().signInWithEmailAndPassword(email, password);
+  const signInWithEmailAndPassword = (email, password) => 
+    firebase.auth().signInWithEmailAndPassword(email, password);
 
-  const createUserWithEmailAndPassword = (email, password) => firebase.auth().createUserWithEmailAndPassword(email, password);
+  const createUserWithEmailAndPassword = (email, password) => 
+    firebase.auth().createUserWithEmailAndPassword(email, password);
 
-  const signOut = () => firebase.auth().signOut().then(clear);
+  const signOut = () => 
+    firebase.auth().signOut().then(clear);
 
 // listen for Firebase state change
   useEffect(() => {
@@ -36,7 +39,7 @@ export default function useFirebaseAuth() {
   }, []);
 
   return {
-    authUser,
+    formatAuthUser,
     loading,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,

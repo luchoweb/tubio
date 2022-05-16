@@ -1,32 +1,74 @@
+import { useState } from "react";
+
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import Router from "next/router";
+
 import { useForm } from 'react-hook-form';
 
+import { AuthUserProvider } from "../../firebase/authUserContext";
+import { useAuth } from "../../firebase/authUserContext";
 import PublicFooter from "../../components/common/footer";
 
 import Logo from "../../images/logo-web.png";
+import { translateFirebaseErrors } from "../../helpers";
 
 function LoginPage() {
   const AppName = process.env.NEXT_PUBLIC_APP_NAME;
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+
+  const [error, setError] = useState(null);
+
+  const { signInWithEmailAndPassword } = useAuth();
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = data => {
+    setError(null)
+    signInWithEmailAndPassword(data.email, data.password)
+    .then(formatAuthUser => {
+      localStorage.setItem("userData", JSON.stringify(
+        {
+          email: formatAuthUser.user.email,
+          uid: formatAuthUser.user.uid
+        }
+      ));
+      Router.push('/admin/dashboard');
+    })
+    .catch(error => {
+      setError(
+        translateFirebaseErrors(error)
+      )
+    });
+  };
 
   return (
-    <>
+    <AuthUserProvider>
       <Head>
         <title>Iniciar sesión &bull; {AppName}</title>
       </Head>
       <main className="form-new">
         <div className="container">
           <section className="pt-5 pb-5 text-center">
-            <Image src={Logo} alt={AppName} height={59} width={117} />
+            <Link href="/">
+              <a>
+                <Image src={Logo} alt={AppName} height={59} width={117} />
+              </a>
+            </Link>
 
             <div className="row justify-content-center">
               <div className="col-10 col-md-9 col-lg-6 col-xl-5">
                 <form className="form-horizontal mt-5" onSubmit={handleSubmit(onSubmit)}>
                   <h4>Iniciar sersión</h4>
                   <p className="mb-5">Ingrese su correo electrónico y contraseña para acceder.</p>
+
+                  { error && (
+                    <div className="alert alert-danger mb-5">
+                      <p className="m-0">
+                        <span className="ms-2">{error.message}.</span>
+                      </p>
+                    </div>
+                  )}
+  
                   <div className="form-group mb-4 text-start">
                     <label htmlFor="email">Correo electrónico</label>
                     <input
@@ -45,10 +87,11 @@ function LoginPage() {
                     <label htmlFor="password">Contraseña</label>
                     <input
                       id="password"
+                      type="password"
                       className={`form-control${errors?.password ? ' is-invalid' : ''}`}
                       {...register("password", {
                         required: true,
-                        minLength: 8,
+                        minLength: 6,
                         maxLength: 10
                       })}
                     />
@@ -77,7 +120,7 @@ function LoginPage() {
         </div>
       </main>
       <PublicFooter />
-    </>
+    </AuthUserProvider>
   )
 }
 
