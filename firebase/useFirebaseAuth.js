@@ -42,7 +42,7 @@ export default function useFirebaseAuth() {
   }, []);
 
   return {
-    formatAuthUser,
+    authUser,
     loading,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
