@@ -103,12 +103,23 @@ function LoginPage() {
                     <i className="fa fa-sign-in ms-2"></i>
                   </button>
 
-                  <div className="form-group mt-4">
+                  <div className="form-group mt-5">
                     <Link href="/admin/reset-password">
                       <a>
                         <small className="text-muted">
                           <i className="fa fa-lock me-2"></i>
                           <span>Reestablecer contraseña</span>
+                        </small>
+                      </a>
+                    </Link>
+                  </div>
+
+                  <div className="form-group mt-2">
+                    <Link href="/new/user">
+                      <a>
+                        <small className="text-muted">
+                          <i className="fa fa-user-plus me-2"></i>
+                          <span>Registrarme</span>
                         </small>
                       </a>
                     </Link>

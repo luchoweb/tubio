@@ -32,7 +32,7 @@ function DashboardPage() {
       <PrivateLayout>
         <section className="dashboard">
           <div className="container">
-            <h1 className="display-6 mb-4">Panel</h1>
+            <h1 className="display-6 mb-5">Panel</h1>
             <div className="row align-items-stretch justify-content-center justify-content-md-around justify-content-lg-start">
             {businesses && businesses.length ? businesses.map((biz, index) => (
               <div className="col-9 col-md-6 col-lg-3 mb-4" key={`k-${index}`}>
@@ -84,22 +84,39 @@ function DashboardPage() {
                   </div>
                 </div>
               </div>
-            )) : (
-              <p>No has creado un perfil. <Link href="/admin/new/profile"><a><strong>Crear uno ahora</strong></a></Link>.</p>
-            )}
+            )) : '' }
 
+            { businesses && businesses.length === 0 ? (
               <div className="col-9 col-md-6 col-lg-3 mb-4">
                 <div className="card h-100">
                   <div className="card-body">
-                   <Link href="/admin/profile/new">
+                  <Link href="/admin/profile/new">
                     <a className="d-flex flex-column align-items-center justify-content-center h-100">
                       <i className="fa fa-plus fa-4x text-muted"></i>
                       <p className="m-0 text-muted">Crear nuevo perfil</p>
+                    </a>
+                  </Link>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="col-9 col-md-6 col-lg-3 mb-4">
+                <div className="card h-100">
+                  <div className="card-body">
+                   <Link href="/admin/profile/pay">
+                    <a className="d-flex flex-column align-items-center justify-content-center h-100">
+                      <i className="fa fa-plus fa-4x text-muted"></i>
+                      <p className="m-0 mt-2 text-center text-muted">
+                        <span className="d-block">Comprar un nuevo perfil</span>
+                        <span>$4.99 anuales</span>
+                      </p>
                     </a>
                    </Link>
                   </div>
                 </div>
               </div>
+            )}
+
             </div>
           </div>
         </section>

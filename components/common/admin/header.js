@@ -9,7 +9,7 @@ export default function PrivateHeader() {
   const { signOut } = useAuth();
 
   return (
-    <header className="pt-2 pb-2">
+    <header className="pt-3 pb-3">
       <div className="container">
         <div className="row align-items-center">
           <div className="col-6">
