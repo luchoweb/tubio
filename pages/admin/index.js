@@ -1,13 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 import { useForm } from 'react-hook-form';
 
-import { AuthUserProvider } from "../../firebase/authUserContext";
 import { useAuth } from "../../firebase/authUserContext";
 import PublicFooter from "../../components/common/footer";
 
@@ -15,11 +14,12 @@ import Logo from "../../images/logo-web.png";
 import { translateFirebaseErrors } from "../../helpers";
 
 function LoginPage() {
+  const router = useRouter();
   const AppName = process.env.NEXT_PUBLIC_APP_NAME;
 
   const [error, setError] = useState(null);
 
-  const { signInWithEmailAndPassword } = useAuth();
+  const { authUser, loading, signInWithEmailAndPassword } = useAuth();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => {
@@ -32,7 +32,7 @@ function LoginPage() {
           uid: formatAuthUser.user.uid
         }
       ));
-      Router.push('/admin/dashboard');
+      router.push('/admin/dashboard');
     })
     .catch(error => {
       setError(
@@ -42,7 +42,7 @@ function LoginPage() {
   };
 
   return (
-    <AuthUserProvider>
+    <>
       <Head>
         <title>Iniciar sesión &bull; {AppName}</title>
       </Head>
@@ -120,7 +120,7 @@ function LoginPage() {
         </div>
       </main>
       <PublicFooter />
-    </AuthUserProvider>
+    </>
   )
 }
 

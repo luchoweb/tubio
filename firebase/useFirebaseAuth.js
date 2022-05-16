@@ -7,6 +7,11 @@ const formatAuthUser = (user) => ({
 });
 
 export default function useFirebaseAuth() {
+  const clear = () => {
+    setAuthUser(null);
+    setLoading(true);
+  };
+
   const [authUser, setAuthUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
