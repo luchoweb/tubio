@@ -7,15 +7,16 @@ import PublicFooter from "../../components/common/footer";
 
 import Logo from "../../images/logo-web.png";
 
-function LoginPage() {
+function ResetPasswdPage() {
   const AppName = process.env.NEXT_PUBLIC_APP_NAME;
+  const titlePage = 'Reestablecer contraseña';
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const onSubmit = data => console.log(data);
 
   return (
     <>
       <Head>
-        <title>Iniciar sesión &bull; {AppName}</title>
+        <title>{titlePage} &bull; {AppName}</title>
       </Head>
       <main className="form-new">
         <div className="container">
@@ -25,9 +26,9 @@ function LoginPage() {
             <div className="row justify-content-center">
               <div className="col-10 col-md-9 col-lg-6 col-xl-5">
                 <form className="form-horizontal mt-5" onSubmit={handleSubmit(onSubmit)}>
-                  <h4>Iniciar sersión</h4>
-                  <p className="mb-5">Ingrese su correo electrónico y contraseña para acceder.</p>
-                  <div className="form-group mb-4 text-start">
+                  <h4>{titlePage}</h4>
+                  <p className="mb-5">Ingrese su correo electrónico, se le enviará un enlace para reestablecer la contraseña.</p>
+                  <div className="form-group mb-5 text-start">
                     <label htmlFor="email">Correo electrónico</label>
                     <input
                       id="email"
@@ -41,31 +42,17 @@ function LoginPage() {
                     {errors?.email && <span className="form-error">Verifique su e-mail</span>}
                   </div>
 
-                  <div className="form-group mb-5 text-start">
-                    <label htmlFor="password">Contraseña</label>
-                    <input
-                      id="password"
-                      className={`form-control${errors?.password ? ' is-invalid' : ''}`}
-                      {...register("password", {
-                        required: true,
-                        minLength: 8,
-                        maxLength: 10
-                      })}
-                    />
-                    {errors?.password && <span className="form-error">Verifique su contraseña</span>}
-                  </div>
-
                   <button role="submit" className="btn btn-dark">
-                    <span>Ingresar</span>
-                    <i className="fa fa-sign-in ms-2"></i>
+                    <span>Enviar enlace</span>
+                    <i className="fa fa-link ms-2"></i>
                   </button>
 
                   <div className="form-group mt-4">
-                    <Link href="/admin/reset-password">
+                    <Link href="/admin">
                       <a>
                         <small className="text-muted">
-                          <i className="fa fa-lock me-2"></i>
-                          <span>Reestablecer contraseña</span>
+                          <i className="fa fa-arrow-left me-2"></i>
+                          <span>Volver</span>
                         </small>
                       </a>
                     </Link>
@@ -81,4 +68,4 @@ function LoginPage() {
   )
 }
 
-export default LoginPage;
+export default ResetPasswdPage;
