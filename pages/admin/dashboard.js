@@ -88,20 +88,7 @@ function DashboardPage() {
                 </div>
                 )) : '' }
 
-              { businesses && businesses.length === 0 ? (
-                <div className="col-9 col-md-6 col-lg-3 mb-4">
-                  <div className="card h-100">
-                    <div className="card-body">
-                    <Link href="/admin/profile/new">
-                      <a className="d-flex flex-column align-items-center justify-content-center h-100">
-                        <i className="fa fa-plus fa-4x text-muted"></i>
-                        <p className="m-0 text-muted">Crear nuevo perfil</p>
-                      </a>
-                    </Link>
-                    </div>
-                  </div>
-                </div>
-              ) : (
+              { businesses && businesses.length > 0 ? (
                 <div className="col-9 col-md-6 col-lg-3 mb-4">
                   <div className="card h-100">
                     <div className="card-body">
@@ -112,6 +99,19 @@ function DashboardPage() {
                           <span className="d-block">Comprar un nuevo perfil</span>
                           <span>$4.99 anuales</span>
                         </p>
+                      </a>
+                    </Link>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="col-9 col-md-6 col-lg-3 mb-4">
+                  <div className="card h-100">
+                    <div className="card-body">
+                    <Link href="/admin/profile/new">
+                      <a className="d-flex flex-column align-items-center justify-content-center h-100">
+                        <i className="fa fa-plus fa-4x text-muted"></i>
+                        <p className="m-0 text-muted">Crear nuevo perfil</p>
                       </a>
                     </Link>
                     </div>
