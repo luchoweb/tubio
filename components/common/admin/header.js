@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { useAuth } from "../../../firebase/authUserContext";
@@ -14,7 +13,7 @@ export default function PrivateHeader() {
         <div className="row align-items-center">
           <div className="col-6">
             <Link href="/admin/dashboard">
-              <a><Image src={Logo} alt={process.env.NEXT_PUBLIC_APP_NAME} height={59} width={117} /></a>
+              <a><img src={Logo.src} alt={process.env.NEXT_PUBLIC_APP_NAME} height={59} width={117} /></a>
             </Link>
           </div>
           <div className="col-6 d-flex justify-content-end">
