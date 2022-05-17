@@ -7,8 +7,18 @@ const LoggedIn = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && !authUser)
+    if (!loading && !authUser) {
       router.push('/admin');
+    } else if( authUser ) {
+      if ( !localStorage.getItem('userData') ) {
+        localStorage.setItem("userData", JSON.stringify(
+          {
+            email: authUser.email,
+            uid: authUser.uid
+          }
+        ));
+      }
+    }
   }, [authUser, loading]);
 
   return children;
