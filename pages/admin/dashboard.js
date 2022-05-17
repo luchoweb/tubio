@@ -12,7 +12,7 @@ function DashboardPage() {
     const fetchData = async () => {
       try {
         const userData = JSON.parse(localStorage.getItem('userData'));
-        const res = await fetch(`http${process.env.NODE_ENV !== 'development' ? 's' : ''}://${process.env.NEXT_PUBLIC_API_URL}:${process.env.NEXT_PUBLIC_API_PORT}/business/uid/${userData.uid}`)
+        const res = await fetch(`http${process.env.NODE_ENV !== 'development' ? 's' : ''}://${process.env.NEXT_PUBLIC_API_URL}${process.env.NODE_ENV !== 'development' ? '' : ':'+process.env.NEXT_PUBLIC_API_PORT}/business/uid/${userData.uid}`)
         const businesses = await res.json();
         setBusinesses(businesses.businesses);
       } catch(e) {
