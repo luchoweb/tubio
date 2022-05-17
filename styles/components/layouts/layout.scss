@@ -26,6 +26,7 @@ header {
     &-col {
       &-img {
         position: relative;
+        z-index: 1;
 
         &-screen {
           border-radius: 2rem;
@@ -34,6 +35,7 @@ header {
           top: 0;
           transform: translateX(-50%);
           width: 227px;
+          z-index: -1;
         }
       }
     }

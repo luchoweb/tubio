@@ -44,8 +44,8 @@ function HomePage() {
                 </p>
               </div>
               <div className="col-12 col-md-6 col-lg-5 text-center hero-col-img">
-                <img src={appScreen.src} className="hero-col-img-screen" loading="lazy" />
                 <img src={phoneScreen.src} className="hero-col-img-phone" loading="lazy" />
+                <img src={appScreen.src} className="hero-col-img-screen" loading="lazy" />
               </div>
             </div>
           </div>
