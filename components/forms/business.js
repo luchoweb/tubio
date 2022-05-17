@@ -1,11 +1,14 @@
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import ProfilePreview from '../profilePreview';
 
 function FormBiz() {
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  
   const [error, setError] = useState(null);
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const onSubmit = async ( data ) => {
     setError(null);
 
@@ -194,7 +197,13 @@ function FormBiz() {
 
         <div className='col-12 col-md-6'>
           <div className='preview sticky-lg-top text-center'>
-            Preview
+            <ProfilePreview data={{
+                background: watch('background'),
+                text_color: watch('text_color'),
+                name: watch('name'),
+                avatar: watch('avatar')
+              }}
+            />
           </div>
         </div>
       </div>

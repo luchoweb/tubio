@@ -1,9 +1,6 @@
 import { IncomingForm } from 'formidable';
-import fs, { promises } from 'fs';
-
-const webp = require("webp-converter");
-const mv = require('mv');
-
+import webp from "webp-converter";
+import fs from "fs";
 
 export const config = {
     api: {

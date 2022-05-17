@@ -1,15 +1,14 @@
-import Image from "next/image";
 import Link from "next/link";
 import Logo from "../../images/logo-web.png";
 
 export default function PublicHeader() {
   return (
-    <header className="pt-2 pb-2">
+    <header className="pt-3 pb-3">
       <div className="container">
         <div className="row align-items-center">
           <div className="col-6">
             <Link href="/">
-              <a><Image src={Logo} alt={process.env.NEXT_PUBLIC_APP_NAME} height={59} width={117} /></a>
+              <a><img src={Logo.src} alt={process.env.NEXT_PUBLIC_APP_NAME} height={59} width={117} /></a>
             </Link>
           </div>
           <div className="col-6 d-flex justify-content-end">

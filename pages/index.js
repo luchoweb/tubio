@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 
 import Layout from "../components/layouts/layout";
@@ -46,7 +45,7 @@ function HomePage() {
               </div>
               <div className="col-12 col-md-6 col-lg-5 text-center hero-col-img">
                 <img src={appScreen.src} className="hero-col-img-screen" loading="lazy" />
-                <Image src={phoneScreen} className="hero-col-img-phone" loading="lazy" />
+                <img src={phoneScreen.src} className="hero-col-img-phone" loading="lazy" />
               </div>
             </div>
           </div>
