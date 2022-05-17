@@ -1,7 +1,5 @@
 import { useState } from "react";
-
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import Router from "next/router";
 
@@ -46,7 +44,7 @@ function NewBizPage() {
           <section className="pt-5 pb-5 text-center">
             <Link href="/">
               <a>
-                <Image src={Logo} alt={AppName} height={59} width={117} />
+                <img src={Logo.src} alt={AppName} height={59} width={117} />
               </a>
             </Link>
 
