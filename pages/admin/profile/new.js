@@ -17,7 +17,7 @@ function NewProfile() {
     const fetchCount = async () => {
       try {
         const userData = JSON.parse(localStorage.getItem('userData'));
-        const res = await fetch(`http${process.env.NODE_ENV !== 'development' ? 's' : ''}://${process.env.NEXT_PUBLIC_API_URL}:${process.env.NEXT_PUBLIC_API_PORT}/business/count-uid/${userData.uid}`)
+        const res = await fetch(`http${process.env.NODE_ENV !== 'development' ? 's' : ''}://${process.env.NEXT_PUBLIC_API_URL}${process.env.NODE_ENV !== 'development' ? '' : ':'+process.env.NEXT_PUBLIC_API_PORT}/business/count-uid/${userData.uid}`)
         const count = await res.json();
         setCountBiz(count.count);
       } catch(e) {

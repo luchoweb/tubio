@@ -171,6 +171,8 @@ function FormBiz() {
             </div>
           </div>
 
+          <hr />
+
           <div className='form-group mt-5 mb-5'>
             <h4 className='mb-3'>Enlaces</h4>
 
@@ -180,7 +182,9 @@ function FormBiz() {
             </a>
           </div>
 
-          <div className='form-group'>
+          <hr />
+
+          <div className='form-group mt-5'>
             <button className='btn btn-dark me-4'>
               <span>Crear perfil</span>
               <i className='fa-solid fa-user-plus ms-2'></i>
