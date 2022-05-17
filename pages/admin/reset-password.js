@@ -59,7 +59,7 @@ function ResetPasswdPage() {
                   { emailSent && (
                     <div className="alert alert-success mb-5">
                       <p className="m-0">
-                        <span className="ms-2">Ha sido envio un enlace al correo ingresado.</span>
+                        <span className=" d-block ms-2">Ha sido envio un enlace al correo ingresado.</span>
                         <Link href="/admin">
                           <a className="alert-link ms-2">Iniciar sesión</a>
                         </Link>
