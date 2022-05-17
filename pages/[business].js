@@ -76,7 +76,7 @@ const Business = ({ info }) => {
 export async function getServerSideProps(context) {
   const { NODE_ENV, NEXT_PUBLIC_API_URL, NEXT_PUBLIC_API_PORT } = process.env;
   try {
-    const res = await fetch(`http${NODE_ENV !== 'development' ? 's' : ''}://${NEXT_PUBLIC_API_URL}:${NEXT_PUBLIC_API_PORT}/business/@${context.query.business}`)
+    const res = await fetch(`http${NODE_ENV !== 'development' ? 's' : ''}://${NEXT_PUBLIC_API_URL}${NODE_ENV !== 'development' ? '' : ':'+NEXT_PUBLIC_API_PORT}/business/@${context.query.business}`)
     const info = await res.json();
     return { props: { info } }
   } catch(e) {
