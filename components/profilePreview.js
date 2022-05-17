@@ -6,11 +6,11 @@ function ProfilePreview({ data }) {
       <header className='w-100 biz-info pt-4 pb-4 text-center' style={{
         backgroundColor: data.background
       }}>
-        { avatarPreview && (
+        { avatarPreview ? (
           <figure className='biz-info-avatar mb-4'>
             <img src={avatarPreview} />
           </figure>
-        )}
+        ) : ''}
        
         <h1 className='biz-info-name' style={{color: data.text_color}}>
           {data.name}
