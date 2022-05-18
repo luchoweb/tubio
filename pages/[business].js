@@ -7,9 +7,10 @@ import Layout from '../components/layouts/layout';
 import BusinessLayout from '../components/layouts/business';
 
 import LinkBtn from '../components/link';
+import { getAllBiz, getPreviewBiz } from '../lib/api';
 
 
-const Business = ({ info }) => {
+const Business = ({ info, posts, preview }) => {
 
   const [loading, setLoading] = useState(true);
   const [pageTitle, setPageTitle] = useState('Loading...');
@@ -89,14 +90,23 @@ const Business = ({ info }) => {
   );
 }
 
-export async function getServerSideProps(context) {
-  const { NODE_ENV, NEXT_PUBLIC_API_URL, NEXT_PUBLIC_API_PORT } = process.env;
-  try {
-    const res = await fetch(`http${NODE_ENV !== 'development' ? 's' : ''}://${NEXT_PUBLIC_API_URL}${NODE_ENV !== 'development' ? '' : ':'+NEXT_PUBLIC_API_PORT}/business/@${context.query.business}`)
-    const info = await res.json();
-    return { props: { info } }
-  } catch(e) {
-    return { props: { info: { message: 'error' } } }
+export async function getStaticProps({ params, preview = false }) {
+  const data = await getPreviewBiz(params.business);
+
+  return {
+    props: {
+      preview,
+      info: data,
+    },
+  }
+}
+
+export async function getStaticPaths() {
+  const allBiz = await getAllBiz();
+
+  return {
+    paths: allBiz.map((biz) => `/${biz.username}`) || [],
+    fallback: true,
   }
 }
 
