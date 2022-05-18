@@ -66,6 +66,7 @@ export default function MyApp({ Component, pageProps }) {
             <meta property="og:image" content={`${process.env.NEXT_PUBLIC_APP_URL}/uploads/${pageProps?.info?.biz.username}/avatar.webp`} />
             <meta property="og:type" content="profile" />
             <meta property="profile:username" content={pageProps?.info?.biz.username} />
+            <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600&display=swap" rel="stylesheet" />
           </>
           ) : (
           <>
