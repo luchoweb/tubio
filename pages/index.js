@@ -10,6 +10,11 @@ function HomePage() {
     <>
       <Head>
         <title>{process.env.NEXT_PUBLIC_APP_NAME} &bull; 1 enlace para todo</title>
+        <meta name="description" content="Crea y personaliza tu perfil personal o el de tu marca y enlaza todas tus redes sociales, página o tienda en linea, menú, etc, en 1 solo link y GRATIS." />
+        <meta property="og:title" content={`${process.env.NEXT_PUBLIC_APP_NAME} &bull; 1 enlace para todo`} />
+        <meta property="og:description" content={`Crea y personaliza tu perfil personal o el de tu marca y enlaza todas tus redes sociales, página o tienda en linea, menú, etc, en 1 solo link y GRATIS.`} />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_APP_URL}`} />
+        <meta property="og:site_name" content={`${process.env.NEXT_PUBLIC_APP_NAME}`} />
       </Head>
       <Layout>
         <section className="hero pt-5 pb-5 bg-light">

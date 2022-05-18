@@ -56,7 +56,7 @@ export default function MyApp({ Component, pageProps }) {
         `}
         </script>
 
-        {pageProps?.info?.biz && (
+        {pageProps?.info?.biz ? (
           <>
             <title>@{pageProps?.info?.biz.username} &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
             <meta property="og:title" content={`@${pageProps?.info?.biz.username} &bull; ${process.env.NEXT_PUBLIC_APP_NAME}`} />
@@ -66,7 +66,13 @@ export default function MyApp({ Component, pageProps }) {
             <meta property="og:image" content={`${process.env.NEXT_PUBLIC_APP_URL}/uploads/${pageProps?.info?.biz.username}/avatar.webp`} />
             <meta property="og:type" content="profile" />
             <meta property="profile:username" content={pageProps?.info?.biz.username} />
-          </>)}
+          </>
+          ) : (
+          <>
+            <meta property="og:type" content="website" />
+            <meta property="og:image" content={`${process.env.NEXT_PUBLIC_APP_URL}/social.png`} />
+          </>
+          )}
       </Head>
       <Component {...pageProps} />
       <Script src="https://kit.fontawesome.com/4e1f6b21a2.js" strategy="afterInteractive"></Script>
