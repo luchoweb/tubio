@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { getAllBizByUid } from "../../lib/api";
 
 import PrivateLayout from "../../components/layouts/private";
 
@@ -12,9 +13,8 @@ function DashboardPage() {
     const fetchData = async () => {
       try {
         const userData = JSON.parse(localStorage.getItem('userData'));
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/business/uid/${userData.uid}`)
-        const businesses = await res.json();
-        setBusinesses(businesses.businesses);
+        const res = await getAllBizByUid(userData.uid);
+        setBusinesses(res.businesses);
       } catch(e) {
         setError(e.message);
       }
@@ -62,16 +62,14 @@ function DashboardPage() {
 
                     <div className="card-footer pt-3">
                       <a href={`/${biz.username}`} className="btn btn-sm btn-outline-dark mb-2" target="_blank">
-                        <i className="fa fa-eye me-1"></i>
-                        <span>Ver perfil</span>
+                        <i className="fa fa-eye"></i>
                       </a>
 
                       <span className="me-1 ms-1"></span>
 
                       <Link href={`/admin/profile/edit/${biz.id}`}>
-                        <a className="btn btn-sm btn-outline-dark mb-2">
-                          <i className="fa fa-pencil me-1"></i>
-                          <span>Editar</span>
+                        <a className="btn btn-sm btn-primary mb-2">
+                          <i className="fa fa-pencil"></i>
                         </a>
                       </Link>
 
@@ -79,8 +77,7 @@ function DashboardPage() {
 
                       <Link href={`/admin/profile/delete/${biz.id}`}>
                         <a className="btn btn-sm btn-danger mb-2">
-                          <i className="fa fa-trash me-1"></i>
-                          <span>Eliminar</span>
+                          <i className="fa fa-trash"></i>
                         </a>
                       </Link>
                     </div>
