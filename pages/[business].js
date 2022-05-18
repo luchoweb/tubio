@@ -13,6 +13,7 @@ const Business = ({ info }) => {
 
   const [loading, setLoading] = useState(true);
   const [pageTitle, setPageTitle] = useState('Loading...');
+  const [username, setUsername] = useState('Loading...');
 
   useEffect(() => {
     if ( info ) {
@@ -20,6 +21,7 @@ const Business = ({ info }) => {
 
       if ( !info.message ) {
         setPageTitle(info.biz.name);
+        setUsername(info.biz.username)
       } else {
         setPageTitle('Error 404');
       }
@@ -28,20 +30,25 @@ const Business = ({ info }) => {
 
   return (
     loading ? (
-      <div className='container pt-5'>
+      <div className='container pt-5 text-center'>
         <h4 className='fw-normal m-0'>Cargando...</h4>
       </div>
     ) : !info.message ? (
       <>
         <Head>
           <title>{pageTitle} &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
+          <meta property="og:title" content={`@${username} &bull; ${process.env.NEXT_PUBLIC_APP_NAME}`} />
+          <meta property="og:description" content={`Perfil de @${username} en TuBio`} />
+          <meta property="og:url" content={`${process.env.NEXT_PUBLIC_APP_URL}/${username}`} />
+          <meta property="og:site_name" content={`@${username} &bull; ${process.env.NEXT_PUBLIC_APP_NAME}`} />
+          <meta property="og:image" content={`${process.env.NEXT_PUBLIC_APP_URL}/uploads/${username}/avatar.webp`} />
         </Head>
         <BusinessLayout>
           <header className='w-100 biz-info pt-4 pb-4 mb-5 text-center' style={{
             backgroundColor: info.biz.background
           }}>
             <figure className='biz-info-avatar mb-4'>
-              <img src={info.biz.avatar} alt={info.biz.name} />
+              <img src={`/uploads/${username}/avatar.webp`} alt={info.biz.name} />
             </figure>
             <h1 className='biz-info-name' style={{color: info.biz.text_color}}>
               {info.biz.name}
