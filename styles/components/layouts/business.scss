@@ -24,12 +24,16 @@
 
   &-info {
     &-avatar {
+      border-radius: 50%;
       margin: 0 auto;
-      width: fit-content;
+      overflow: hidden;
+      height: 150px;
+      width: 150px;
 
       img {
-        max-height: 100px;
-        max-width: 400px;
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
       }
     }
 
@@ -87,4 +91,16 @@
       opacity: .7;
     }
   }
+}
+
+.btn-share {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.btn-sign-in {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
 }

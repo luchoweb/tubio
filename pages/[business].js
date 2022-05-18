@@ -22,12 +22,32 @@ const Business = ({ info }) => {
 
       if ( !info.message ) {
         setPageTitle(info.biz.name);
-        setUsername(info.biz.username)
+        setUsername(info.biz.username);
+
+        // order links
+        info.links.sort((a, b) => a.order - b.order);
       } else {
         setPageTitle('Error 404');
       }
     }
   }, [info]);
+
+  const handleShare = async (e) => {
+    e.preventDefault();
+  
+    const shareData = {
+      title: pageTitle,
+      text: `Perfil de @${username} en TuBio`,
+      url: 'https://developer.mozilla.org'
+    }
+
+    try {
+      await navigator.share(shareData)
+      console.log('Shared!');
+    } catch(err) {
+      console.log(err);
+    }
+  }
 
   return (
     loading ? (
@@ -37,10 +57,42 @@ const Business = ({ info }) => {
     ) : !info.message ? (
       <>
         <BusinessLayout>
-          <header className='w-100 biz-info pt-4 pb-4 mb-5 text-center' style={{
+          <a
+            className="btn-share btn btn-sm btn-outline-dark"
+            style={{borderColor: info.biz.text_color}}
+            onClick={(e) => handleShare(e)}
+          >
+            <small style={{color: info.biz.text_color}}>
+              <i className='fa fa-share-square'></i>
+              <span className='d-none d-md-inline ms-2'>
+                Compartir
+              </span>
+            </small>
+          </a>
+
+          <Link href="/admin">
+            <a
+              className="btn-sign-in btn btn-sm btn-outline-dark"
+              style={{borderColor: info.biz.text_color}}
+            >
+              <small style={{color: info.biz.text_color}}>
+                <i className='fa fa-user'></i>
+                <span className='d-none d-md-inline ms-2'>
+                  Ingresar
+                </span>
+              </small>
+            </a>
+          </Link>
+
+          <header className='w-100 biz-info pt-5 pb-4 mb-5 text-center' style={{
             backgroundColor: info.biz.background
           }}>
-            <figure className='biz-info-avatar mb-4'>
+            <figure className='biz-info-avatar mb-4'
+              style={{
+                backgroundColor: info.biz.text_color,
+                border: `3px solid ${info.biz.text_color}`
+              }}
+            >
               <img src={`/uploads/${username}/avatar.webp`} alt={info.biz.name} />
             </figure>
             <h1 className='biz-info-name' style={{color: info.biz.text_color}}>
