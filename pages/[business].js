@@ -7,7 +7,7 @@ import Layout from '../components/layouts/layout';
 import BusinessLayout from '../components/layouts/business';
 
 import LinkBtn from '../components/link';
-import { getAllBiz, getBiz } from '../lib/api';
+import { getBiz } from '../lib/api';
 
 
 const Business = ({ info }) => {
