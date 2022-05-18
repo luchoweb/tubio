@@ -33,7 +33,6 @@ export default function MyApp({ Component, pageProps }) {
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png" />
         <meta name="theme-color" content="#ffffff" />
-
         <meta property="og:image:width" content="500" />
         <meta property="og:image:height" content="500" />
         <meta property="fb:app_id" content="352618018108394" />
@@ -56,6 +55,16 @@ export default function MyApp({ Component, pageProps }) {
           ]
         `}
         </script>
+
+        {pageProps?.info?.biz && (
+          <>
+            <title>@{pageProps?.info?.biz.username} &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
+            <meta property="og:title" content={`@${pageProps?.info?.biz.username} &bull; ${process.env.NEXT_PUBLIC_APP_NAME}`} />
+            <meta property="og:description" content={`Perfil de @${pageProps?.info?.biz.username} en TuBio`} />
+            <meta property="og:url" content={`${process.env.NEXT_PUBLIC_APP_URL}/${pageProps?.info?.biz.username}`} />
+            <meta property="og:site_name" content={`@${pageProps?.info?.biz.username} &bull; ${process.env.NEXT_PUBLIC_APP_NAME}`} />
+            <meta property="og:image" content={`${process.env.NEXT_PUBLIC_APP_URL}/uploads/${pageProps?.info?.biz.username}/avatar.webp`} />
+          </>)}
       </Head>
       <Component {...pageProps} />
       <Script src="https://kit.fontawesome.com/4e1f6b21a2.js" strategy="afterInteractive"></Script>

@@ -36,14 +36,6 @@ const Business = ({ info }) => {
       </div>
     ) : !info.message ? (
       <>
-        <Head>
-          <title>{pageTitle} &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
-          <meta property="og:title" content={`@${username} &bull; ${process.env.NEXT_PUBLIC_APP_NAME}`} />
-          <meta property="og:description" content={`Perfil de @${username} en TuBio`} />
-          <meta property="og:url" content={`${process.env.NEXT_PUBLIC_APP_URL}/${username}`} />
-          <meta property="og:site_name" content={`@${username} &bull; ${process.env.NEXT_PUBLIC_APP_NAME}`} />
-          <meta property="og:image" content={`${process.env.NEXT_PUBLIC_APP_URL}/uploads/${username}/avatar.webp`} />
-        </Head>
         <BusinessLayout>
           <header className='w-100 biz-info pt-4 pb-4 mb-5 text-center' style={{
             backgroundColor: info.biz.background
