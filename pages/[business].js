@@ -90,23 +90,13 @@ const Business = ({ info }) => {
   );
 }
 
-export async function getStaticProps({ params }) {
-  const data = await getBiz(params.business);
+export async function getServerSideProps({ query }) {
+  const data = await getBiz(query.business);
 
   return {
     props: {
       info: data,
-    },
-    revalidate: 10
-  }
-}
-
-export async function getStaticPaths() {
-  const allBiz = await getAllBiz();
-
-  return {
-    paths: allBiz.map(( biz ) => `/${biz.username}`) || [],
-    fallback: true,
+    }
   }
 }
 
