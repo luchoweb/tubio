@@ -58,7 +58,7 @@ const Business = ({ info }) => {
       <>
         <BusinessLayout>
           <a
-            className="btn-share btn btn-sm btn-outline-dark"
+            className="d-lg-none btn-share btn btn-sm btn-outline-dark"
             style={{borderColor: info.biz.text_color}}
             onClick={(e) => handleShare(e)}
           >
