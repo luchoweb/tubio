@@ -1,0 +1,29 @@
+body {
+  color: #101010;
+  font-size: 18px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, b, strong {
+  font-weight: 600;
+}
+
+.fw-bold {
+  font-weight: 600 !important;
+}
+
+.fw-normal {
+  font-weight: 300 !important;
+}
+
+a {
+  color: #101010;
+  text-decoration: none;
+  transition: all 200ms ease-in-out;
+
+  &:hover {
+    color: initial;
+    opacity: .7;
+  }
+}
