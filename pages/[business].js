@@ -10,7 +10,7 @@ import LinkBtn from '../components/link';
 import { getAllBiz, getPreviewBiz } from '../lib/api';
 
 
-const Business = ({ info, posts, preview }) => {
+const Business = ({ info }) => {
 
   const [loading, setLoading] = useState(true);
   const [pageTitle, setPageTitle] = useState('Loading...');
@@ -90,23 +90,13 @@ const Business = ({ info, posts, preview }) => {
   );
 }
 
-export async function getStaticProps({ params, preview = false }) {
+export async function getServerSideProps({ params }) {
   const data = await getPreviewBiz(params.business);
 
   return {
     props: {
-      preview,
       info: data,
     },
-  }
-}
-
-export async function getStaticPaths() {
-  const allBiz = await getAllBiz();
-
-  return {
-    paths: allBiz.map((biz) => `/${biz.username}`) || [],
-    fallback: true,
   }
 }
 
