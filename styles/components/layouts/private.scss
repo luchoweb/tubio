@@ -8,3 +8,38 @@
 .private {
   min-height: 50vh;
 }
+
+.flag {
+  margin: 0 auto;
+  padding: .7rem .4rem;
+  position: absolute;
+  color: white;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 0;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-align: center;
+  text-transform: uppercase;
+
+  &-bg-dark {
+    background: var(--bs-dark);
+  }
+
+  &-bg-danger {
+    background: var(--bs-danger);
+  }
+
+  &-bg-warning {
+    background: var(--bs-warning);
+  }
+
+  &-bg-primary {
+    background: var(--bs-primary);
+  }
+
+  &-bg-secondary {
+    background: var(--bs-secondary);
+  }
+}

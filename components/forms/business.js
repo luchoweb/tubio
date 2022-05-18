@@ -199,8 +199,13 @@ function FormBiz() {
           </div>
         </div>
 
-        <div className='col-12 col-md-6'>
-          <div className='preview sticky-lg-top text-center'>
+        <div className='col-12 col-md-6 mt-5 mt-md-0'>
+          <div className='preview sticky-md-top text-center pt-3'>
+            <h4 className='m-0 mb-4'>
+              <i className='fa fa-mobile me-3'></i>
+              <span>Vista previa</span>
+            </h4>
+
             <ProfilePreview data={{
                 background: watch('background'),
                 text_color: watch('text_color'),

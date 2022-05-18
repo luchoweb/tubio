@@ -23,7 +23,7 @@ function DeleteProfile() {
 
             <div>
               <Link href="/admin/dashboard">
-                <a className="btn btn-outline-dark btn-lg">
+                <a className="btn btn-outline-dark">
                   <i className="fa fa-arrow-left me-2"></i>
                   <span>No</span>
                 </a>

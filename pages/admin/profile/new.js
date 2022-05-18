@@ -46,7 +46,7 @@ function NewProfile() {
             </p>
           </div>
           <div className="container">
-            <h3 className="mb-5">{titlePage}</h3>
+            <h3 className="mb-5 text-center text-lg-start">{titlePage}</h3>
 
             { !error ? (
               <FormBiz />
