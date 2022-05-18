@@ -12,20 +12,29 @@ import LinkBtn from '../components/link';
 const Business = ({ info }) => {
 
   const [loading, setLoading] = useState(true);
+  const [pageTitle, setPageTitle] = useState('Loading...');
 
   useEffect(() => {
     if ( info ) {
       setLoading(false);
+
+      if ( !info.message ) {
+        setPageTitle(info.biz.name);
+      } else {
+        setPageTitle('Error 404');
+      }
     }
   }, [info]);
 
   return (
     loading ? (
-      <p>Loading...</p>
+      <div className='container pt-5'>
+        <h4 className='fw-normal m-0'>Cargando...</h4>
+      </div>
     ) : !info.message ? (
       <>
         <Head>
-          <title>{info.biz.name} &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
+          <title>{pageTitle} &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
         </Head>
         <BusinessLayout>
           <header className='w-100 biz-info pt-4 pb-4 mb-5 text-center' style={{
@@ -57,7 +66,7 @@ const Business = ({ info }) => {
     ) : (
       <>
         <Head>
-          <title>Error 404 &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
+          <title>{pageTitle} &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
         </Head>
         <Layout>
           <div className='container pt-5 pb-5'>
