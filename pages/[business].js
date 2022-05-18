@@ -38,7 +38,7 @@ const Business = ({ info }) => {
     const shareData = {
       title: pageTitle,
       text: `Perfil de @${username} en TuBio`,
-      url: 'https://developer.mozilla.org'
+      url: `${process.env.NEXT_PUBLIC_APP_URL}/${username}`
     }
 
     try {
