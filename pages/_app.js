@@ -64,6 +64,8 @@ export default function MyApp({ Component, pageProps }) {
             <meta property="og:url" content={`${process.env.NEXT_PUBLIC_APP_URL}/${pageProps?.info?.biz.username}`} />
             <meta property="og:site_name" content={`@${pageProps?.info?.biz.username} &bull; ${process.env.NEXT_PUBLIC_APP_NAME}`} />
             <meta property="og:image" content={`${process.env.NEXT_PUBLIC_APP_URL}/uploads/${pageProps?.info?.biz.username}/avatar.webp`} />
+            <meta property="og:type" content="profile" />
+            <meta property="profile:username" content={pageProps?.info?.biz.username} />
           </>)}
       </Head>
       <Component {...pageProps} />
