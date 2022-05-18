@@ -7,7 +7,7 @@ import Layout from '../components/layouts/layout';
 import BusinessLayout from '../components/layouts/business';
 
 import LinkBtn from '../components/link';
-import { getAllBiz, getPreviewBiz } from '../lib/api';
+import { getAllBiz, getBiz } from '../lib/api';
 
 
 const Business = ({ info }) => {
@@ -90,13 +90,23 @@ const Business = ({ info }) => {
   );
 }
 
-export async function getServerSideProps({ params }) {
-  const data = await getPreviewBiz(params.business);
+export async function getStaticProps({ params }) {
+  const data = await getBiz(params.business);
 
   return {
     props: {
       info: data,
     },
+    revalidate: 10
+  }
+}
+
+export async function getStaticPaths() {
+  const allBiz = await getAllBiz();
+
+  return {
+    paths: allBiz.map(( biz ) => `/${biz.username}`) || [],
+    fallback: true,
   }
 }
 

@@ -1,10 +1,10 @@
-import { getPreviewBiz } from '../../lib/api'
+import { getBiz } from '../../lib/api'
 
 export default async function preview(req, res) {
   const { business } = req.query;
 
   // Fetch WordPress to check if the provided `id` or `slug` exists
-  const biz = await getPreviewBiz(business);
+  const biz = await getBiz(business);
 
   // If the post doesn't exist prevent preview mode from being enabled
   if (!post) {
