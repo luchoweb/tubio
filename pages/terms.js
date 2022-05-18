@@ -7,6 +7,11 @@ function TermsPage() {
     <>
       <Head>
         <title>Términos y condiciones &bull; {process.env.NEXT_PUBLIC_APP_NAME}</title>
+        <meta name="description" content="Aquí consulta nuestros términos y condiciones." />
+        <meta property="og:title" content={`Términos y condiciones &bull; ${process.env.NEXT_PUBLIC_APP_NAME}`} />
+        <meta property="og:description" content={`Aquí consulta nuestros términos y condiciones.`} />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_APP_URL}/terms`} />
+        <meta property="og:site_name" content={`${process.env.NEXT_PUBLIC_APP_NAME}`} />
       </Head>
       <Layout>
         <div className="container">
