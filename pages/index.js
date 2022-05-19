@@ -27,13 +27,13 @@ function HomePage() {
 
                 <Link href="/new/user">
                   <a className="btn btn-dark btn-lg d-block d-lg-inline-block me-lg-4 pt-3 pb-3 pt-lg-2 pb-lg-2">
-                    <i className="fa fa-clipboard-user me-2"></i>
+                    <i className="icon icon-user me-2"></i>
                     <span>Crear mi perfil</span>
                   </a>
                 </Link>
 
                 <a href="tubio" className="btn btn-outline-secondary d-block d-lg-inline-block mt-3 mt-lg-0 pt-2 pb-2" target="_blank">
-                  <i className="fa fa-table-list me-2"></i>
+                  <i className="icon icon-eye me-2"></i>
                   <span>Ver demo</span>
                 </a>
 

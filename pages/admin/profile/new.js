@@ -1,36 +1,37 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import PrivateLayout from "../../../components/layouts/private";
 import FormBiz from "../../../components/forms/business";
-import { useRouter } from "next/router";
+
+import { getFreeBiz } from "../../../lib/api";
 
 function NewProfile() {
   const titlePage = 'Nuevo perfil';
 
   const router = useRouter();
 
-  const [countBiz, setCountBiz] = useState(undefined);
   const [error, setError] = useState(null);
+  const [freeProfile, setFreeProfile] = useState(null);
 
   useEffect(() => {
-    const fetchCount = async () => {
+    const fetchData = async () => {
       try {
         const userData = JSON.parse(localStorage.getItem('userData'));
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/business/count-uid/${userData.uid}`)
-        const count = await res.json();
-        setCountBiz(count.count);
+        const res = await getFreeBiz(userData.uid);
+        setFreeProfile(res);
       } catch(e) {
         setError(e.message);
       }
     }
 
-    if ( !countBiz )
-      fetchCount();
+    if ( !freeProfile )
+      fetchData();
 
-    if ( countBiz >= 1 )
+    if ( freeProfile >= 1 )
       router.push('/admin/profile/pay');
-  }, [countBiz]);
+  }, [freeProfile]);
 
   return (
     <>
@@ -39,9 +40,9 @@ function NewProfile() {
       </Head>
       <PrivateLayout>
         <section>
-          <div className="alert alert-warning pt-2 pb-2 mb-5 text-center" style={{marginTop: '-3rem'}}>
+          <div className="alert alert-dark pt-2 pb-2 mb-5 text-center" style={{marginTop: '-3rem'}}>
             <p className="m-0">
-              <i className='fa fa-warning me-2'></i>
+              <i className='icon icon-info-circle me-2'></i>
               <span>Antes de crear este perfil recuerde que esta información será pública.</span>
             </p>
           </div>

@@ -63,7 +63,7 @@ const Business = ({ info }) => {
             onClick={(e) => handleShare(e)}
           >
             <small style={{color: info.biz.text_color}}>
-              <i className='fa fa-share-square'></i>
+              <i className='icon icon-share-square'></i>
               <span className='d-none d-md-inline ms-2'>
                 Compartir
               </span>
@@ -76,7 +76,7 @@ const Business = ({ info }) => {
               style={{borderColor: info.biz.text_color}}
             >
               <small style={{color: info.biz.text_color}}>
-                <i className='fa fa-user'></i>
+                <i className='icon icon-user'></i>
                 <span className='d-none d-md-inline ms-2'>
                   Ingresar
                 </span>
@@ -99,7 +99,7 @@ const Business = ({ info }) => {
               {info.biz.name}
               { info.biz.verified > 0 && (
                 <span className='biz-verified ms-2'>
-                  <i className="fa fa-circle-check" title='Verified'></i>
+                  <i className="icon icon-verified" title='Perfil Oficial'></i>
                 </span>
               )}
             </h1>

@@ -107,14 +107,14 @@ function NewBizPage() {
 
                   <button role="submit" className="btn btn-dark">
                     <span>Crear usuario</span>
-                    <i className="fa fa-user-plus ms-2"></i>
+                    <i className="icon icon-user-plus ms-2"></i>
                   </button>
 
                   <div className="form-group mt-4">
                     <Link href="/admin">
                       <a>
                         <small className="text-muted">
-                          <i className="fa fa-sign-in me-2"></i>
+                          <i className="ficon icon-sign-in me-2"></i>
                           <span>Iniciar sesión</span>
                         </small>
                       </a>

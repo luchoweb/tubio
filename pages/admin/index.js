@@ -98,14 +98,14 @@ function LoginPage() {
 
                   <button role="submit" className="btn btn-dark">
                     <span>Ingresar</span>
-                    <i className="fa fa-sign-in ms-2"></i>
+                    <i className="icon icon-sign-in ms-2"></i>
                   </button>
 
                   <div className="form-group mt-5">
                     <Link href="/admin/reset-password">
                       <a>
                         <small className="text-muted">
-                          <i className="fa fa-lock me-2"></i>
+                          <i className="icon icon-lock me-2"></i>
                           <span>Reestablecer contraseña</span>
                         </small>
                       </a>
@@ -116,7 +116,7 @@ function LoginPage() {
                     <Link href="/new/user">
                       <a>
                         <small className="text-muted">
-                          <i className="fa fa-user-plus me-2"></i>
+                          <i className="icon icon-user-plus me-2"></i>
                           <span>Registrarme</span>
                         </small>
                       </a>

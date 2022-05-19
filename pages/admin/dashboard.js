@@ -65,14 +65,14 @@ function DashboardPage() {
 
                     <div className="card-footer pt-3">
                       <a href={`/${biz.username}`} className="btn btn-sm btn-outline-dark mb-2" target="_blank">
-                        <i className="fa fa-eye"></i>
+                        <i className="icon icon-eye"></i>
                       </a>
 
                       <span className="me-1 ms-1"></span>
 
                       <Link href={`/admin/profile/edit/${biz.id}`}>
                         <a className="btn btn-sm btn-primary mb-2">
-                          <i className="fa fa-pencil"></i>
+                          <i className="icon icon-pencil"></i>
                         </a>
                       </Link>
 
@@ -80,7 +80,7 @@ function DashboardPage() {
 
                       <Link href={`/admin/profile/delete/${biz.id}`}>
                         <a className="btn btn-sm btn-danger mb-2">
-                          <i className="fa fa-trash"></i>
+                          <i className="icon icon-trash"></i>
                         </a>
                       </Link>
 
@@ -98,7 +98,7 @@ function DashboardPage() {
                     <div className="card-body">
                     <Link href="/admin/profile/new">
                       <a className="d-flex flex-column align-items-center justify-content-center h-100">
-                        <i className="fa fa-plus fa-4x text-muted"></i>
+                        <i className="icon icon-user-plus text-muted"></i>
                         <p className="m-0 text-muted">Crear nuevo perfil</p>
                       </a>
                     </Link>
@@ -111,8 +111,8 @@ function DashboardPage() {
                     <div className="card-body">
                     <Link href="/admin/profile/pay">
                       <a className="d-flex flex-column align-items-center justify-content-center h-100">
-                        <i className="fa fa-plus fa-4x text-muted"></i>
-                        <p className="m-0 mt-2 text-center text-muted">
+                        <i className="icon icon-user-plus text-muted"></i>
+                        <p className="m-0 mt-4 text-center text-muted">
                           <span className="d-block">Comprar un nuevo perfil</span>
                           <span>$4.99 anuales</span>
                         </p>

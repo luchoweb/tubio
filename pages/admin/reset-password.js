@@ -91,14 +91,14 @@ function ResetPasswdPage() {
 
                   <button role="submit" className="btn btn-dark">
                     <span>Enviar enlace</span>
-                    <i className="fa fa-link ms-2"></i>
+                    <i className="icon icon-link ms-2"></i>
                   </button>
 
                   <div className="form-group mt-4">
                     <Link href="/admin">
                       <a>
                         <small className="text-muted">
-                          <i className="fa fa-arrow-left me-2"></i>
+                          <i className="icon icon-chevron-left me-2"></i>
                           <span>Volver</span>
                         </small>
                       </a>

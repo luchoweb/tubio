@@ -7,6 +7,14 @@
 
 .private {
   min-height: 50vh;
+
+  .dashboard {
+    .card {
+      .icon-user-plus {
+        font-size: 4rem;
+      }
+    }
+  }
 }
 
 .flag {

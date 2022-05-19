@@ -14,7 +14,7 @@ export default function LinkBtn({ data }) {
         target="_blank"
         rel='noopener'
       >
-        <i className={`${data.icon} fa-2x me-4`}></i>
+        <i className={`${data.icon} me-4`}></i>
         <span>{ data.title }</span>
       </a>
     </li>

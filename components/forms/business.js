@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import ProfilePreview from '../profilePreview';
 
@@ -109,9 +109,8 @@ function FormBiz() {
 
           <div className="form-group mb-4 text-start">
             <label htmlFor="username">
-              <span>Nombre de usuario</span>
-              <small className='ms-2 me-2'><i className='fa fa-arrow-right'></i></small>
-              <span className='text-muted'>tubio.co/{watch('username')}</span>
+              <span>Nombre de usuario:</span>
+              <span className='text-muted ms-2'>tubio.co/{watch('username')}</span>
             </label>
             <input
               id="username"
@@ -171,14 +170,12 @@ function FormBiz() {
             </div>
           </div>
 
-          <hr />
-
           <div className='form-group mt-5 mb-5'>
             <h4 className='mb-3'>Enlaces</h4>
 
             <a href="#" className='btn btn-dark' onClick={(event) => handleAddLink(event)}>
               <span>Agregar enlace</span>
-              <i className='fa fa-link ms-2'></i>
+              <i className='icon icon-link ms-2'></i>
             </a>
           </div>
 
@@ -187,12 +184,12 @@ function FormBiz() {
           <div className='form-group mt-5'>
             <button className='btn btn-dark me-4'>
               <span>Crear perfil</span>
-              <i className='fa-solid fa-user-plus ms-2'></i>
+              <i className='icon icon-user-plus ms-2'></i>
             </button>
 
             <Link href="/admin/dashboard">
               <a className='btn btn-outline-dark'>
-                <i className='fa fa-arrow-left me-2'></i>
+                <i className='icon icon-chevron-left me-2'></i>
                 <span>Volver</span>
               </a>
             </Link>
@@ -202,7 +199,7 @@ function FormBiz() {
         <div className='col-12 col-md-6 mt-5 mt-md-0'>
           <div className='preview sticky-md-top text-center pt-3'>
             <h4 className='m-0 mb-4'>
-              <i className='fa fa-mobile me-3'></i>
+              <i className='icon icon-tablet me-3'></i>
               <span>Vista previa</span>
             </h4>
 
@@ -222,7 +219,7 @@ function FormBiz() {
       {error && (
         <div className='alert alert-danger mb-5'>
           <p className='m-0'>
-            <i className='fa fa-remove me-2'></i>
+            <i className='icon icon-info-circle me-2'></i>
             {error}
           </p>
         </div>

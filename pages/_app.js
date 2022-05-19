@@ -76,7 +76,6 @@ export default function MyApp({ Component, pageProps }) {
           )}
       </Head>
       <Component {...pageProps} />
-      <Script src="https://kit.fontawesome.com/4e1f6b21a2.js" strategy="afterInteractive"></Script>
     </AuthUserProvider>
   )
 }

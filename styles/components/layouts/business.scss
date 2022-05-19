@@ -6,19 +6,10 @@
   width: 100%;
 
   &-verified {
-    border-radius: 50%;
-    background-color: #fff;
-    border: 1px solid #fff;
-    line-height: 0;
-    display: inline-block;
-    max-width: 15px;
-    max-height: 15px;
-    padding: 1px 0;
-    text-align: center;
-
     i {
-      color: #00bcc5;
-      font-size: .5em;
+      border-radius: 50%;
+      color: #00d6e2;
+      font-size: .7em;
     }
   }
 
@@ -73,6 +64,10 @@
 
       i, span {
         vertical-align: middle;
+      }
+
+      i.icon {
+        font-size: 2rem;
       }
 
       &:hover {

@@ -22,7 +22,7 @@ export default function PrivateHeader() {
                 <li className="me-4">
                   <a href="#" className="d-flex align-items-center" onClick={signOut}>
                     <span>Salir</span>
-                    <i className="fa fa-sign-out ms-2"></i>
+                    <i className="icon icon-sign-out ms-2"></i>
                   </a>
                 </li>
               </ul>

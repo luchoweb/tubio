@@ -18,7 +18,7 @@ export default function PublicHeader() {
                   <Link href="/admin">
                     <a className="d-flex align-items-center">
                       <span>Ingresar</span>
-                      <i className="fa fa-sign-in ms-2"></i>
+                      <i className="icon icon-sign-in ms-2"></i>
                     </a>
                   </Link>
                 </li>
