@@ -13,33 +13,39 @@ header {
 }
 
 .page {
-  .hero {
-    &-title {
-      font-weight: 600;
-      line-height: .85em;
-    }
+  &-home {
+    .hero {
+      &-title {
+        font-weight: 600;
+        line-height: .85em;
+      }
+  
+      &-intro {
+        font-size: 1.1em;
+      }
+  
+      &-col {
+        &-img {
+          position: relative;
+          z-index: 1;
+  
+          &-screen {
+            border-radius: 2rem;
+            left: 50%;
+            position: absolute;
+            top: 0;
+            transform: translateX(-50%);
+            width: 227px;
+            z-index: -1;
+          }
+        }
+      }
 
-    &-intro {
-      font-size: 1.1em;
-    }
-
-    &-col {
-      &-img {
-        position: relative;
-        z-index: 1;
-
-        &-screen {
-          border-radius: 2rem;
-          left: 50%;
-          position: absolute;
-          top: 0;
-          transform: translateX(-50%);
-          width: 227px;
-          z-index: -1;
+      .btn {
+        span {
+          vertical-align: text-top;
         }
       }
     }
   }
 }
-
-footer {}

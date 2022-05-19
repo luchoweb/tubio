@@ -3,6 +3,14 @@
     color: var(--bs-danger);
     font-size: .77em;
   }
+
+  &-horizontal {
+    .btn {
+      span {
+        vertical-align: text-top;
+      }
+    }
+  }
 }
 
 .private {
