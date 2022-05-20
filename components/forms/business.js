@@ -38,7 +38,25 @@ function FormBiz() {
   return (
     <form className="form-horizontal preview-form mt-4" onSubmit={handleSubmit(onSubmit)}>
       <div className='row min-vh-100 mb-4'>
-        <div className='col-12 col-md-6'>
+        <div className='col-12 col-md-7 col-lg-8'>
+          <div className="form-group mb-4 text-start">
+            <label htmlFor="username">
+              <span>Usuario:</span>
+              <span className='text-muted ms-2'>
+                tubio.co/<strong>{watch('username')}</strong>
+              </span>
+            </label>
+            <input
+              id="username"
+              className={`mt-1 form-control${errors?.username ? ' is-invalid' : ''}`}
+              {...register("username", {
+                required: true,
+                maxLength: 255,
+              })}
+            />
+            {errors?.username && <span className="form-error">Verifique el usuario o intente con otro</span>}
+          </div>
+    
           <div className="form-group mb-4">
             <label htmlFor="name">Nombre o razón social</label>
             <input
@@ -53,7 +71,7 @@ function FormBiz() {
           </div>
 
           <div className="form-group mb-4 text-start">
-            <label htmlFor="address">Dirección</label>
+            <label htmlFor="address">Dirección o eslogan</label>
             <input
               id="address"
               className={`mt-1 form-control`}
@@ -71,7 +89,7 @@ function FormBiz() {
               className={`mt-1 form-control`}
               {...register("city", {
                 required: false,
-                maxLength: 150,
+                maxLength: 100,
               })}
             />
           </div>
@@ -82,8 +100,8 @@ function FormBiz() {
               id="ncountryme"
               className={`mt-1 form-control${errors?.country ? ' is-invalid' : ''}`}
               {...register("country", {
-                required: true,
-                maxLength: 50,
+                required: false,
+                maxLength: 100,
               })}
             />
             {errors?.country && <span className="form-error">Verifique el país</span>}
@@ -92,7 +110,7 @@ function FormBiz() {
           <div className="form-group mb-4">
             <label htmlFor="avatar">Avatar / Logo</label>
             <input
-              className={`mt-1 form-control${errors?.email ? ' is-invalid' : ''}`}
+              className={`mt-1 form-control${errors?.avatar ? ' is-invalid' : ''}`}
               type="file"
               {...register("avatar", {
                 required: true && 'Se requiere su logo o foto',
@@ -108,45 +126,15 @@ function FormBiz() {
             {errors?.avatar && <span className="form-error">{ errors.avatar.message }</span>}
           </div>
 
-          <div className="form-group mb-4 text-start">
-            <label htmlFor="username">
-              <span>Nombre de usuario:</span>
-              <span className='text-muted ms-2'>tubio.co/{watch('username')}</span>
-            </label>
-            <input
-              id="username"
-              className={`mt-1 form-control${errors?.username ? ' is-invalid' : ''}`}
-              {...register("username", {
-                required: true,
-                maxLength: 100,
-              })}
-            />
-            {errors?.username && <span className="form-error">Verifique el usuario o intente con otro</span>}
-          </div>
-
-          <div className="form-group mb-4 text-start">
-            <label htmlFor="email">Correo electrónico</label>
-            <input
-              id="email"
-              className={`mt-1 form-control${errors?.email ? ' is-invalid' : ''}`}
-              {...register("email", {
-                required: true,
-                maxLength: 100,
-                pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
-              })}
-            />
-            {errors?.email && <span className="form-error">Verifique su e-mail</span>}
-          </div>
-
           <div className='row'>
-            <div className='col-6 col-lg-4'>
+            <div className='col-6 col-lg-3'>
               <div className="form-group mb-4 text-start">
                 <label htmlFor="background">Color de fondo</label>
                 <input
                   id="background"
                   className={`mt-1 form-control form-control-color d-block`}
                   type="color"
-                  defaultValue="#000000"
+                  defaultValue="#42CDC3"
                   {...register("background", {
                     required: true,
                     maxLength: 10,
@@ -154,14 +142,15 @@ function FormBiz() {
                 />
               </div>
             </div>
-            <div className='col-6 col-lg-4'>
+            
+            <div className='col-6 col-lg-3'>
               <div className="form-group mb-4 text-start">
                 <label htmlFor="text_color">Color del texto</label>
                 <input
                   id="text_color"
                   className={`mt-1 d-block form-control form-control-color`}
                   type="color"
-                  defaultValue="#FFFFFF"
+                  defaultValue="#000"
                   {...register("text_color", {
                     required: true,
                     maxLength: 10,
@@ -181,29 +170,24 @@ function FormBiz() {
           </div>
         </div>
 
-        <div className='col-12 col-md-6 mb-4 mb-md-2'>
+        <div className='col-12 col-md-5 col-lg-4 mb-4'>
           <div className='preview sticky-md-top text-center pt-3'>
-            <h4 className='m-0 mb-4'>
-              <i className='icon icon-tablet me-3'></i>
-              <span>Vista previa</span>
-            </h4>
-
             <div className='preview-form-phone'>
               <img src={appScreen.src} className="hero-col-img-screen" loading="lazy" height={500} />
-              
               <ProfilePreview data={{
                   background: watch('background'),
                   text_color: watch('text_color'),
                   name: watch('name'),
-                  avatar: watch('avatar')
+                  avatar: watch('avatar'),
+                  address: watch('address'),
+                  city: watch('city'),
+                  country: watch('country')
                 }}
               />
             </div>
           </div>
         </div>
       </div>
-
-      <hr />
 
       <div className='form-group mt-5 text-center text-lg-start'>
         <button className='btn btn-dark me-4'>

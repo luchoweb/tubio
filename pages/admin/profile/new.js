@@ -40,10 +40,10 @@ function NewProfile() {
       </Head>
       <PrivateLayout>
         <section>
-          <div className="alert alert-dark pt-2 pb-2 mb-5 text-center" style={{marginTop: '-3rem'}}>
+          <div className="alert alert-secondary pt-1 pb-1 mb-5 text-center" style={{marginTop: '-3rem'}}>
             <p className="m-0">
               <i className='icon icon-info-circle me-2'></i>
-              <span>Antes de crear este perfil recuerde que esta información será pública.</span>
+              <small>Recuerde que esta información será pública.</small>
             </p>
           </div>
           <div className="container">

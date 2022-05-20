@@ -71,7 +71,7 @@
   &-profile {
     border-radius: 1.5rem;
     background-color: rgba(var(--bs-light-rgb));
-    height: 451px;
+    height: 450px;
     margin: 0 auto;
     width: 222px;
     overflow: hidden;
@@ -95,6 +95,8 @@
     }
 
     header {
+      padding: 0 .5rem;
+
       .biz-info {
         &-avatar {
           margin-top: .7rem;
@@ -103,8 +105,17 @@
         }
 
         &-name {
-          line-height: 1,1em;
-          font-size: 1.23rem;
+          line-height: 1.1em;
+          font-size: 1.1rem;
+          font-weight: var(--fw-normal);
+        }
+
+        &-location {
+          font-size: .9rem;
+
+          &-address {
+            line-height: 1.1em;
+          }
         }
       }
     }
