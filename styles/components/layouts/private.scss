@@ -59,3 +59,54 @@
     background: var(--bs-secondary);
   }
 }
+
+.preview {
+  &-form {
+    &-phone {
+      position: relative;
+      text-align: center;
+    }
+  }
+
+  &-profile {
+    border-radius: 1.5rem;
+    background-color: rgba(var(--bs-light-rgb));
+    height: 451px;
+    margin: 0 auto;
+    width: 222px;
+    overflow: hidden;
+    overflow-y: auto;
+    position: absolute;
+    top: 1.7rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+     
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+     
+    &::-webkit-scrollbar-thumb {
+      background-color: darkgrey;
+      outline: 1px solid slategrey;
+    }
+
+    header {
+      .biz-info {
+        &-avatar {
+          margin-top: .7rem;
+          height: 100px;
+          width: 100px;
+        }
+
+        &-name {
+          line-height: 1,1em;
+          font-size: 1.23rem;
+        }
+      }
+    }
+  }
+}

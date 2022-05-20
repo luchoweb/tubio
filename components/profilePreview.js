@@ -4,7 +4,7 @@ function ProfilePreview({ data }) {
     const avatarPreview = data.avatar && data.avatar.length && URL.createObjectURL(data?.avatar[0]);
 
   return (
-    <div className="preview ps-md-1 ps-lg-5 pe-md-1 pe-lg-5">
+    <div className="preview-profile">
       <header className='w-100 biz-info pt-4 pb-4 text-center' style={{
         backgroundColor: data.background
       }}>

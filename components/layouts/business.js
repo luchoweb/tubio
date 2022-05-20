@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function BusinessLayout({ children }) {
   return (
     <>
-      <main className="biz">
+      <main className="biz bg-light">
         {children}
         <footer>
           <div className="container pb-4 text-center">

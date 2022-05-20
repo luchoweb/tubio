@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 
 import ProfilePreview from '../profilePreview';
+import appScreen from "../../images/phone-screen-samsung.png";
 
 function FormBiz() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -35,14 +36,14 @@ function FormBiz() {
   }
 
   return (
-    <form className="form-horizontal mt-4" onSubmit={handleSubmit(onSubmit)}>
+    <form className="form-horizontal preview-form mt-4" onSubmit={handleSubmit(onSubmit)}>
       <div className='row min-vh-100 mb-4'>
         <div className='col-12 col-md-6'>
           <div className="form-group mb-4">
-            <label htmlFor="name">Nombre</label>
+            <label htmlFor="name">Nombre o razón social</label>
             <input
               id="name"
-              className={`form-control${errors?.name ? ' is-invalid' : ''}`}
+              className={`mt-1 form-control${errors?.name ? ' is-invalid' : ''}`}
               {...register("name", {
                 required: true,
                 maxLength: 150,
@@ -55,7 +56,7 @@ function FormBiz() {
             <label htmlFor="address">Dirección</label>
             <input
               id="address"
-              className={`form-control`}
+              className={`mt-1 form-control`}
               {...register("address", {
                 required: false,
                 maxLength: 150,
@@ -67,7 +68,7 @@ function FormBiz() {
             <label htmlFor="city">Ciudad</label>
             <input
               id="city"
-              className={`form-control`}
+              className={`mt-1 form-control`}
               {...register("city", {
                 required: false,
                 maxLength: 150,
@@ -79,7 +80,7 @@ function FormBiz() {
             <label htmlFor="country">País</label>
             <input
               id="ncountryme"
-              className={`form-control${errors?.country ? ' is-invalid' : ''}`}
+              className={`mt-1 form-control${errors?.country ? ' is-invalid' : ''}`}
               {...register("country", {
                 required: true,
                 maxLength: 50,
@@ -91,7 +92,7 @@ function FormBiz() {
           <div className="form-group mb-4">
             <label htmlFor="avatar">Avatar / Logo</label>
             <input
-              className={`form-control${errors?.email ? ' is-invalid' : ''}`}
+              className={`mt-1 form-control${errors?.email ? ' is-invalid' : ''}`}
               type="file"
               {...register("avatar", {
                 required: true && 'Se requiere su logo o foto',
@@ -114,7 +115,7 @@ function FormBiz() {
             </label>
             <input
               id="username"
-              className={`form-control${errors?.username ? ' is-invalid' : ''}`}
+              className={`mt-1 form-control${errors?.username ? ' is-invalid' : ''}`}
               {...register("username", {
                 required: true,
                 maxLength: 100,
@@ -127,7 +128,7 @@ function FormBiz() {
             <label htmlFor="email">Correo electrónico</label>
             <input
               id="email"
-              className={`form-control${errors?.email ? ' is-invalid' : ''}`}
+              className={`mt-1 form-control${errors?.email ? ' is-invalid' : ''}`}
               {...register("email", {
                 required: true,
                 maxLength: 100,
@@ -143,7 +144,7 @@ function FormBiz() {
                 <label htmlFor="background">Color de fondo</label>
                 <input
                   id="background"
-                  className={`form-control form-control-color d-block`}
+                  className={`mt-1 form-control form-control-color d-block`}
                   type="color"
                   defaultValue="#000000"
                   {...register("background", {
@@ -158,7 +159,7 @@ function FormBiz() {
                 <label htmlFor="text_color">Color del texto</label>
                 <input
                   id="text_color"
-                  className={`d-block form-control form-control-color`}
+                  className={`mt-1 d-block form-control form-control-color`}
                   type="color"
                   defaultValue="#FFFFFF"
                   {...register("text_color", {
@@ -178,43 +179,45 @@ function FormBiz() {
               <i className='icon icon-link ms-2'></i>
             </a>
           </div>
-
-          <hr />
-
-          <div className='form-group mt-5'>
-            <button className='btn btn-dark me-4'>
-              <span>Crear perfil</span>
-              <i className='icon icon-user-plus ms-2'></i>
-            </button>
-
-            <Link href="/admin/dashboard">
-              <a className='btn btn-outline-dark'>
-                <i className='icon icon-chevron-left me-2'></i>
-                <span>Volver</span>
-              </a>
-            </Link>
-          </div>
         </div>
 
-        <div className='col-12 col-md-6 mt-5 mt-md-0'>
+        <div className='col-12 col-md-6 mb-4 mb-md-2'>
           <div className='preview sticky-md-top text-center pt-3'>
             <h4 className='m-0 mb-4'>
               <i className='icon icon-tablet me-3'></i>
               <span>Vista previa</span>
             </h4>
 
-            <ProfilePreview data={{
-                background: watch('background'),
-                text_color: watch('text_color'),
-                name: watch('name'),
-                avatar: watch('avatar')
-              }}
-            />
+            <div className='preview-form-phone'>
+              <img src={appScreen.src} className="hero-col-img-screen" loading="lazy" height={500} />
+              
+              <ProfilePreview data={{
+                  background: watch('background'),
+                  text_color: watch('text_color'),
+                  name: watch('name'),
+                  avatar: watch('avatar')
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
 
-      
+      <hr />
+
+      <div className='form-group mt-5 text-center text-lg-start'>
+        <button className='btn btn-dark me-4'>
+          <span>Crear perfil</span>
+          <i className='icon icon-user-plus ms-2'></i>
+        </button>
+
+        <Link href="/admin/dashboard">
+          <a className='btn btn-outline-dark'>
+            <i className='icon icon-chevron-left me-2'></i>
+            <span>Volver</span>
+          </a>
+        </Link>
+      </div>
 
       {error && (
         <div className='alert alert-danger mb-5'>
