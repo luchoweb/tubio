@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { getAllBizByUid } from "../../lib/api";
 
 import PrivateLayout from "../../components/layouts/private";
+import BizCard from "../../components/bizCard";
+import AddProfileBtn from "../../components/addProfileBtn";
 
 function DashboardPage() {
   const [businesses, setBusinesses] = useState(undefined);
@@ -42,84 +44,26 @@ function DashboardPage() {
               <>
                { businesses && businesses.length ? businesses.map((biz, index) => (
                 <div className="col-9 col-md-6 col-lg-3 mb-4" key={`k-${index}`}>
-                  <div className="card h-100">
-                    <div className="card-header pt-3 pb-3"
-                      style={{
-                        backgroundColor: biz.background,
-                        color: biz.text_color
-                      }}
-                    >
-                      <h4 className="m-0 card-title">{biz.name}</h4>
-                    </div>
-                    <div className="card-body">
-                      <p className="card-text">
-                        {biz.city && (
-                          <>
-                            {biz.city}
-                            <br />
-                          </>
-                        )}
-                        {biz.country && biz.country}
-                      </p>
-                    </div>
-
-                    <div className="card-footer pt-3">
-                      <a href={`/${biz.username}`} className="btn btn-sm btn-outline-dark mb-2" target="_blank">
-                        <i className="icon icon-eye"></i>
-                      </a>
-
-                      <span className="me-1 ms-1"></span>
-
-                      <Link href={`/admin/profile/edit/${biz.id}`}>
-                        <a className="btn btn-sm btn-primary mb-2">
-                          <i className="icon icon-pencil"></i>
-                        </a>
-                      </Link>
-
-                      <span className="me-1 ms-1"></span>
-
-                      <Link href={`/admin/profile/delete/${biz.id}`}>
-                        <a className="btn btn-sm btn-danger mb-2">
-                          <i className="icon icon-trash"></i>
-                        </a>
-                      </Link>
-
-                      <div className={`flag${biz.is_free === 0 ? ' flag-bg-warning text-dark' : ' flag-bg-dark'}`}>
-                        {biz.is_free === 0 ? 'Pago' : 'Gratis'}
-                      </div>
-                    </div>
-                  </div>
+                  <BizCard biz={biz} />
                 </div>
                 )) : '' }
 
               { businesses && freeProfile === 0 ? (
                 <div className="col-9 col-md-6 col-lg-3 mb-4">
-                  <div className="card h-100">
-                    <div className="card-body">
-                    <Link href="/admin/profile/new">
-                      <a className="d-flex flex-column align-items-center justify-content-center h-100">
-                        <i className="icon icon-user-plus text-muted"></i>
-                        <p className="m-0 text-muted">Crear nuevo perfil</p>
-                      </a>
-                    </Link>
-                    </div>
-                  </div>
+                  <AddProfileBtn info={{
+                    text: 'Crear nuevo perfil',
+                    href: '/admin/profile/new',
+                    icon: 'user-plus'
+                  }} />
                 </div>
               ) : (
                 <div className="col-9 col-md-6 col-lg-3 mb-4">
-                  <div className="card h-100">
-                    <div className="card-body">
-                    <Link href="/admin/profile/pay">
-                      <a className="d-flex flex-column align-items-center justify-content-center h-100">
-                        <i className="icon icon-user-plus text-muted"></i>
-                        <p className="m-0 mt-4 text-center text-muted">
-                          <span className="d-block">Comprar un nuevo perfil</span>
-                          <span>$4.99 anuales</span>
-                        </p>
-                      </a>
-                    </Link>
-                    </div>
-                  </div>
+                  <AddProfileBtn info={{
+                    text: 'Comprar un nuevo perfil',
+                    href: '/admin/profile/pay',
+                    icon: 'user-plus',
+                    price: '4.99'
+                  }} />
                 </div>
               )}
               </>
