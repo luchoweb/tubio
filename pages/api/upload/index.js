@@ -22,7 +22,7 @@ export default async (req, res) => {
           fs.mkdirSync(dir, { recursive: true });
         }
 
-        const result = webp.cwebp(oldPath, `${dir}/avatar.webp`,"-q 90");
+        const result = webp.cwebp(oldPath, `${dir}/avatar.webp`,"-q 50");
         result.then((response) => {
           res.status(200).json({ fields, files });
         });
