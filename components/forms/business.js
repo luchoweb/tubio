@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import Shell from 'shelljs';
+
+const shell = require('shelljs');
 
 import ProfilePreview from '../profilePreview';
 import appScreen from "../../images/phone-screen-samsung.png";
@@ -27,7 +28,7 @@ function FormBiz() {
     if ( response.status === 200 ) {
       // Restart tubio next app
       if ( process.env.NODE_ENV !== 'development' ) {
-        Shell.exec("pm2 restart tubio", function(code, output) {
+        shell.exec("pm2 restart tubio", function(code, output) {
           console.log('Exit code:', code);
           console.log('Program output:', output);
         });
