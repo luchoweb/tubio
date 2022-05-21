@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { execSync } from 'child_process';
+
+const { execSync } = require('child_process');
 
 import ProfilePreview from '../profilePreview';
 import appScreen from "../../images/phone-screen-samsung.png";
