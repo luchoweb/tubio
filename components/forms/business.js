@@ -174,7 +174,7 @@ function FormBiz() {
           </div>
         </div>
 
-        <div className='col-12 col-md-5 col-lg-4 mb-4'>
+        <div className='col-12 col-md-5 col-lg-4 mb-4 mb-lg-0'>
           <div className='preview sticky-md-top text-center pt-3'>
             <div className='preview-form-phone'>
               <img src={appScreen.src} className="hero-col-img-screen" loading="lazy" height={500} />
@@ -193,7 +193,16 @@ function FormBiz() {
         </div>
       </div>
 
-      <div className='form-group mt-5 text-center text-lg-start'>
+      {error && (
+        <div className='alert alert-danger mt-5 mb-5'>
+          <p className='m-0'>
+            <i className='icon icon-info-circle me-2'></i>
+            {error}
+          </p>
+        </div>
+      )}
+
+      <div className='form-group mt-5 text-center text-md-start'>
         <button className='btn btn-dark me-4'>
           <span>Crear perfil</span>
           <i className='icon icon-user-plus ms-2'></i>
@@ -206,15 +215,6 @@ function FormBiz() {
           </a>
         </Link>
       </div>
-
-      {error && (
-        <div className='alert alert-danger mb-5'>
-          <p className='m-0'>
-            <i className='icon icon-info-circle me-2'></i>
-            {error}
-          </p>
-        </div>
-      )}
     </form>
   )
 }
