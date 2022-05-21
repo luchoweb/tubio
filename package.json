@@ -20,7 +20,6 @@
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.31.1",
     "sharp": "^0.30.4",
-    "shelljs": "^0.8.5",
     "webp-converter": "^2.3.3"
   },
   "devDependencies": {

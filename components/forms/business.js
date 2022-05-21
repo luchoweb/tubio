@@ -2,8 +2,6 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 
-const shell = require('shelljs');
-
 import ProfilePreview from '../profilePreview';
 import appScreen from "../../images/phone-screen-samsung.png";
 
@@ -28,10 +26,6 @@ function FormBiz() {
     if ( response.status === 200 ) {
       // Restart tubio next app
       if ( process.env.NODE_ENV !== 'development' ) {
-        shell.exec("pm2 restart tubio", function(code, output) {
-          console.log('Exit code:', code);
-          console.log('Program output:', output);
-        });
       }
     } else {
       setError("Ha ocurrido un error creando su perfil, por favor haga clic nuevamente en Crear perfil.");
