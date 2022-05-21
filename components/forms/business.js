@@ -1,11 +1,13 @@
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { io } from 'socket.io-client';
 
 import ProfilePreview from '../profilePreview';
 import appScreen from "../../images/phone-screen-samsung.png";
 
 function FormBiz() {
+  const socket = io(process.env.NEXT_PUBLIC_API_URL);
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   
   const [error, setError] = useState(null);
@@ -26,10 +28,7 @@ function FormBiz() {
     if ( response.status === 200 ) {
       // Restart tubio next app
       if ( process.env.NODE_ENV !== 'development' ) {
-        exec('sudo pm2 restart tubio', (error, out) => {
-          console.log(error);
-          console.log(out);
-        });
+        socket.emit('upload');
       }
     } else {
       setError("Ha ocurrido un error creando su perfil, por favor haga clic nuevamente en Crear perfil.");
@@ -156,7 +155,7 @@ function FormBiz() {
                   id="text_color"
                   className={`mt-1 d-block form-control form-control-color`}
                   type="color"
-                  defaultValue="#000"
+                  defaultValue="#000000"
                   {...register("text_color", {
                     required: true,
                     maxLength: 10,

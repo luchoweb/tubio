@@ -20,6 +20,7 @@
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.31.1",
     "sharp": "^0.30.4",
+    "socket.io-client": "^4.5.1",
     "webp-converter": "^2.3.3"
   },
   "devDependencies": {
