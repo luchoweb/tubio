@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-
-const { exec } = require('child_process');
+import Shell from 'shelljs';
 
 import ProfilePreview from '../profilePreview';
 import appScreen from "../../images/phone-screen-samsung.png";
@@ -28,16 +27,9 @@ function FormBiz() {
     if ( response.status === 200 ) {
       // Restart tubio next app
       if ( process.env.NODE_ENV !== 'development' ) {
-        exec("pm2 restart tubio", (error, stdout, stderr) => {
-            if (error) {
-                console.log(`error: ${error.message}`);
-                return;
-            }
-            if (stderr) {
-                console.log(`stderr: ${stderr}`);
-                return;
-            }
-            console.log(`stdout: ${stdout}`);
+        Shell.exec("pm2 restart tubio", function(code, output) {
+          console.log('Exit code:', code);
+          console.log('Program output:', output);
         });
       }
     } else {
