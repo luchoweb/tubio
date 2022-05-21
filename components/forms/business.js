@@ -7,7 +7,8 @@ import ProfilePreview from '../profilePreview';
 import appScreen from "../../images/phone-screen-samsung.png";
 
 function FormBiz() {
-  const socket = io(process.env.NEXT_PUBLIC_API_URL);
+  const socket = io(process.env.NEXT_PUBLIC_API_URL, { transports : ['websocket'] });
+
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   
   const [error, setError] = useState(null);
@@ -27,9 +28,7 @@ function FormBiz() {
 
     if ( response.status === 200 ) {
       // Restart tubio next app
-      if ( process.env.NODE_ENV !== 'development' ) {
-        socket.emit('upload');
-      }
+      socket.emit('upload');
     } else {
       setError("Ha ocurrido un error creando su perfil, por favor haga clic nuevamente en Crear perfil.");
     }
