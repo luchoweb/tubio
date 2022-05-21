@@ -70,21 +70,20 @@ const Business = ({ info }) => {
             </small>
           </a>
 
-          <Link href="/admin">
-            <a
-              className="btn-sign-in btn btn-sm btn-outline-dark"
-              style={{borderColor: info.biz.text_color}}
-            >
-              <small style={{color: info.biz.text_color}}>
-                <i className='icon icon-user'></i>
-                <span className='d-none d-md-inline ms-2'>
-                  Ingresar
-                </span>
-              </small>
-            </a>
-          </Link>
+          <a
+            href="/admin"
+            className="btn-sign-in btn btn-sm btn-outline-dark"
+            style={{borderColor: info.biz.text_color}}
+          >
+            <small style={{color: info.biz.text_color}}>
+              <i className='icon icon-user'></i>
+              <span className='d-none d-md-inline ms-2'>
+                Ingresar
+              </span>
+            </small>
+          </a>
 
-          <header className='w-100 biz-info pt-5 pb-4 mb-5 text-center' style={{
+          <header className='w-100 biz-info pt-5 pb-4 mb-4 text-center' style={{
             backgroundColor: info.biz.background
           }}>
             <figure className='biz-info-avatar mb-4'
@@ -103,6 +102,24 @@ const Business = ({ info }) => {
                 </span>
               )}
             </h1>
+
+            { info.biz.address ? (
+              <p className='m-0 biz-info-address'>
+                {info.biz.address}
+              </p>
+            ) : ''}
+
+            { info.biz.city || info.biz.country ? (
+              <p className='m-0 biz-info-city'>
+                {info.biz.city ? (
+                  <span>{info.biz.city}</span>
+                ) : ''}
+
+                {info.biz.country ? (
+                  <span>{info.biz.city ? `,` : ''} {info.biz.country}</span>
+                ) : ''}
+              </p>
+            ) : ''}
           </header>
           <nav className='biz-links mb-5'>
             <ul className='biz-links-list'>
