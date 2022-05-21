@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 
-const { exec } = require('child_process');
+const { exec } = require('node:child_process');
 
 import ProfilePreview from '../profilePreview';
 import appScreen from "../../images/phone-screen-samsung.png";
