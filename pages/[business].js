@@ -103,13 +103,13 @@ const Business = ({ info }) => {
             </h1>
 
             { info.biz.address ? (
-              <p className='m-0 biz-info-address'>
+              <p className='m-0 biz-info-address' style={{color: info.biz.text_color}}>
                 {info.biz.address}
               </p>
             ) : ''}
 
             { info.biz.city || info.biz.country ? (
-              <p className='m-0 biz-info-city'>
+              <p className='m-0 biz-info-city' style={{color: info.biz.text_color}}>
                 {info.biz.city ? (
                   <span>{info.biz.city}</span>
                 ) : ''}
