@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { execSync } from 'child_process';
 
 import ProfilePreview from '../profilePreview';
 import appScreen from "../../images/phone-screen-samsung.png";
@@ -24,7 +25,9 @@ function FormBiz() {
     });
 
     if ( response.status === 200 ) {
-      // Crear perfil
+      // Restart tubio next app
+      if ( process.env.NODE_ENV !== 'development' )
+        execSync('sudo pm2 restart tubio', { encoding: 'utf-8' });
     } else {
       setError("Ha ocurrido un error creando su perfil, por favor haga clic nuevamente en Crear perfil.");
     }

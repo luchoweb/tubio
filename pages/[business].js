@@ -13,8 +13,8 @@ import { getBiz } from '../lib/api';
 const Business = ({ info }) => {
 
   const [loading, setLoading] = useState(true);
-  const [pageTitle, setPageTitle] = useState('Loading...');
-  const [username, setUsername] = useState('Loading...');
+  const [pageTitle, setPageTitle] = useState('Cargando...');
+  const [username, setUsername] = useState('Cargando...');
 
   useEffect(() => {
     if ( info ) {
