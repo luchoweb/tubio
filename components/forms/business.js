@@ -6,12 +6,16 @@ import { io } from 'socket.io-client';
 import ProfilePreview from '../profilePreview';
 import appScreen from "../../images/phone-screen-samsung.png";
 
+import { arrayIcons } from "../../helpers";
+
 function FormBiz() {
   const socket = io(process.env.NEXT_PUBLIC_API_URL, { transports : ['websocket'] });
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   
   const [error, setError] = useState(null);
+
+  const [links, setLinks] = useState([]);
 
   const onSubmit = async ( data ) => {
     setError(null);
@@ -101,7 +105,7 @@ function FormBiz() {
           <div className="form-group mb-4">
             <label htmlFor="country">País</label>
             <input
-              id="ncountryme"
+              id="country"
               className={`mt-1 form-control${errors?.country ? ' is-invalid' : ''}`}
               {...register("country", {
                 required: false,
@@ -165,7 +169,45 @@ function FormBiz() {
           </div>
 
           <div className='form-group mt-5 mb-5'>
+            <input
+              type="hidden"
+              className={`mt-1 form-control${errors?.country ? ' is-invalid' : ''}`}
+              {...register("links", {
+                required: true,
+              })}
+              value={links}
+            />
+
             <h4 className='mb-3'>Enlaces</h4>
+
+            {links.length ? (
+              <ul className='preview-form-links list-unstyled'>
+                { links.map((link, index) => (
+                  <li key={`l${index}`}>
+                    <i className={link.icon}></i>
+                    <p className='m-0'>{link.title}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : ''}
+
+            <div className='row mb-4 mt-4'>
+              <div className='col-12'>
+                <ul className='list-unstyled d-flex flex-wrap gap-3'>
+                {arrayIcons.map((icon, index) => (
+                  <li key={`l${index}`} className="preview-form-link-icon">
+                    <i className={`icon icon-${icon}`}></i>
+                  </li>
+                ))}
+                </ul>
+              </div>
+              <div className='col-6'>
+                Title
+              </div>
+              <div className='col-6'>
+                Link
+              </div>
+            </div>
 
             <a href="#" className='btn btn-dark' onClick={(event) => handleAddLink(event)}>
               <span>Agregar enlace</span>

@@ -66,6 +66,13 @@
       position: relative;
       text-align: center;
     }
+
+    &-link {
+      &-icon {
+        cursor: pointer;
+        font-size: 1.5rem;
+      }
+    }
   }
 
   &-profile {
