@@ -24,7 +24,6 @@ const Business = ({ info }) => {
         setPageTitle(info.biz.name);
         setUsername(info.biz.username);
 
-        // order links
         info.links.sort((a, b) => a.order - b.order);
       } else {
         setPageTitle('Error 404');
