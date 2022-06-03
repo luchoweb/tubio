@@ -56,24 +56,23 @@ export default function MyApp({ Component, pageProps }) {
           </>
           )}
 
-        <script type="application/ld+json">
-        {`{
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "${process.env.NEXT_PUBLIC_APP_NAME}",
-          "url": "${process.env.NEXT_PUBLIC_APP_URL}",
-          "logo": "${process.env.NEXT_PUBLIC_APP_URL}/social.png",
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "300-829-1060",
-            "contactType": "customer service",
-            "areaServed": "CO",
-            "availableLanguage": ["es"]
-          },
-          "sameAs": [
-            "https://instagram.com/tubio.link"
-          ]
-        }`}
+        <script type="application/ld+json">{`
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "${process.env.NEXT_PUBLIC_APP_NAME}",
+            "url": "${process.env.NEXT_PUBLIC_APP_URL}",
+            "logo": "${process.env.NEXT_PUBLIC_APP_URL}/social.png",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "300-829-1060",
+              "contactType": "customer service",
+              "areaServed": "CO",
+              "availableLanguage": ["es"]
+            },
+            "sameAs": ["https://instagram.com/tubio.link"]
+          }
+        `}
         </script>
       </Head>
       <Component {...pageProps} />
