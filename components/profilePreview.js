@@ -39,6 +39,20 @@ function ProfilePreview({ data }) {
           </p>
         </div>
       </header>
+      <section className="preview-profile-links pt-3 pb-3">
+        <ul className="links-list list-unstyled">
+          {data?.links?.length > 0 ? data.links.map((link, index) => (
+            <li key={`l${index}`} className="links-list-link">
+              <a href={link.link} rel="noopener" target="_blank">
+                <i className={`icon icon-${link.icon}`}></i>
+                <span>{link.title}</span>
+              </a>
+            </li>
+          )) : (
+            <li><small>No hay enlaces para mostrar.</small></li>
+          )}
+        </ul>
+      </section>
     </div>
   )
 }

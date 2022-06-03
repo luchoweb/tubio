@@ -15,6 +15,11 @@ function FormBiz() {
   
   const [error, setError] = useState(null);
 
+  const [currentLinkIcon, setCurrentLinkIcon] = useState(null);
+  const [currentLinkTitle, setCurrentLinkTitle] = useState(null);
+  const [currentLink, setCurrentLink] = useState(null);
+  const [currentLinkError, setCurrentLinkError] = useState(false);
+
   const [links, setLinks] = useState([]);
 
   const onSubmit = async ( data ) => {
@@ -38,10 +43,26 @@ function FormBiz() {
     }
   }
 
-  const handleAddLink = (event) => {
-    event.preventDefault();
-    console.log('add link');
+  const handleAddLink = (e) => {
+    e.preventDefault();
+
+    if ( currentLinkIcon && currentLinkTitle && currentLink && currentLink.indexOf('http') > -1 ) {
+      setCurrentLinkError(false);
+
+      setLinks([
+        ...links,
+        {
+          icon: currentLinkIcon,
+          title: currentLinkTitle,
+          link: currentLink
+        }
+      ]);
+    } else {
+      setCurrentLinkError(true);
+    }
   }
+
+  console.log('links', links);
 
   return (
     <form className="form-horizontal preview-form mt-4" onSubmit={handleSubmit(onSubmit)}>
@@ -171,11 +192,10 @@ function FormBiz() {
           <div className='form-group mt-5 mb-5'>
             <input
               type="hidden"
-              className={`mt-1 form-control${errors?.country ? ' is-invalid' : ''}`}
               {...register("links", {
                 required: true,
               })}
-              value={links}
+              value={JSON.stringify(links)}
             />
 
             <h4 className='mb-3'>Enlaces</h4>
@@ -184,7 +204,7 @@ function FormBiz() {
               <ul className='preview-form-links list-unstyled'>
                 { links.map((link, index) => (
                   <li key={`l${index}`}>
-                    <i className={link.icon}></i>
+                    <i className={`icon icon-${link.icon}`}></i>
                     <p className='m-0'>{link.title}</p>
                   </li>
                 ))}
@@ -195,21 +215,25 @@ function FormBiz() {
               <div className='col-12'>
                 <ul className='list-unstyled d-flex flex-wrap gap-3'>
                 {arrayIcons.map((icon, index) => (
-                  <li key={`l${index}`} className="preview-form-link-icon">
+                  <li key={`l${index}`} className="preview-form-link-icon" onClick={() => setCurrentLinkIcon(icon)}>
                     <i className={`icon icon-${icon}`}></i>
                   </li>
                 ))}
                 </ul>
               </div>
               <div className='col-6'>
-                Title
+                <label htmlFor="link_title">Titulo del enlace</label>
+                <input className={`mt-1 form-control${currentLinkError ? ' is-invalid' : ''}`} id="link_title" placeholder='Sígueme en Instagram' onBlur={(event) => setCurrentLinkTitle(event.target.value)} />
+                {currentLinkError && <span className="form-error">Debe ingresar un titulo</span>}
               </div>
               <div className='col-6'>
-                Link
+                <label htmlFor="link">Titulo del enlace</label>
+                <input className={`mt-1 form-control${currentLinkError ? ' is-invalid' : ''}`} id="link" placeholder='https://.....' onBlur={(event) => setCurrentLink(event.target.value)} />
+                {currentLinkError && <span className="form-error">Debe ingresar un enlace</span>}
               </div>
             </div>
 
-            <a href="#" className='btn btn-dark' onClick={(event) => handleAddLink(event)}>
+            <a href="#" className='btn btn-dark' onClick={(e) => handleAddLink(e)}>
               <span>Agregar enlace</span>
               <i className='icon icon-link ms-2'></i>
             </a>
@@ -227,7 +251,8 @@ function FormBiz() {
                   avatar: watch('avatar'),
                   address: watch('address'),
                   city: watch('city'),
-                  country: watch('country')
+                  country: watch('country'),
+                  links
                 }}
               />
             </div>
