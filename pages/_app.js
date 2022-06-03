@@ -54,10 +54,11 @@ export default function MyApp({ Component, pageProps }) {
             <meta property="og:type" content="website" />
             <meta property="og:image" content={`${process.env.NEXT_PUBLIC_APP_URL}/social.png`} />
           </>
-          )
-        }
+          )}
 
-        <script type="application/ld+json">{`"@context": "https://schema.org",
+        <script type="application/ld+json">
+        {`{
+          "@context": "https://schema.org",
           "@type": "Organization",
           "name": "${process.env.NEXT_PUBLIC_APP_NAME}",
           "url": "${process.env.NEXT_PUBLIC_APP_URL}",
@@ -71,7 +72,8 @@ export default function MyApp({ Component, pageProps }) {
           },
           "sameAs": [
             "https://instagram.com/tubio.link"
-          ]`}
+          ]
+        }`}
         </script>
       </Head>
       <Component {...pageProps} />
