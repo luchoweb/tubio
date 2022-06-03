@@ -37,8 +37,7 @@ export default function MyApp({ Component, pageProps }) {
         <meta property="og:image:height" content="500" />
         <meta property="fb:app_id" content="352618018108394" />
         <script type="application/ld+json">
-        {`
-          "@context": "https://schema.org",
+        {`"@context": "https://schema.org",
           "@type": "Organization",
           "name": "${process.env.NEXT_PUBLIC_APP_NAME}",
           "url": "${process.env.NEXT_PUBLIC_APP_URL}",
@@ -50,10 +49,9 @@ export default function MyApp({ Component, pageProps }) {
             "areaServed": "CO",
             "availableLanguage": ["es"]
           },
-          "sameAs": [,
+          "sameAs": [
             "https://instagram.com/tubio.link"
-          ]
-        `}
+          ]`}
         </script>
 
         {pageProps?.info?.biz ? (
