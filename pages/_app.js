@@ -36,23 +36,6 @@ export default function MyApp({ Component, pageProps }) {
         <meta property="og:image:width" content="500" />
         <meta property="og:image:height" content="500" />
         <meta property="fb:app_id" content="352618018108394" />
-        <script type="application/ld+json">
-        {`"@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "${process.env.NEXT_PUBLIC_APP_NAME}",
-          "url": "${process.env.NEXT_PUBLIC_APP_URL}",
-          "logo": "${process.env.NEXT_PUBLIC_APP_URL}/social.png",
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "300-829-1060",
-            "contactType": "customer service",
-            "areaServed": "CO",
-            "availableLanguage": ["es"]
-          },
-          "sameAs": [
-            "https://instagram.com/tubio.link"
-          ]`}
-        </script>
 
         {pageProps?.info?.biz ? (
           <>
@@ -71,7 +54,25 @@ export default function MyApp({ Component, pageProps }) {
             <meta property="og:type" content="website" />
             <meta property="og:image" content={`${process.env.NEXT_PUBLIC_APP_URL}/social.png`} />
           </>
-          )}
+          )
+        }
+
+        <script type="application/ld+json">{`"@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "${process.env.NEXT_PUBLIC_APP_NAME}",
+          "url": "${process.env.NEXT_PUBLIC_APP_URL}",
+          "logo": "${process.env.NEXT_PUBLIC_APP_URL}/social.png",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "300-829-1060",
+            "contactType": "customer service",
+            "areaServed": "CO",
+            "availableLanguage": ["es"]
+          },
+          "sameAs": [
+            "https://instagram.com/tubio.link"
+          ]`}
+        </script>
       </Head>
       <Component {...pageProps} />
     </AuthUserProvider>
