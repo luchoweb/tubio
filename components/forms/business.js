@@ -18,7 +18,9 @@ function FormBiz() {
   const [currentLinkIcon, setCurrentLinkIcon] = useState(null);
   const [currentLinkTitle, setCurrentLinkTitle] = useState(null);
   const [currentLink, setCurrentLink] = useState(null);
-  const [currentLinkError, setCurrentLinkError] = useState(false);
+  const [currentLinkIconError, setCurrentLinkIconError] = useState(null);
+  const [currentLinkTitleError, setCurrentLinkTitleError] = useState(null);
+  const [currentLinkError, setCurrentLinkError] = useState(null);
 
   const [links, setLinks] = useState([]);
 
@@ -46,20 +48,45 @@ function FormBiz() {
   const handleAddLink = (e) => {
     e.preventDefault();
 
-    if ( currentLinkIcon && currentLinkTitle && currentLink && currentLink.indexOf('http') > -1 ) {
-      setCurrentLinkError(false);
+    setCurrentLinkIconError(currentLinkIcon);
+    setCurrentLinkTitleError(currentLinkTitle);
+    setCurrentLinkError(currentLink);
 
-      setLinks([
-        ...links,
-        {
-          icon: currentLinkIcon,
-          title: currentLinkTitle,
-          link: currentLink
-        }
-      ]);
-    } else {
-      setCurrentLinkError(true);
+    if ( currentLinkIcon && currentLinkTitle && currentLink && currentLink?.indexOf('http://') > -1 || currentLink?.indexOf('https://') > -1 || currentLink?.indexOf('mailto:') > -1 || currentLink?.indexOf('tel:') > -1 ) {
+      const validateLinks = links.filter(link => link.link === currentLink);
+
+      if ( validateLinks.length ) {
+        setCurrentLinkError({message: 'Ya tiene un enlace con este destino.'});
+      } else {
+        setLinks([
+          ...links,
+          {
+            icon: currentLinkIcon,
+            title: currentLinkTitle,
+            link: currentLink
+          }
+        ]);
+  
+        setCurrentLinkIcon(null);
+        setCurrentLinkTitle(null);
+        setCurrentLink(null);
+
+        const inputs = document.querySelectorAll('.link-value');
+        inputs.forEach(input => input.value = "");
+      }
     }
+  }
+
+  const handleRemoveLink = (e, linkHref) => {
+    e.preventDefault();
+    
+    links.map((link, index) => {
+      if ( link.link === linkHref ) {
+        links.splice(index, 1);
+      }
+    });
+    
+    setLinks([...links]);
   }
 
   console.log('links', links);
@@ -206,6 +233,9 @@ function FormBiz() {
                   <li key={`l${index}`}>
                     <i className={`icon icon-${link.icon}`}></i>
                     <p className='m-0'>{link.title}</p>
+                    <a href="#" onClick={(e) => handleRemoveLink(e, link.link)}>
+                      <i className='icon icon-remove'></i>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -223,13 +253,15 @@ function FormBiz() {
               </div>
               <div className='col-6'>
                 <label htmlFor="link_title">Titulo del enlace</label>
-                <input className={`mt-1 form-control${currentLinkError ? ' is-invalid' : ''}`} id="link_title" placeholder='Sígueme en Instagram' onBlur={(event) => setCurrentLinkTitle(event.target.value)} />
-                {currentLinkError && <span className="form-error">Debe ingresar un titulo</span>}
+                <input className={`link-value mt-1 form-control${!currentLinkTitleError ? ' is-invalid' : ''}`} id="link_title" placeholder='Sígueme en Instagram' onBlur={(event) => setCurrentLinkTitle(event.target.value)} />
+                {!currentLinkTitleError && <span className="form-error">Debe ingresar un titulo</span>}
               </div>
               <div className='col-6'>
                 <label htmlFor="link">Titulo del enlace</label>
-                <input className={`mt-1 form-control${currentLinkError ? ' is-invalid' : ''}`} id="link" placeholder='https://.....' onBlur={(event) => setCurrentLink(event.target.value)} />
-                {currentLinkError && <span className="form-error">Debe ingresar un enlace</span>}
+                <input className={`link-value mt-1 form-control${!currentLinkError || currentLinkError?.message ? ' is-invalid' : ''}`} id="link" placeholder='http, https, mailto, tel' onBlur={(event) => setCurrentLink(event.target.value)} />
+                {!currentLinkError || currentLinkError?.message && <span className="form-error">
+                  { currentLinkError?.message ? currentLinkError.message : 'Debe ingresar un enlace'}
+                </span>}
               </div>
             </div>
 
