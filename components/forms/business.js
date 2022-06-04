@@ -259,8 +259,9 @@ function FormBiz() {
               <div className='col-6'>
                 <label htmlFor="link">Titulo del enlace</label>
                 <input className={`link-value mt-1 form-control${!currentLinkError || currentLinkError?.message ? ' is-invalid' : ''}`} id="link" placeholder='http, https, mailto, tel' onBlur={(event) => setCurrentLink(event.target.value)} />
-                {!currentLinkError || currentLinkError?.message && <span className="form-error">
-                  { currentLinkError?.message ? currentLinkError.message : 'Debe ingresar un enlace'}
+                {!currentLinkError && <span className="form-error">Debe ingresar un enlace</span>}
+                {currentLinkError?.message && <span className="form-error">
+                  { currentLinkError?.message }
                 </span>}
               </div>
             </div>
