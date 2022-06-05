@@ -103,8 +103,6 @@ function FormBiz() {
     }
   }
 
-  console.log('links', links);
-
   return (
     <form className="form-biz form-horizontal preview-form mt-4" onSubmit={handleSubmit(onSubmit)}>
       <div className='row min-vh-100 mb-4'>
@@ -118,7 +116,7 @@ function FormBiz() {
                 required: true && 'Se requiere su logo o foto',
                 maxLength: 100,
                 validate: {
-                  lessThan10MB: (files) => files[0]?.size < 10000000 || "Max 10MB",
+                  lessThan10MB: (files) => files[0]?.size < 5000000 || "Max 5 MB",
                   acceptedFormats: (files) =>
                     ["image/jpeg", "image/png", "image/webp", "image/jpg"].includes(files[0]?.type) ||
                     "Solo imagenes PNG, JPG, WEBP o JPEG",
@@ -260,11 +258,11 @@ function FormBiz() {
                       </th>
                       <td>
                         <p className='m-0'>{link.title}</p>
-                        </td>
+                      </td>
                       <td>
                         <p className='m-0'>{link.link}</p>
-                        </td>
-                      <td>
+                      </td>
+                      <td className='text-end pe-3'>
                         <a href="#" onClick={(e) => handleRemoveLink(e, link.link)}>
                           <i className='icon icon-trash text-danger'></i>
                         </a>
@@ -275,7 +273,7 @@ function FormBiz() {
                 </table>
               </div>
             ) : (
-              <div className='alert alert-info'>
+              <div className='alert alert-info pt-2 pb-2'>
                 <p className='m-0'>
                   <small>
                     No hay enlaces agregados, por favor agregue su primer enlace.
