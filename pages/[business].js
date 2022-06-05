@@ -10,26 +10,25 @@ import LinkBtn from '../components/link';
 import { getBiz } from '../lib/api';
 
 
-const Business = ({ info }) => {
-
+const Business = ({ biz }) => {
   const [loading, setLoading] = useState(true);
   const [pageTitle, setPageTitle] = useState('Cargando...');
   const [username, setUsername] = useState('Cargando...');
 
   useEffect(() => {
-    if ( info ) {
+    if ( biz ) {
       setLoading(false);
 
-      if ( !info.message ) {
-        setPageTitle(info.biz.name);
-        setUsername(info.biz.username);
+      if ( !biz.message ) {
+        setPageTitle(biz.name);
+        setUsername(biz.username);
 
-        info.links.sort((a, b) => a.order - b.order);
+        biz.links.sort((a, b) => a.order - b.order);
       } else {
         setPageTitle('Error 404');
       }
     }
-  }, [info]);
+  }, [biz]);
 
   const handleShare = async (e) => {
     e.preventDefault();
@@ -53,15 +52,15 @@ const Business = ({ info }) => {
       <div className='container pt-5 text-center'>
         <h4 className='fw-normal m-0'>Cargando...</h4>
       </div>
-    ) : !info.message ? (
+    ) : !biz.message ? (
       <>
         <BusinessLayout>
           <a
             className="d-lg-none btn-share btn btn-sm btn-outline-dark"
-            style={{borderColor: info.biz.text_color}}
+            style={{borderColor: biz.text_color}}
             onClick={(e) => handleShare(e)}
           >
-            <small style={{color: info.biz.text_color}}>
+            <small style={{color: biz.text_color}}>
               <i className='icon icon-share-square'></i>
               <span className='d-none d-md-inline ms-2'>
                 Compartir
@@ -72,9 +71,9 @@ const Business = ({ info }) => {
           <a
             href="/admin"
             className="btn-sign-in btn btn-sm btn-outline-dark"
-            style={{borderColor: info.biz.text_color}}
+            style={{borderColor: biz.text_color}}
           >
-            <small style={{color: info.biz.text_color}}>
+            <small style={{color: biz.text_color}}>
               <i className='icon icon-user'></i>
               <span className='d-none d-md-inline ms-2'>
                 Ingresar
@@ -83,46 +82,46 @@ const Business = ({ info }) => {
           </a>
 
           <header className='w-100 biz-info pt-5 pb-4 mb-4 text-center' style={{
-            backgroundColor: info.biz.background
+            backgroundColor: biz.background
           }}>
             <figure className='biz-info-avatar mb-4'
               style={{
-                backgroundColor: info.biz.text_color,
-                border: `3px solid ${info.biz.text_color}`
+                backgroundColor: biz.text_color,
+                border: `3px solid ${biz.text_color}`
               }}
             >
-              <img src={`/uploads/${username}/avatar.webp`} alt={info.biz.name} />
+              <img src={`/uploads/${username}/avatar.webp`} alt={biz.name} />
             </figure>
-            <h1 className='biz-info-name' style={{color: info.biz.text_color}}>
-              {info.biz.name}
-              { info.biz.verified > 0 && (
+            <h1 className='biz-info-name' style={{color: biz.text_color}}>
+              {biz.name}
+              { biz.verified > 0 && (
                 <span className='biz-verified ms-2'>
                   <i className="icon icon-verified" title='Perfil Oficial'></i>
                 </span>
               )}
             </h1>
 
-            { info.biz.address ? (
-              <p className='m-0 biz-info-address' style={{color: info.biz.text_color}}>
-                {info.biz.address}
+            { biz.address ? (
+              <p className='m-0 biz-info-address' style={{color: biz.text_color}}>
+                {biz.address}
               </p>
             ) : ''}
 
-            { info.biz.city || info.biz.country ? (
-              <p className='m-0 biz-info-city' style={{color: info.biz.text_color}}>
-                {info.biz.city ? (
-                  <span>{info.biz.city}</span>
+            { biz.city || biz.country ? (
+              <p className='m-0 biz-info-city' style={{color: biz.text_color}}>
+                {biz.city ? (
+                  <span>{biz.city}</span>
                 ) : ''}
 
-                {info.biz.country ? (
-                  <span>{info.biz.city ? `,` : ''} {info.biz.country}</span>
+                {biz.country ? (
+                  <span>{biz.city ? `,` : ''} {biz.country}</span>
                 ) : ''}
               </p>
             ) : ''}
           </header>
           <nav className='biz-links mb-5'>
             <ul className='biz-links-list'>
-              { info.links.length ? info.links.map((link, index) => (
+              { biz.links.length ? biz.links.map((link, index) => (
                 <LinkBtn data={link} key={`Link-${index}`} />
               )) : (
                 <p className='biz-copy text-center'>No hay links para mostrar.</p>
@@ -155,7 +154,7 @@ export async function getServerSideProps({ query }) {
 
   return {
     props: {
-      info: data,
+      biz: data,
     }
   }
 }
