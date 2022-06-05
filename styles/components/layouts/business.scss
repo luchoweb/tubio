@@ -52,9 +52,10 @@
     }
 
     &-link {
+      align-items: center;
+      display: flex;
       border: 2px solid;
       border-radius: .3rem;
-      display: block;
       line-height: 0;
       font-size: 1.1rem;
       padding: .9rem;
@@ -64,6 +65,10 @@
 
       i, span {
         vertical-align: middle;
+      }
+
+      span {
+        line-height: 1.2em;
       }
 
       i.icon {
