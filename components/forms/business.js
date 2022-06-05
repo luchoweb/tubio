@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { io } from 'socket.io-client';
@@ -6,11 +7,12 @@ import { io } from 'socket.io-client';
 import ProfilePreview from '../profilePreview';
 import appScreen from "../../images/phone-screen-samsung.png";
 
-import { getBiz } from '../../lib/api';
+import { getBiz, saveBiz } from '../../lib/api';
 import { arrayIcons } from "../../helpers";
 
 function FormBiz() {
-  const { register, setError, setValue, clearErrors, handleSubmit, watch, formState: { errors } } = useForm();
+  const router = useRouter();
+  const { register, setError, clearErrors, handleSubmit, watch, formState: { errors } } = useForm();
   
   const [err, setErr] = useState(null);
 
@@ -36,7 +38,7 @@ function FormBiz() {
       // Clear errors form
       clearErrors('username');
 
-      // Avatar
+      // Save the avatar
       const body = new FormData();
       body.append("file", data.avatar[0]);
       body.append("username", data.username);
@@ -53,8 +55,24 @@ function FormBiz() {
         setErr("Ha ocurrido un error creando su perfil, por favor haga clic nuevamente en Crear perfil.");
       }
 
+      data.links = links;
+
+      const userData = JSON.parse(localStorage.getItem('userData'));
+      data.user_uid = userData.uid;
+
+      data.verified = 0;
+      data.is_free = 1;
+
       // Prints output
-      console.log(data);
+      const save = await saveBiz(data);
+
+      if ( save?.code === 200 ) {
+        // Everything okay? Go to dashboard!
+        router.push('/admin/dashboard');
+      } else {
+        // Show error!
+        setErr(save.message);
+      }
     }
   }
 
@@ -203,7 +221,7 @@ function FormBiz() {
               id="country"
               className={`mt-1 form-control${errors?.country ? ' is-invalid' : ''}`}
               {...register("country", {
-                required: false,
+                required: true,
                 maxLength: 100,
                 pattern: /^[A-Za-z]+$/i
               })}
@@ -315,7 +333,7 @@ function FormBiz() {
               </div>
 
               <div className='col-6 mb-4'>
-                <label htmlFor="link">Titulo del enlace</label>
+                <label htmlFor="link">Destino del enlace</label>
                 <input className={`link-value mt-1 form-control${!currentLinkError || currentLinkError?.message ? ' is-invalid' : ''}`} id="link" placeholder='http, https, mailto, tel' onBlur={(event) => setCurrentLink(event.target.value)} />
                 {!currentLinkError && <span className="form-error">Debe ingresar un enlace</span>}
                 {currentLinkError?.message && <span className="form-error">

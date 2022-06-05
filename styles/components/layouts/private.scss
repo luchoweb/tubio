@@ -128,7 +128,7 @@
     }
 
     &-links {
-      padding: 0 1rem;
+      padding: 0 .5rem;
 
       .links-list {
         &-link {
@@ -141,14 +141,14 @@
           a {
             align-items: center;
             display: flex;
-            font-size: .9rem;
-            line-height: 0;
+            font-size: .8rem;
 
             span {
               line-height: 1.2em;
             }
 
             .icon {
+              font-size: 1rem;
               margin-right: 1rem;
             }
           }
