@@ -6,12 +6,13 @@ import { io } from 'socket.io-client';
 import ProfilePreview from '../profilePreview';
 import appScreen from "../../images/phone-screen-samsung.png";
 
+import { getBiz } from '../../lib/api';
 import { arrayIcons } from "../../helpers";
 
 function FormBiz() {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, setError, clearErrors, handleSubmit, watch, formState: { errors } } = useForm();
   
-  const [error, setError] = useState(null);
+  const [err, setErr] = useState(null);
 
   const [currentLinkIcon, setCurrentLinkIcon] = useState('link');
   const [currentLinkTitle, setCurrentLinkTitle] = useState(null);
@@ -24,24 +25,31 @@ function FormBiz() {
   const [links, setLinks] = useState([]);
 
   const onSubmit = async ( data ) => {
-    setError(null);
+    setErr(null);
 
-    console.log(data);
-
-    const body = new FormData();
-    body.append("file", data.avatar[0]);
-    body.append("username", data.username);
-    const response = await fetch(`/api/upload`, {
-      method: "POST",
-      body
-    });
-
-    if ( response.status === 200 ) {
-      const socket = io(process.env.NEXT_PUBLIC_API_URL, { transports : ['websocket'] });
-      // Restart tubio next app
-      socket.emit('upload');
+    const biz = await getBiz(data.username);
+  
+    if ( !biz.message ) {
+      setError('username');
+      setErr("El nombre de usuario ya se encuentra registrado o está restringido, por favor intente con uno diferente.");
     } else {
-      setError("Ha ocurrido un error creando su perfil, por favor haga clic nuevamente en Crear perfil.");
+      const body = new FormData();
+      body.append("file", data.avatar[0]);
+      body.append("username", data.username);
+      const response = await fetch(`/api/upload`, {
+        method: "POST",
+        body
+      });
+  
+      if ( response.status === 200 ) {
+        const socket = io(process.env.NEXT_PUBLIC_API_URL, { transports : ['websocket'] });
+        // Restart tubio next app
+        socket.emit('upload');
+      } else {
+        setErr("Ha ocurrido un error creando su perfil, por favor haga clic nuevamente en Crear perfil.");
+      }
+
+      console.log(data);
     }
   }
 
@@ -141,7 +149,7 @@ function FormBiz() {
                 maxLength: 255,
               })}
             />
-            {errors?.username && <span className="form-error">Verifique el usuario o intente con otro</span>}
+            {errors?.username && <span className="form-error">Verifique el usuario o intente con uno diferente</span>}
           </div>
     
           <div className="form-group mb-4">
@@ -353,11 +361,13 @@ function FormBiz() {
         </div>
       </div>
 
-      {error && (
-        <div className='alert alert-danger mt-5 mb-5'>
+      {err && (
+        <div className='alert alert-danger mt-5 mb-5 pt-2 pb-2'>
           <p className='m-0'>
-            <i className='icon icon-info-circle me-2'></i>
-            {error}
+            <small>
+              <i className='icon icon-info-circle me-2'></i>
+              {err}
+            </small>
           </p>
         </div>
       )}
