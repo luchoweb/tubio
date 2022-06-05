@@ -10,7 +10,7 @@ import { getBiz } from '../../lib/api';
 import { arrayIcons } from "../../helpers";
 
 function FormBiz() {
-  const { register, setError, clearErrors, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, setError, setValue, clearErrors, handleSubmit, watch, formState: { errors } } = useForm();
   
   const [err, setErr] = useState(null);
 
@@ -33,6 +33,10 @@ function FormBiz() {
       setError('username');
       setErr("El nombre de usuario ya se encuentra registrado o está restringido, por favor intente con uno diferente.");
     } else {
+      // Clear errors form
+      clearErrors('username');
+
+      // Avatar
       const body = new FormData();
       body.append("file", data.avatar[0]);
       body.append("username", data.username);
@@ -49,6 +53,7 @@ function FormBiz() {
         setErr("Ha ocurrido un error creando su perfil, por favor haga clic nuevamente en Crear perfil.");
       }
 
+      // Prints output
       console.log(data);
     }
   }
@@ -146,7 +151,8 @@ function FormBiz() {
               className={`mt-1 form-control${errors?.username ? ' is-invalid' : ''}`}
               {...register("username", {
                 required: true,
-                maxLength: 255,
+                maxLength: 20,
+                pattern: /^[A-Za-z0-9]+$/i
               })}
             />
             {errors?.username && <span className="form-error">Verifique el usuario o intente con uno diferente</span>}
@@ -160,6 +166,7 @@ function FormBiz() {
               {...register("name", {
                 required: true,
                 maxLength: 150,
+                pattern: /^[A-Za-z0-9 .-ñÑ]+$/i
               })}
             />
             {errors?.name && <span className="form-error">Verifique el nombre</span>}
@@ -185,6 +192,7 @@ function FormBiz() {
               {...register("city", {
                 required: false,
                 maxLength: 100,
+                pattern: /^[A-Za-z]+$/i
               })}
             />
           </div>
@@ -197,6 +205,7 @@ function FormBiz() {
               {...register("country", {
                 required: false,
                 maxLength: 100,
+                pattern: /^[A-Za-z]+$/i
               })}
             />
             {errors?.country && <span className="form-error">Verifique el país</span>}
@@ -237,14 +246,6 @@ function FormBiz() {
           </div>
 
           <div className='form-group preview-form-links mt-5 mb-5'>
-            <input
-              type="hidden"
-              {...register("links", {
-                required: true,
-              })}
-              value={JSON.stringify(links)}
-            />
-
             <h4 className='mb-3'>Enlaces agregados</h4>
 
             {links.length ? (
