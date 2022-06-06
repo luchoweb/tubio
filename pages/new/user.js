@@ -82,9 +82,9 @@ function NewBizPage() {
             { loginLoad ? (
               <div className="mt-5">
                 {!loginEmail && (
-                  <span className="btn btn-outline-dark" onClick={() => setLoginEmail(!loginEmail)}>
+                  <span className="btn btn-lg btn-outline-dark btn-login" onClick={() => setLoginEmail(!loginEmail)}>
                     <i className="icon icon-envelope me-2"></i>
-                    <span>Registro con e-mail y contraseña</span>
+                    <span>Registro con e-mail</span>
                   </span>
                 )}
 
@@ -156,19 +156,17 @@ function NewBizPage() {
                 )}
 
                 <div className="mt-4">
-                  <span className="btn btn-primary" onClick={() => signInWithRedirect()}>
+                  <span className="btn btn-lg btn-primary btn-login" onClick={() => signInWithRedirect()}>
                     <i className="icon icon-facebook me-2"></i>
                     <span>Registro con Facebook</span>
                   </span>
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-5">
                   <Link href="/admin">
-                    <a>
-                      <small className="text-muted">
-                        <i className="ficon icon-sign-in me-2"></i>
-                        <span>Iniciar sesión</span>
-                      </small>
+                    <a className="text-muted">
+                      <i className="ficon icon-sign-in me-2"></i>
+                      <span>Iniciar sesión</span>
                     </a>
                   </Link>
                 </div>
