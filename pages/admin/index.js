@@ -86,7 +86,7 @@ function LoginPage() {
             { loginLoad ? (
               <div className="mt-5">
                 {!loginEmail && (
-                  <span className="btn btn-dark" onClick={() => setLoginEmail(!loginEmail)}>
+                  <span className="btn btn-lg btn-dark" onClick={() => setLoginEmail(!loginEmail)}>
                     <i className="icon icon-envelope me-2"></i>
                     <span>Ingresar con e-mail y contraseña</span>
                   </span>
@@ -158,19 +158,17 @@ function LoginPage() {
                 )}
 
                 <div className="mt-4">
-                  <span className="btn btn-primary" onClick={() => signInWithRedirect()}>
+                  <span className="btn btn-lg btn-primary" onClick={() => signInWithRedirect()}>
                     <i className="icon icon-facebook me-2"></i>
                     <span>Ingresar con Facebook</span>
                   </span>
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-5">
                   <Link href="/new/user">
-                    <a>
-                      <small className="text-muted">
-                        <i className="icon icon-user-plus me-2"></i>
-                        <span>Registrarme</span>
-                      </small>
+                    <a className="text-muted">
+                      <i className="icon icon-user-plus me-2"></i>
+                      <span>Registrarme</span>
                     </a>
                   </Link>
                 </div>
