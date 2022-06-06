@@ -18,6 +18,7 @@ function NewBizPage() {
 
   const [error, setError] = useState(null);
   const [loginLoad, setLoginLoad] = useState(false);
+  const [loginEmail, setLoginEmail] = useState(false);
 
   const { createUserWithEmailAndPassword, signInWithRedirect } = useAuth();
 
@@ -79,86 +80,97 @@ function NewBizPage() {
             </Link>
 
             { loginLoad ? (
-              <div className="row justify-content-center">
-                <div className="col-10 col-md-9 col-lg-6 col-xl-5">
-                  <form className="form-horizontal mt-5" onSubmit={handleSubmit(onSubmit)}>
-                    <h4 className="text-center">{pageTitle}</h4>
-                    <p className="text-center mb-5">Ingrese su correo electrónico y una contraseña para empezar.</p>
+              <div className="mt-5">
+                {!loginEmail && (
+                  <span className="btn btn-outline-dark" onClick={() => setLoginEmail(!loginEmail)}>
+                    <i className="icon icon-envelope me-2"></i>
+                    <span>Registro con e-mail y contraseña</span>
+                  </span>
+                )}
 
-                    { error && (
-                      <div className="alert alert-danger mb-5">
-                        <p className="m-0">
-                          <span className="ms-2">{error.message}.</span>
-                        </p>
-                      </div>
-                    )}
-
-                    <div className="form-group mb-4 text-start">
-                      <label htmlFor="email">Correo electrónico</label>
-                      <input
-                        id="email"
-                        className={`form-control${errors?.email ? ' is-invalid' : ''}`}
-                        {...register("email", {
-                          required: true,
-                          maxLength: 100,
-                          pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
-                        })}
-                      />
-                      {errors?.email && <span className="form-error">Verifique su e-mail</span>}
+                {loginEmail && (
+                  <div className="row justify-content-center mb-5">
+                    <div className="col-10 col-md-9 col-lg-6 col-xl-5">
+                      <form className="form-horizontal" onSubmit={handleSubmit(onSubmit)}>
+                        <h4 className="text-center">{pageTitle}</h4>
+                        <p className="text-center mb-4">Ingrese un correo electrónico y una contraseña.</p>
+    
+                        { error && (
+                          <div className="alert alert-danger mb-5">
+                            <p className="m-0">
+                              <span className="ms-2">{error.message}.</span>
+                            </p>
+                          </div>
+                        )}
+    
+                        <div className="form-group mb-4 text-start">
+                          <label htmlFor="email">Correo electrónico</label>
+                          <input
+                            id="email"
+                            className={`form-control${errors?.email ? ' is-invalid' : ''}`}
+                            {...register("email", {
+                              required: true,
+                              maxLength: 100,
+                              pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+                            })}
+                          />
+                          {errors?.email && <span className="form-error">Verifique su e-mail</span>}
+                        </div>
+    
+                        <div className="form-group mb-4 text-start">
+                          <label htmlFor="password">Contraseña</label>
+                          <input
+                            id="password"
+                            type="password"
+                            className={`form-control${errors?.password ? ' is-invalid' : ''}`}
+                            {...register("password", {
+                              required: true,
+                              minLength: 6,
+                              maxLength: 10
+                            })}
+                          />
+                          {errors?.password && <span className="form-error">Su contraseña debe ser mínimo de 6 y máximo de 10 carácteres.</span>}
+                        </div>
+    
+                        <div className="form-group text-start">
+                          <label htmlFor="password-repeat">Repetir contraseña</label>
+                          <input
+                            id="password-repeat"
+                            type="password"
+                            className={`form-control${errors?.password_repeat ? ' is-invalid' : ''}`}
+                            {...register("password_repeat", {
+                              validate: value => 
+                                value === password.value || "Su contraseña debe conincidir"
+                            })}
+                          />
+                          {errors?.password_repeat && <span className="form-error">{errors?.password_repeat?.message}</span>}
+                        </div>
+    
+                        <button role="submit" className="btn btn-dark mt-5">
+                          <span>Crear usuario</span>
+                          <i className="icon icon-user-plus ms-2"></i>
+                        </button>
+                      </form>
                     </div>
+                  </div>
+                )}
 
-                    <div className="form-group mb-4 text-start">
-                      <label htmlFor="password">Contraseña</label>
-                      <input
-                        id="password"
-                        type="password"
-                        className={`form-control${errors?.password ? ' is-invalid' : ''}`}
-                        {...register("password", {
-                          required: true,
-                          minLength: 6,
-                          maxLength: 10
-                        })}
-                      />
-                      {errors?.password && <span className="form-error">Su contraseña debe ser mínimo de 6 y máximo de 10 carácteres.</span>}
-                    </div>
+                <div className="mt-4">
+                  <span className="btn btn-primary" onClick={() => signInWithRedirect()}>
+                    <i className="icon icon-facebook me-2"></i>
+                    <span>Registro con Facebook</span>
+                  </span>
+                </div>
 
-                    <div className="form-group text-start">
-                      <label htmlFor="password-repeat">Repetir contraseña</label>
-                      <input
-                        id="password-repeat"
-                        type="password"
-                        className={`form-control${errors?.password_repeat ? ' is-invalid' : ''}`}
-                        {...register("password_repeat", {
-                          validate: value => 
-                            value === password.value || "Su contraseña debe conincidir"
-                        })}
-                      />
-                      {errors?.password_repeat && <span className="form-error">{errors?.password_repeat?.message}</span>}
-                    </div>
-
-                    <button role="submit" className="btn btn-dark mt-4">
-                      <span>Crear usuario</span>
-                      <i className="icon icon-user-plus ms-2"></i>
-                    </button>
-
-                    <div className="form-group mt-5">
-                      <span className="btn btn-sm btn-primary" onClick={() => signInWithRedirect()}>
-                        <i className="icon icon-facebook me-2"></i>
-                        <span>Ingresar con Facebook</span>
-                      </span>
-                    </div>
-
-                    <div className="form-group mt-4">
-                      <Link href="/admin">
-                        <a>
-                          <small className="text-muted">
-                            <i className="ficon icon-sign-in me-2"></i>
-                            <span>Iniciar sesión</span>
-                          </small>
-                        </a>
-                      </Link>
-                    </div>
-                  </form>
+                <div className="mt-4">
+                  <Link href="/admin">
+                    <a>
+                      <small className="text-muted">
+                        <i className="ficon icon-sign-in me-2"></i>
+                        <span>Iniciar sesión</span>
+                      </small>
+                    </a>
+                  </Link>
                 </div>
               </div>
             ) : (
