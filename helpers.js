@@ -3,7 +3,8 @@ export const translateFirebaseErrors = (error) => {
     'auth/wrong-password' : 'Contraseña incorrecta',
     'auth/user-not-found' : 'El e-mail ingresado no ha sido registrado',
     'auth/too-many-requests' : 'Limite de intentos fallidos. La cuenta ha sido bloqueada temporalmente, por favor intente en unos minutos',
-    'auth/email-already-in-use' : 'El e-mail ingresado ya ha sido registrado'
+    'auth/email-already-in-use' : 'El e-mail ingresado ya ha sido registrado',
+    'auth/account-exists-with-different-credential' : 'Ya existe una cuenta con el e-mail asociado'
   }
   console.log(error);
 
