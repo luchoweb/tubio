@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
 import { useForm } from 'react-hook-form';
 
-import { useAuth } from "../../firebase/authUserContext";
+import firebase from "../../firebase/firebase";
+import { useAuth } from '../../firebase/authUserContext';
+
 import PublicFooter from "../../components/common/footer";
 
 import Logo from "../../images/logo-web.png";
@@ -16,8 +17,9 @@ function LoginPage() {
   const AppName = process.env.NEXT_PUBLIC_APP_NAME;
 
   const [error, setError] = useState(null);
+  const [loginLoad, setLoginLoad] = useState(false);
 
-  const { signInWithEmailAndPassword } = useAuth();
+  const { signInWithEmailAndPassword, signInWithRedirect } = useAuth();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => {
@@ -38,6 +40,33 @@ function LoginPage() {
       )
     });
   };
+  
+  useEffect(() => {
+    firebase.auth()
+      .getRedirectResult()
+      .then((result) => {
+        if (result.credential) {
+          const user = result.user;
+          
+          const userFormatted = {
+            uid: user.uid,
+            email: user.email
+          }
+          
+          if( user ) {
+            localStorage.setItem("userData", JSON.stringify(userFormatted));
+            router.push('/admin/dashboard');
+          }
+        }
+
+        setLoginLoad(true);
+      })
+      .catch((error) => {
+        setError(
+          translateFirebaseErrors(error)
+        )
+      });
+  }, [loginLoad]);
 
   return (
     <>
@@ -53,10 +82,11 @@ function LoginPage() {
               </a>
             </Link>
 
-            <div className="row justify-content-center">
+            <div className={`row justify-content-center${!loginLoad ? ' d-none' : ''}`}>
               <div className="col-10 col-md-9 col-lg-6 col-xl-5">
                 <form className="form-horizontal mt-5" onSubmit={handleSubmit(onSubmit)}>
                   <h4>Iniciar sersión</h4>
+
                   <p className="mb-5">Ingrese su correo electrónico y contraseña para acceder.</p>
 
                   { error && (
@@ -81,7 +111,7 @@ function LoginPage() {
                     {errors?.email && <span className="form-error">Verifique su e-mail</span>}
                   </div>
 
-                  <div className="form-group mb-5 text-start">
+                  <div className="form-group mb-4 text-start">
                     <label htmlFor="password">Contraseña</label>
                     <input
                       id="password"
@@ -100,6 +130,13 @@ function LoginPage() {
                     <span>Ingresar</span>
                     <i className="icon icon-sign-in ms-2"></i>
                   </button>
+
+                  <div className="form-group mt-5">
+                    <a href="#" className="btn btn-primary" onClick={() => signInWithRedirect()}>
+                      <i className="icon icon-facebook me-2"></i>
+                      <span>Ingresar con Facebook</span>
+                    </a>
+                  </div>
 
                   <div className="form-group mt-5">
                     <Link href="/admin/reset-password">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Router from "next/router";
@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 
 import { translateFirebaseErrors } from "../../helpers";
 import { useAuth } from "../../firebase/authUserContext";
+import firebase from "../../firebase/firebase";
 
 import PublicFooter from "../../components/common/footer";
 import Logo from "../../images/logo-web.png";
@@ -16,8 +17,9 @@ function NewBizPage() {
   const pageTitle = 'Nuevo usuario';
 
   const [error, setError] = useState(null);
+  const [loginLoad, setLoginLoad] = useState(false);
 
-  const { createUserWithEmailAndPassword } = useAuth();
+  const { createUserWithEmailAndPassword, signInWithRedirect } = useAuth();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data) => {
@@ -34,6 +36,33 @@ function NewBizPage() {
       });
   };
 
+  useEffect(() => {
+    firebase.auth()
+      .getRedirectResult()
+      .then((result) => {
+        if (result.credential) {
+          const user = result.user;
+          
+          const userFormatted = {
+            uid: user.uid,
+            email: user.email
+          }
+          
+          if( user ) {
+            localStorage.setItem("userData", JSON.stringify(userFormatted));
+            Router.push('/admin/dashboard');
+          }
+        }
+
+        setLoginLoad(true);
+      })
+      .catch((error) => {
+        setError(
+          translateFirebaseErrors(error)
+        )
+      });
+  }, [loginLoad]);
+
   return (
     <>
       <Head>
@@ -48,7 +77,7 @@ function NewBizPage() {
               </a>
             </Link>
 
-            <div className="row justify-content-center">
+            <div className={`row justify-content-center${!loginLoad ? ' d-none' : ''}`}>
               <div className="col-10 col-md-9 col-lg-6 col-xl-5">
                 <form className="form-horizontal mt-5" onSubmit={handleSubmit(onSubmit)}>
                   <h4 className="text-center">{pageTitle}</h4>
@@ -91,7 +120,7 @@ function NewBizPage() {
                     {errors?.password && <span className="form-error">Su contraseña debe ser mínimo de 6 y máximo de 10 carácteres.</span>}
                   </div>
 
-                  <div className="form-group mb-5 text-start">
+                  <div className="form-group mb-4 text-start">
                     <label htmlFor="password-repeat">Repetir contraseña</label>
                     <input
                       id="password-repeat"
@@ -110,7 +139,14 @@ function NewBizPage() {
                     <i className="icon icon-user-plus ms-2"></i>
                   </button>
 
-                  <div className="form-group mt-4">
+                  <div className="form-group mt-5">
+                    <span className="btn btn-primary" onClick={() => signInWithRedirect()}>
+                      <i className="icon icon-facebook me-2"></i>
+                      <span>Ingresar con Facebook</span>
+                    </span>
+                  </div>
+
+                  <div className="form-group mt-5">
                     <Link href="/admin">
                       <a>
                         <small className="text-muted">

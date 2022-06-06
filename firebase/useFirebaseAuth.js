@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import firebase from './firebase';
+const provider = new firebase.auth.FacebookAuthProvider();
 
 const formatAuthUser = (user) => ({
   uid: user.uid,
@@ -37,8 +38,13 @@ export default function useFirebaseAuth() {
   const sendPasswordResetEmail = (email) => 
     firebase.auth().sendPasswordResetEmail(email);
 
-  const signOut = () => 
+  const signOut = () => {
     firebase.auth().signOut().then(clear);
+    localStorage.removeItem('userData');
+  }
+
+  const signInWithRedirect = () =>
+    firebase.auth().signInWithRedirect(provider);
 
 // listen for Firebase state change
   useEffect(() => {
@@ -52,6 +58,7 @@ export default function useFirebaseAuth() {
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
     sendPasswordResetEmail,
-    signOut
+    signOut,
+    signInWithRedirect
   };
 }
