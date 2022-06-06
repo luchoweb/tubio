@@ -146,7 +146,7 @@ function NewBizPage() {
                           {errors?.password_repeat && <span className="form-error">{errors?.password_repeat?.message}</span>}
                         </div>
     
-                        <button role="submit" className="btn btn-dark mt-5">
+                        <button role="submit" className="btn btn-dark mt-4">
                           <span>Crear usuario</span>
                           <i className="icon icon-user-plus ms-2"></i>
                         </button>

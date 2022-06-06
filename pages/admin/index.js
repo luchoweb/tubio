@@ -29,8 +29,8 @@ function LoginPage() {
     .then(formatAuthUser => {
       localStorage.setItem("userData", JSON.stringify(
         {
-          email: formatAuthUser.user.email,
-          uid: formatAuthUser.user.uid
+          uid: formatAuthUser.user.uid,
+          email: formatAuthUser.user.email
         }
       ));
       router.push('/admin/dashboard');
@@ -49,13 +49,12 @@ function LoginPage() {
         if (result.credential) {
           const user = result.user;
           
-          const userFormatted = {
-            uid: user.uid,
-            email: user.email
-          }
-          
-          if( user ) {
-            localStorage.setItem("userData", JSON.stringify(userFormatted));
+          if ( user ) {
+            localStorage.setItem("userData", JSON.stringify({
+              uid: user.uid,
+              email: user.email
+            }));
+
             router.push('/admin/dashboard');
           }
         } else {

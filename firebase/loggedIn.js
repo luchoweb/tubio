@@ -14,12 +14,7 @@ const LoggedIn = ({ children }) => {
       setIsLoading(false);
 
       if ( !localStorage.getItem('userData') ) {
-        localStorage.setItem("userData", JSON.stringify(
-          {
-            email: authUser.email,
-            uid: authUser.uid
-          }
-        ));
+        localStorage.setItem("userData", JSON.stringify(authUser));
       }
     }
   }, [authUser, loading]);

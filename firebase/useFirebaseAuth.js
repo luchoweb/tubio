@@ -23,10 +23,12 @@ export default function useFirebaseAuth() {
       return;
     }
 
-    setLoading(true)
-    let formattedUser = formatAuthUser(authState);
-    setAuthUser(formattedUser);    
+    setLoading(true);
+    setAuthUser(formatAuthUser(authState));    
     setLoading(false);
+
+    if ( !authState.emailVerified )
+      firebase.auth().currentUser.sendEmailVerification();
   };
 
   const signInWithEmailAndPassword = (email, password) => 
