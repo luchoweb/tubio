@@ -93,7 +93,7 @@ function NewBizPage() {
                     <div className="col-10 col-md-9 col-lg-6 col-xl-5">
                       <form className="form-horizontal" onSubmit={handleSubmit(onSubmit)}>
                         <h4 className="text-center">{pageTitle}</h4>
-                        <p className="text-center mb-4">Ingrese un correo electrónico y una contraseña.</p>
+                        <p className="text-center mb-4">Ingrese un correo electrónico y una contraseña para empezar.</p>
     
                         { error && (
                           <div className="alert alert-danger mb-5">
