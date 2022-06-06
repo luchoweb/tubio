@@ -112,6 +112,7 @@ function LoginPage() {
                           <label htmlFor="email">Correo electrónico</label>
                           <input
                             id="email"
+                            type="email"
                             className={`form-control${errors?.email ? ' is-invalid' : ''}`}
                             {...register("email", {
                               required: true,
