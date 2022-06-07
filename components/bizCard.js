@@ -21,6 +21,10 @@ export default function BizCard({ biz }) {
           )}
           {biz.country && biz.country}
         </p>
+
+        <div className={`flag${biz.is_free === 0 ? ' flag-bg-warning text-dark' : ' flag-bg-dark'}`}>
+          {biz.is_free === 0 ? 'Pago' : 'Gratis'}
+        </div>
       </div>
 
       <div className="card-footer pt-3">
@@ -51,10 +55,6 @@ export default function BizCard({ biz }) {
             <i className="icon icon-area-chart"></i>
           </a>
         </Link>
-
-        <div className={`flag${biz.is_free === 0 ? ' flag-bg-warning text-dark' : ' flag-bg-dark'}`}>
-          {biz.is_free === 0 ? 'Pago' : 'Gratis'}
-        </div>
       </div>
     </div>
   )

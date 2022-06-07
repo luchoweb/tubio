@@ -21,6 +21,14 @@
       .icon-user-plus {
         font-size: 4rem;
       }
+
+      &-body {
+        position: relative;
+
+        p {
+          margin-bottom: 0;
+        }
+      }
     }
   }
 }

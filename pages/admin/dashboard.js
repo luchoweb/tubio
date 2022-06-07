@@ -43,13 +43,13 @@ function DashboardPage() {
               { !error ? (
               <>
                { businesses && businesses.length ? businesses.map((biz, index) => (
-                <div className="col-9 col-md-6 col-lg-3 mb-4" key={`k-${index}`}>
+                <div className="col-12 col-md-6 col-lg-3 mb-4" key={`k-${index}`}>
                   <BizCard biz={biz} />
                 </div>
                 )) : '' }
 
               { businesses && freeProfile === 0 ? (
-                <div className="col-9 col-md-6 col-lg-3 mb-4">
+                <div className="col-12 col-md-6 col-lg-3 mb-4">
                   <AddProfileBtn info={{
                     text: 'Crear nuevo perfil',
                     href: '/admin/profile/new',
@@ -57,7 +57,7 @@ function DashboardPage() {
                   }} />
                 </div>
               ) : (
-                <div className="col-9 col-md-6 col-lg-3 mb-4">
+                <div className={`${freeProfile > 0 ? 'd-block' : 'd-none'} col-12 col-md-6 col-lg-3 mb-4`}>
                   <AddProfileBtn info={{
                     text: 'Comprar un nuevo perfil',
                     href: '/admin/profile/pay',
