@@ -1,7 +1,7 @@
 import Logo from "../images/favicon.png";
 
 function ProfilePreview({ data }) {
-    const avatarPreview = data.avatar && data.avatar.length && URL.createObjectURL(data?.avatar[0]);
+    const avatarPreview = data.avatar && typeof data.avatar === 'string' ? data.avatar : (data?.avatar?.length && URL.createObjectURL(data?.avatar[0]));
 
   return (
     <div className="preview-profile">
@@ -15,7 +15,7 @@ function ProfilePreview({ data }) {
             border: `2px solid ${data.text_color}`
           }}
         >
-          <img src={avatarPreview || Logo.src } />
+          <img src={ avatarPreview || Logo.src } />
         </figure>
        
         <h1 className='biz-info-name mb-3'>

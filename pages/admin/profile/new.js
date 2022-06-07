@@ -50,7 +50,7 @@ function NewProfile() {
             <h3 className="mb-5 text-center text-lg-start">{titlePage}</h3>
 
             { !error ? (
-              <FormBiz />
+              <FormBiz action="save" />
             ) : (
               <div className="alert alert-danger mt-5">
                 <p className="m-0">Ha ocurrido un error. <strong>Por favor refresque la página</strong>.</p>

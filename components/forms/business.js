@@ -1,20 +1,25 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
+import { useAuth } from '../../firebase/authUserContext';
 
 import ProfilePreview from '../profilePreview';
 import appScreen from "../../images/phone-screen-samsung.png";
 
-import { getBiz, saveBiz } from '../../lib/api';
+import { getBiz, saveBiz, updateBiz } from '../../lib/api';
 import { arrayIcons } from "../../helpers";
 
-function FormBiz() {
+function FormBiz({ action, bizData = {} }) {
+  const { authUser, loading } = useAuth();
   const router = useRouter();
   const { register, setError, clearErrors, handleSubmit, watch, formState: { errors } } = useForm();
+
+  const [ hasPermission, setHasPermission ] = useState(false);
   
   const [err, setErr] = useState(null);
+  const [currentUser, setCurrentuser] = useState(null);
 
   const [currentLinkIcon, setCurrentLinkIcon] = useState('link');
   const [currentLinkTitle, setCurrentLinkTitle] = useState(null);
@@ -24,14 +29,14 @@ function FormBiz() {
   const [currentLinkTitleError, setCurrentLinkTitleError] = useState(null);
   const [currentLinkError, setCurrentLinkError] = useState(null);
 
-  const [links, setLinks] = useState([]);
+  const [links, setLinks] = useState(bizData?.links || []);
 
   const onSubmit = async ( data ) => {
     setErr(null);
 
     const biz = await getBiz(data.username);
   
-    if ( !biz.message ) {
+    if ( (!biz.message && action === 'save') || (!biz.message && biz.id !== bizData?.id) ) {
       setError('username');
       setErr("El nombre de usuario ya se encuentra registrado o está restringido, por favor intente con uno diferente.");
     } else {
@@ -39,39 +44,42 @@ function FormBiz() {
       clearErrors('username');
 
       // Save the avatar
-      const body = new FormData();
-      body.append("file", data.avatar[0]);
-      body.append("username", data.username);
-      const response = await fetch(`/api/upload`, {
-        method: "POST",
-        body
-      });
-  
-      if ( response.status === 200 ) {
-        const socket = io(process.env.NEXT_PUBLIC_API_URL, { transports : ['websocket'] });
-        // Restart tubio next app
-        socket.emit('upload');
-      } else {
-        setErr("Ha ocurrido un error creando su perfil, por favor haga clic nuevamente en Crear perfil.");
+      if ( data.avatar?.length ) {
+        const body = new FormData();
+        body.append("file", data.avatar[0]);
+        body.append("username", data.username);
+        const response = await fetch(`/api/upload`, {
+          method: "POST",
+          body
+        });
+
+        if ( response.status === 200 ) {
+          const socket = io(process.env.NEXT_PUBLIC_API_URL, { transports : ['websocket'] });
+          // Restart tubio next app
+          socket.emit('upload');
+        } else {
+          setErr("Ha ocurrido un error creando su perfil, por favor haga clic nuevamente en Crear perfil.");
+        }
       }
 
       data.links = links;
-
-      const userData = JSON.parse(localStorage.getItem('userData'));
-      data.user_uid = userData.uid;
+      data.user_uid = currentUser.uid;
 
       data.verified = 0;
       data.is_free = 1;
+      
+      if ( action === 'update' )
+        data.id = bizData?.id;
 
       // Prints output
-      const save = await saveBiz(data);
+      const formAction = action === 'save' ? await saveBiz(data) : await updateBiz(data);
 
-      if ( save?.code === 200 ) {
+      if ( formAction?.code === 200 ) {
         // Everything okay? Go to dashboard!
         router.push('/admin/dashboard');
       } else {
         // Show error!
-        setErr(save.message);
+        setErr(formAction.message);
       }
     }
   }
@@ -134,8 +142,32 @@ function FormBiz() {
     }
   }
 
+  useEffect(() => {
+    if (!loading && !authUser) {
+      router.push('/admin');
+      localStorage.removeItem('userData');
+    } else {
+      const userLocal = JSON.parse(localStorage.getItem('userData'));
+      if ( userLocal?.uid !== authUser?.uid ) {
+        router.push('/admin');
+        localStorage.removeItem('userData');
+      } else {
+        setCurrentuser(authUser);
+
+        if ( authUser.uid !== bizData?.user_uid ) {
+          router.push('/admin/dashboard');
+        } else {
+          setHasPermission(true);
+        }
+      }
+    }
+  }, [authUser, loading, hasPermission]);
+
   return (
-    <form className="form-biz form-horizontal preview-form mt-4" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className={`${hasPermission ? 'd-block' : 'd-none'} form-biz form-horizontal preview-form mt-4`}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className='row min-vh-100 mb-4'>
         <div className='col-12 col-md-7 col-lg-8'>
           <div className="form-group mb-4">
@@ -144,9 +176,9 @@ function FormBiz() {
               className={`mt-2 form-control${errors?.avatar ? ' is-invalid' : ''}`}
               type="file"
               {...register("avatar", {
-                required: true && 'Se requiere su logo o foto',
+                required: action !== 'save' ? false : (true && 'Se requiere su logo o foto'),
                 maxLength: 100,
-                validate: {
+                validate: action === 'save' && {
                   lessThan10MB: (files) => files[0]?.size < 5000000 || "Max 5 MB",
                   acceptedFormats: (files) =>
                     ["image/jpeg", "image/png", "image/webp", "image/jpg"].includes(files[0]?.type) ||
@@ -172,6 +204,7 @@ function FormBiz() {
                 maxLength: 20,
                 pattern: /^[A-Za-z0-9]+$/i
               })}
+              defaultValue={bizData?.username || ''}
             />
             {errors?.username && <span className="form-error">Verifique el usuario o intente con uno diferente</span>}
           </div>
@@ -186,6 +219,7 @@ function FormBiz() {
                 maxLength: 150,
                 pattern: /^[A-Za-z0-9 .-ñÑ]+$/i
               })}
+              defaultValue={bizData?.name || ''}
             />
             {errors?.name && <span className="form-error">Verifique el nombre</span>}
           </div>
@@ -199,6 +233,7 @@ function FormBiz() {
                 required: false,
                 maxLength: 150,
               })}
+              defaultValue={bizData?.address || ''}
             />
           </div>
 
@@ -212,6 +247,7 @@ function FormBiz() {
                 maxLength: 100,
                 pattern: /^[A-Za-z]+$/i
               })}
+              defaultValue={bizData?.city || ''}
             />
           </div>
 
@@ -225,6 +261,7 @@ function FormBiz() {
                 maxLength: 100,
                 pattern: /^[A-Za-z]+$/i
               })}
+              defaultValue={bizData?.country || ''}
             />
             {errors?.country && <span className="form-error">Verifique el país</span>}
           </div>
@@ -237,7 +274,7 @@ function FormBiz() {
                   id="background"
                   className={`mt-1 form-control form-control-color d-block`}
                   type="color"
-                  defaultValue="#000000"
+                  defaultValue={bizData?.background || '#000000'}
                   {...register("background", {
                     required: true,
                     maxLength: 10,
@@ -253,7 +290,7 @@ function FormBiz() {
                   id="text_color"
                   className={`mt-1 d-block form-control form-control-color`}
                   type="color"
-                  defaultValue="#FFFFFF"
+                  defaultValue={bizData?.text_color || '#FFFFFF'}
                   {...register("text_color", {
                     required: true,
                     maxLength: 10,
@@ -374,7 +411,7 @@ function FormBiz() {
                   background: watch('background'),
                   text_color: watch('text_color'),
                   name: watch('name'),
-                  avatar: watch('avatar'),
+                  avatar: action === 'save' ? watch('avatar') : (watch('avatar')?.length ? watch('avatar') : `/uploads/${bizData?.username}/avatar.webp`),
                   address: watch('address'),
                   city: watch('city'),
                   country: watch('country'),
@@ -399,8 +436,8 @@ function FormBiz() {
 
       <div className='form-group mt-5 text-center text-md-start'>
         <button className='btn btn-dark me-4'>
-          <span>Crear perfil</span>
-          <i className='icon icon-user-plus ms-2'></i>
+          <span>{action === 'save' ? 'Crear nuevo' : 'Actualizar'} perfil</span>
+          <i className={`icon icon-${action === 'save' ? 'user-plus' : 'pencil'} ms-2`}></i>
         </button>
 
         <Link href="/admin/dashboard">
