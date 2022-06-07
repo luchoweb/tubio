@@ -1,34 +1,38 @@
 import Head from "next/head";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getAllBizByUid } from "../../lib/api";
+import { useAuth } from "../../firebase/authUserContext";
 
 import PrivateLayout from "../../components/layouts/private";
 import BizCard from "../../components/bizCard";
 import AddProfileBtn from "../../components/addProfileBtn";
 
 function DashboardPage() {
+  const { authUser, loading } = useAuth();
   const [businesses, setBusinesses] = useState(undefined);
   const [error, setError] = useState(null);
   const [freeProfile, setFreeProfile] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userData = JSON.parse(localStorage.getItem('userData'));
-        const res = await getAllBizByUid(userData.uid);
-        setBusinesses(res.businesses);
-
-        const freeBiz = res.businesses.filter(biz => biz.is_free > 0).length;
-        setFreeProfile(freeBiz);
-      } catch(e) {
-        setError(e.message);
+    if (!loading && !authUser) {
+      router.push('/admin');
+    } else if( authUser ) {
+      const fetchData = async () => {
+        try {
+          const res = await getAllBizByUid(authUser.uid);
+          setBusinesses(res.businesses);
+  
+          const freeBiz = res.businesses.filter(biz => biz.is_free > 0).length;
+          setFreeProfile(freeBiz);
+        } catch(e) {
+          setError(e.message);
+        }
       }
-    }
 
-    if ( !businesses )
-      fetchData();
-  }, [businesses]);
+      if ( !businesses )
+        fetchData();
+    }
+  }, [businesses, authUser, loading]);
 
   return (
     <>
