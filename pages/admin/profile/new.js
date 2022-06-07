@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useAuth } from "../../../firebase/authUserContext";
 
 import PrivateLayout from "../../../components/layouts/private";
 import FormBiz from "../../../components/forms/business";
@@ -8,6 +9,7 @@ import FormBiz from "../../../components/forms/business";
 import { getFreeBiz } from "../../../lib/api";
 
 function NewProfile() {
+  const { authUser, loading } = useAuth();
   const titlePage = 'Nuevo perfil';
 
   const router = useRouter();
@@ -16,21 +18,24 @@ function NewProfile() {
   const [freeProfile, setFreeProfile] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userData = JSON.parse(localStorage.getItem('userData'));
-        const res = await getFreeBiz(userData.uid);
-        setFreeProfile(res);
-      } catch(e) {
-        setError(e.message);
+    if (!loading && !authUser) {
+      router.push('/admin');
+    } else if( authUser ) {
+      const fetchData = async () => {
+        try {
+          const res = await getFreeBiz(authUser.uid);
+          setFreeProfile(res);
+        } catch(e) {
+          setError(e.message);
+        }
       }
+  
+      if ( !freeProfile )
+        fetchData();
+  
+      if ( freeProfile >= 1 )
+        router.push('/admin/profile/pay');
     }
-
-    if ( !freeProfile )
-      fetchData();
-
-    if ( freeProfile >= 1 )
-      router.push('/admin/profile/pay');
   }, [freeProfile]);
 
   return (

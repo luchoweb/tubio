@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getAllBizByUid } from "../../lib/api";
 import { useAuth } from "../../firebase/authUserContext";
@@ -8,6 +9,7 @@ import BizCard from "../../components/bizCard";
 import AddProfileBtn from "../../components/addProfileBtn";
 
 function DashboardPage() {
+  const router = useRouter();
   const { authUser, loading } = useAuth();
   const [businesses, setBusinesses] = useState(undefined);
   const [error, setError] = useState(null);
