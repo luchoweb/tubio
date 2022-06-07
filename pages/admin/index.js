@@ -26,15 +26,7 @@ function LoginPage() {
   const onSubmit = data => {
     setError(null)
     signInWithEmailAndPassword(data.email, data.password)
-    .then(formatAuthUser => {
-      localStorage.setItem("userData", JSON.stringify(
-        {
-          uid: formatAuthUser.user.uid,
-          email: formatAuthUser.user.email
-        }
-      ));
-      router.push('/admin/dashboard');
-    })
+    .then(formatAuthUser => router.push('/admin/dashboard'))
     .catch(error => {
       setError(
         translateFirebaseErrors(error)
@@ -50,11 +42,6 @@ function LoginPage() {
           const user = result.user;
           
           if ( user ) {
-            localStorage.setItem("userData", JSON.stringify({
-              uid: user.uid,
-              email: user.email
-            }));
-
             router.push('/admin/dashboard');
           }
         } else {

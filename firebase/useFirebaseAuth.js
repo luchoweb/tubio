@@ -40,10 +40,8 @@ export default function useFirebaseAuth() {
   const sendPasswordResetEmail = (email) => 
     firebase.auth().sendPasswordResetEmail(email);
 
-  const signOut = () => {
+  const signOut = () =>
     firebase.auth().signOut().then(clear);
-    localStorage.removeItem('userData');
-  }
 
   const signInWithRedirect = () =>
     firebase.auth().signInWithRedirect(provider);

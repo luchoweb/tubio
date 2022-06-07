@@ -12,17 +12,6 @@ const LoggedIn = ({ children }) => {
       router.push('/admin');
     } else if( authUser ) {
       setIsLoading(false);
-
-      if ( !localStorage.getItem('userData') ) {
-        localStorage.setItem("userData", JSON.stringify(authUser));
-      }
-
-      const currentUser = JSON.parse(localStorage.getItem('userData'));
-
-      if ( currentUser?.uid !== authUser?.uid ) {
-        router.push('/admin');
-        localStorage.removeItem('userData');
-      }
     }
   }, [authUser, loading]);
 

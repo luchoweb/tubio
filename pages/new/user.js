@@ -44,13 +44,7 @@ function NewBizPage() {
         if (result.credential) {
           const user = result.user;
           
-          const userFormatted = {
-            uid: user.uid,
-            email: user.email
-          }
-          
           if( user ) {
-            localStorage.setItem("userData", JSON.stringify(userFormatted));
             Router.push('/admin/dashboard');
           }
         } else {

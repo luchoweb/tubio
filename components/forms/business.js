@@ -11,7 +11,7 @@ import appScreen from "../../images/phone-screen-samsung.png";
 import { getBiz, saveBiz, updateBiz } from '../../lib/api';
 import { arrayIcons } from "../../helpers";
 
-function FormBiz({ action, bizData = {} }) {
+function FormBiz({ action, isPaid = false, bizData = {} }) {
   const { authUser, loading } = useAuth();
   const router = useRouter();
   const { register, setError, clearErrors, handleSubmit, watch, formState: { errors } } = useForm();
@@ -19,6 +19,7 @@ function FormBiz({ action, bizData = {} }) {
   const [ hasPermission, setHasPermission ] = useState(false);
   
   const [err, setErr] = useState(null);
+  const [success, setSuccess] = useState(null);
   const [currentUser, setCurrentuser] = useState(null);
 
   const [currentLinkIcon, setCurrentLinkIcon] = useState('link');
@@ -33,6 +34,7 @@ function FormBiz({ action, bizData = {} }) {
 
   const onSubmit = async ( data ) => {
     setErr(null);
+    setSuccess(null);
 
     const biz = await getBiz(data.username);
   
@@ -66,7 +68,7 @@ function FormBiz({ action, bizData = {} }) {
       data.user_uid = currentUser.uid;
 
       data.verified = 0;
-      data.is_free = 1;
+      data.is_free = isPaid ? 0 : 1;
       
       if ( action === 'update' )
         data.id = bizData?.id;
@@ -76,7 +78,11 @@ function FormBiz({ action, bizData = {} }) {
 
       if ( formAction?.code === 200 ) {
         // Everything okay? Go to dashboard!
-        router.push('/admin/dashboard');
+        if ( action === 'save' )
+          router.push('/admin/dashboard');
+
+        setSuccess('Los cambios han sido guardados satisfactoriamente.');
+        
       } else {
         // Show error!
         setErr(formAction.message);
@@ -145,20 +151,13 @@ function FormBiz({ action, bizData = {} }) {
   useEffect(() => {
     if (!loading && !authUser) {
       router.push('/admin');
-      localStorage.removeItem('userData');
     } else {
-      const userLocal = JSON.parse(localStorage.getItem('userData'));
-      if ( userLocal?.uid !== authUser?.uid ) {
-        router.push('/admin');
-        localStorage.removeItem('userData');
-      } else {
-        setCurrentuser(authUser);
+      setCurrentuser(authUser);
 
-        if ( authUser.uid !== bizData?.user_uid ) {
-          router.push('/admin/dashboard');
-        } else {
-          setHasPermission(true);
-        }
+      if ( authUser.uid !== bizData?.user_uid && action === 'update' ) {
+        router.push('/admin/dashboard');
+      } else {
+        setHasPermission(true);
       }
     }
   }, [authUser, loading, hasPermission]);
@@ -429,6 +428,20 @@ function FormBiz({ action, bizData = {} }) {
             <small>
               <i className='icon icon-info-circle me-2'></i>
               {err}
+            </small>
+          </p>
+        </div>
+      )}
+
+      {success && (
+        <div className='alert alert-success mt-5 mb-5 pt-2 pb-2'>
+          <p className='m-0'>
+            <small>
+              <i className='icon icon-info-circle me-2'></i>
+              {success}
+              <a href={`/${watch('username')}`} className="ms-2 alert-link" target="_blank" rel="noopener" title="Ver">
+                Ver perfil
+              </a>
             </small>
           </p>
         </div>
