@@ -22,6 +22,7 @@ export const epaycoStatusColor = (response) => {
     "Pendiente": "warning",
     "Rechazada": "danger",
     "Cancelada": "danger",
+    "Fallida": "danger",
     "Abandonada": "secondary"
   }
 

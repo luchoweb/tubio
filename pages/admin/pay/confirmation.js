@@ -8,14 +8,8 @@ import { epaycoStatusColor } from "../../../helpers";
 import PrivateLayout from "../../../components/layouts/private";
 
 
-function PayConfirmation({ info, req, res }) {
-  console.log('req', req)
-  console.log('res', res)
+function PayConfirmation({ info }) {
   const titlePage = 'Confirmación del pago';
-
-  useEffect(() => {
-    localStorage.setItem('ref_epayco', info?.data?.referencePayco?.toString());
-  }, []);
 
   return (
     <>
@@ -70,8 +64,8 @@ function PayConfirmation({ info, req, res }) {
                 </div>
               ) : (
                 <div className="alert alert-danger">
-                  <h3 className="mb-3 fw-normal">Ha fallado la comunicación con la pasarela de pagos.</h3>
-                  <p className="mb-0">Haremos una verificación manual de su pago. Este proceso puede tomar hasta 8 horas, pedimos disculpas por las molestias. Si desea atención personalizada puede escribir a nuestro <a href="https://wa.me/573008291060" target="_blank" rel="noopener" className="alert-link">WhatsApp</a>.</p>
+                  <h4 className="mb-3 fw-normal">Ha fallado la comunicación con la pasarela de pagos.</h4>
+                  <p className="mb-0">Por favor escribir a nuestro <a href="https://wa.me/573008291060" target="_blank" rel="noopener" className="alert-link">WhatsApp</a> y proporcionar la referencia de pago <strong>{info?.referencePayco}</strong> para ayudarle de manera ágil.</p>
                 </div>
               )}
               </div>
@@ -83,14 +77,40 @@ function PayConfirmation({ info, req, res }) {
   )
 }
 
-export async function getServerSideProps({ res, req }) {
-  //const data = await getTransactionDetails(context?.query?.ref_payco);
+export async function getServerSideProps({ req, res, query }) {
+  const info = {
+    body: '',
+    data: {
+      success: false,
+      referencePayco: null
+    }
+  }
+
+  if (req.method == "POST") {
+    req.on('data', (chunk) => {
+      info.body += chunk
+    });
+
+    req.on('end', () => {
+      const params = new URLSearchParams(info.body);
+      info.data.referencePayco = params.get('x_ref_payco');
+    });
+  }
+
+  function getReferencePayco() {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(info.data.referencePayco);
+      }, 2000);
+    });
+  }
+  
+  const referencePayco = await getReferencePayco();
+  const transaction = await getTransactionDetails(referencePayco);
 
   return {
     props: {
-      info: [],
-      res,
-      req
+      info: transaction.success ? transaction : { success: false, referencePayco: query['ref_payco'] }
     }
   }
 }
