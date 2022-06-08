@@ -28,38 +28,38 @@ function PayConfirmation({ info, req, res }) {
             <h3 className="text-center">{titlePage}</h3>
 
             <div className="d-flex flex-column gap-2 mt-5 align-items-center justify-content-center">
-              { info.success && (
+              { info?.success && (
                 <div>
-                {info.data.response === 'Aprobada' ? (
-                  <i className={`icon icon-big icon-check-circle text-${epaycoStatusColor(info.data.status)}`}></i>
+                {info?.data?.response === 'Aprobada' ? (
+                  <i className={`icon icon-big icon-check-circle text-${epaycoStatusColor(info?.data?.status)}`}></i>
                 ) : (
-                  <i className={`icon icon-big icon-warning text-${epaycoStatusColor(info.data.status)}`}></i>
+                  <i className={`icon icon-big icon-warning text-${epaycoStatusColor(info?.data?.status)}`}></i>
                 )}
                 </div>
               )}
               <div>
-              { info.success ? (
+              { info?.success ? (
                 <div className="text-center">
-                  <h4 className={`m-0 mb-4 text-${epaycoStatusColor(info.data.status)}`}>
-                    {info.data.response}
+                  <h4 className={`m-0 mb-4 text-${epaycoStatusColor(info?.data?.status)}`}>
+                    {info?.data?.response}
                   </h4>
                   <p className="m-0 mt-2">
                     <small>
-                      <strong>Referencia</strong>: {info.data.referencePayco}
+                      <strong>Referencia</strong>: {info?.data?.referencePayco}
                     </small>
                   </p>
                   <p className="m-0">
                     <small>
-                      <strong>Valor</strong>: ${info.data.dollars} USD
+                      <strong>Valor</strong>: ${info?.data?.dollars} USD
                     </small>
                   </p>
                   <p className="m-0">
                     <small>
-                      <strong>Dirección IP</strong>: {info.data.ip}
+                      <strong>Dirección IP</strong>: {info?.data?.ip}
                     </small>
                   </p>
 
-                  {info.data.status === 'Aceptada' && (
+                  {info?.data?.status === 'Aceptada' && (
                     <Link href="/admin/profile/paid">
                       <a className="btn btn-dark mt-5">
                         <i className="icon icon-user-plus me-2"></i>
