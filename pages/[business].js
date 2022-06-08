@@ -61,7 +61,7 @@ const Business = ({ biz }) => {
             onClick={(e) => handleShare(e)}
           >
             <small style={{color: biz.text_color}}>
-              <i className='icon icon-share-square'></i>
+              <i className='icon icon-external-link'></i>
               <span className='d-none d-md-inline ms-2'>
                 Compartir
               </span>

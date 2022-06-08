@@ -167,8 +167,20 @@
 }
 
 .list-icons {
+  background-color: #ffffff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow-y: auto;
+  bottom: 0;
+
   &.hide {
     display: none !important;
+  }
+
+  i {
+    color: var(--bs-dark);
   }
 }
 

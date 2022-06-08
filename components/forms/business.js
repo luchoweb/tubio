@@ -27,8 +27,8 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
   const [currentLink, setCurrentLink] = useState(null);
   const [currentLinkColor, setCurrentLinkColor] = useState('#000000');
 
-  const [currentLinkTitleError, setCurrentLinkTitleError] = useState(null);
-  const [currentLinkError, setCurrentLinkError] = useState(null);
+  const [currentLinkTitleError, setCurrentLinkTitleError] = useState(true);
+  const [currentLinkError, setCurrentLinkError] = useState(true);
 
   const [links, setLinks] = useState(bizData?.links || []);
 
@@ -169,132 +169,136 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
     >
       <div className='row min-vh-100 mb-4'>
         <div className='col-12 col-md-7 col-lg-8'>
-          <div className="form-group mb-4">
-            <label htmlFor="avatar">Avatar / Logo</label>
-            <input
-              className={`mt-2 form-control${errors?.avatar ? ' is-invalid' : ''}`}
-              type="file"
-              {...register("avatar", {
-                required: action !== 'save' ? false : (true && 'Se requiere su logo o foto'),
-                maxLength: 100,
-                validate: action === 'save' && {
-                  lessThan10MB: (files) => files[0]?.size < 5000000 || "Max 5 MB",
-                  acceptedFormats: (files) =>
-                    ["image/jpeg", "image/png", "image/webp", "image/jpg"].includes(files[0]?.type) ||
-                    "Solo imagenes PNG, JPG, WEBP o JPEG",
-                }
-              })}
-            />
-            {errors?.avatar && <span className="form-error">{ errors.avatar.message }</span>}
-          </div>
-  
-          <div className="form-group mb-4 text-start">
-            <label htmlFor="username">
-              <span>Usuario:</span>
-              <span className='text-muted ms-2'>
-                tubio.co/<strong>{watch('username')}</strong>
-              </span>
-            </label>
-            <input
-              id="username"
-              className={`mt-1 form-control${errors?.username ? ' is-invalid' : ''}`}
-              {...register("username", {
-                required: true,
-                maxLength: 20,
-                pattern: /^[A-Za-z0-9]+$/i
-              })}
-              defaultValue={bizData?.username || ''}
-            />
-            {errors?.username && <span className="form-error">Verifique el usuario o intente con uno diferente</span>}
-          </div>
-    
-          <div className="form-group mb-4">
-            <label htmlFor="name">Nombre o razón social</label>
-            <input
-              id="name"
-              className={`mt-1 form-control${errors?.name ? ' is-invalid' : ''}`}
-              {...register("name", {
-                required: true,
-                maxLength: 150,
-                pattern: /^[A-Za-z0-9 .-ñÑ]+$/i
-              })}
-              defaultValue={bizData?.name || ''}
-            />
-            {errors?.name && <span className="form-error">Verifique el nombre</span>}
-          </div>
-
-          <div className="form-group mb-4 text-start">
-            <label htmlFor="address">Dirección o eslogan</label>
-            <input
-              id="address"
-              className={`mt-1 form-control`}
-              {...register("address", {
-                required: false,
-                maxLength: 150,
-              })}
-              defaultValue={bizData?.address || ''}
-            />
-          </div>
-
-          <div className="form-group mb-4 text-start">
-            <label htmlFor="city">Ciudad</label>
-            <input
-              id="city"
-              className={`mt-1 form-control`}
-              {...register("city", {
-                required: false,
-                maxLength: 100,
-                pattern: /^[A-Za-z]+$/i
-              })}
-              defaultValue={bizData?.city || ''}
-            />
-          </div>
-
-          <div className="form-group mb-4">
-            <label htmlFor="country">País</label>
-            <input
-              id="country"
-              className={`mt-1 form-control${errors?.country ? ' is-invalid' : ''}`}
-              {...register("country", {
-                required: true,
-                maxLength: 100,
-                pattern: /^[A-Za-z]+$/i
-              })}
-              defaultValue={bizData?.country || ''}
-            />
-            {errors?.country && <span className="form-error">Verifique el país</span>}
-          </div>
-
-          <div className='row'>
-            <div className='col-6 col-lg-3'>
-              <div className="form-group mb-4 text-start">
-                <label htmlFor="background">Color de fondo</label>
-                <input
-                  id="background"
-                  className={`mt-1 form-control form-control-color d-block`}
-                  type="color"
-                  defaultValue={bizData?.background || '#000000'}
-                  {...register("background", {
-                    required: true,
-                    maxLength: 10,
-                  })}
-                />
-              </div>
+          <div className='alert alert-light'>
+            <div className="form-group mb-4">
+              <label htmlFor="avatar">Avatar / Logo</label>
+              <input
+                className={`mt-2 form-control${errors?.avatar ? ' is-invalid' : ''}`}
+                type="file"
+                {...register("avatar", {
+                  required: action !== 'save' ? false : (true && 'Se requiere su logo o foto'),
+                  maxLength: 100,
+                  validate: action === 'save' && {
+                    lessThan10MB: (files) => files[0]?.size < 5000000 || "Max 5 MB",
+                    acceptedFormats: (files) =>
+                      ["image/jpeg", "image/png", "image/webp", "image/jpg"].includes(files[0]?.type) ||
+                      "Solo imagenes PNG, JPG, WEBP o JPEG",
+                  }
+                })}
+              />
+              {errors?.avatar && <span className="form-error">{ errors.avatar.message }</span>}
             </div>
-            
-            <div className='col-6 col-lg-3'>
-              <div className="form-group mb-4 text-start">
-                <label htmlFor="text_color">Color del texto</label>
-                <input
-                  id="text_color"
-                  className={`mt-1 d-block form-control form-control-color`}
-                  type="color"
-                  defaultValue={bizData?.text_color || '#FFFFFF'}
-                  {...register("text_color", {
-                    required: true,
-                    maxLength: 10,
-                  })}
-                />
+    
+            <div className="form-group mb-4 text-start">
+              <label htmlFor="username">
+                <span>Usuario:</span>
+                <span className='text-muted ms-2'>
+                  tubio.co/<strong>{watch('username')}</strong>
+                </span>
+              </label>
+              <input
+                id="username"
+                className={`mt-1 form-control${errors?.username ? ' is-invalid' : ''}`}
+                {...register("username", {
+                  required: true,
+                  maxLength: 20,
+                  pattern: /^[A-Za-z0-9]+$/i
+                })}
+                defaultValue={bizData?.username || ''}
+              />
+              {errors?.username && <span className="form-error">Verifique el usuario o intente con uno diferente</span>}
+            </div>
+      
+            <div className="form-group mb-4">
+              <label htmlFor="name">Nombre o razón social</label>
+              <input
+                id="name"
+                className={`mt-1 form-control${errors?.name ? ' is-invalid' : ''}`}
+                {...register("name", {
+                  required: true,
+                  maxLength: 150,
+                  pattern: /^[A-Za-z0-9 .-ñÑ]+$/i
+                })}
+                defaultValue={bizData?.name || ''}
+              />
+              {errors?.name && <span className="form-error">Verifique el nombre</span>}
+            </div>
+
+            <div className="form-group mb-4 text-start">
+              <label htmlFor="address">Dirección o eslogan</label>
+              <input
+                id="address"
+                className={`mt-1 form-control`}
+                {...register("address", {
+                  required: false,
+                  maxLength: 150,
+                })}
+                defaultValue={bizData?.address || ''}
+                placeholder="Opcional"
+              />
+            </div>
+
+            <div className="form-group mb-4 text-start">
+              <label htmlFor="city">Ciudad</label>
+              <input
+                id="city"
+                className={`mt-1 form-control`}
+                {...register("city", {
+                  required: false,
+                  maxLength: 100,
+                  pattern: /^[A-Za-z]+$/i
+                })}
+                defaultValue={bizData?.city || ''}
+                placeholder="Opcional"
+              />
+            </div>
+
+            <div className="form-group mb-4">
+              <label htmlFor="country">País</label>
+              <input
+                id="country"
+                className={`mt-1 form-control${errors?.country ? ' is-invalid' : ''}`}
+                {...register("country", {
+                  required: true,
+                  maxLength: 100,
+                  pattern: /^[A-Za-z]+$/i
+                })}
+                defaultValue={bizData?.country || ''}
+              />
+              {errors?.country && <span className="form-error">Verifique el país</span>}
+            </div>
+
+            <div className='row'>
+              <div className='col-6 col-lg-3'>
+                <div className="form-group mb-4 text-start">
+                  <label htmlFor="background">Color de fondo</label>
+                  <input
+                    id="background"
+                    className={`mt-1 form-control form-control-color d-block`}
+                    type="color"
+                    defaultValue={bizData?.background || '#000000'}
+                    {...register("background", {
+                      required: true,
+                      maxLength: 10,
+                    })}
+                  />
+                </div>
+              </div>
+              
+              <div className='col-6 col-lg-3'>
+                <div className="form-group mb-4 text-start">
+                  <label htmlFor="text_color">Color del texto</label>
+                  <input
+                    id="text_color"
+                    className={`mt-1 d-block form-control form-control-color`}
+                    type="color"
+                    defaultValue={bizData?.text_color || '#FFFFFF'}
+                    {...register("text_color", {
+                      required: true,
+                      maxLength: 10,
+                    })}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -303,7 +307,8 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
             <h4 className='mb-3'>Enlaces agregados</h4>
 
             {links.length ? (
-              <div className='table-responsive'>
+              <div className='alert alert-light'>
+                <div className='table-responsive'>
                 <table className='table table-striped table-hover'>
                   <thead>
                     <tr>
@@ -335,8 +340,9 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
                   </tbody>
                 </table>
               </div>
+              </div>
             ) : (
-              <div className='alert alert-info pt-2 pb-2'>
+              <div className='alert alert-secondary pt-2 pb-2'>
                 <p className='m-0'>
                   <small>
                     No hay enlaces agregados, por favor agregue su primer enlace.
@@ -345,60 +351,61 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
               </div>
             )}
 
-            <div className='row add-links mb-4 mt-5'>
-              <h4 className='mb-4'>Agregar enlace</h4>
-              <div className='col-12 mb-4'>
-                <label className='d-block mb-2'>Seleccione un icono</label>
-                <a href="#" onClick={(e) => handleShowIcons(e)} className="link-icon">
-                  <i className={`icon icon-${currentLinkIcon}`}></i>
-                </a>
+            <div className='alert alert-light mt-4 add-links-box'>
+              <div className='row add-links mb-4'>
+                <div className='col-6'>
+                  <label htmlFor="link_title">Titulo del enlace</label>
+                  <input className={`link-value mt-1 form-control${!currentLinkTitleError ? ' is-invalid' : ''}`} id="link_title" placeholder='Sígueme en Instagram' onBlur={(event) => setCurrentLinkTitle(event.target.value)} />
+                  {!currentLinkTitleError && <span className="form-error">Debe ingresar un titulo</span>}
+                </div>
 
-                <ul className='list-unstyled d-flex flex-wrap gap-3 mt-2 justify-content-between list-icons hide'>
-                {arrayIcons.map((icon, index) => (
-                  <li key={`l${index}`} className="preview-form-link-icon" onClick={(e) => handleShowIcons(e)}>
-                    <i className={`icon icon-${icon}`} onClick={() => setCurrentLinkIcon(icon)}></i>
-                  </li>
-                ))}
-                </ul>
+                <div className='col-6 mb-4'>
+                  <label htmlFor="link">Destino del enlace</label>
+                  <input
+                    className={`link-value mt-1 form-control${!currentLinkError || currentLinkError?.message ? ' is-invalid' : ''}`}
+                    id="link"
+                    type="url"
+                    placeholder='http, https, mailto, tel'
+                    onBlur={(event) => setCurrentLink(event.target.value)}
+                  />
+                  {!currentLinkError && <span className="form-error">Debe ingresar un enlace</span>}
+                  {currentLinkError?.message && <span className="form-error">
+                    { currentLinkError?.message }
+                  </span>}
+                </div>
+
+                <div className='col-6 mb-2'>
+                  <label className='d-block mb-2'>Seleccione un icono</label>
+                  <a href="#" onClick={(e) => handleShowIcons(e)} className="link-icon">
+                    <i className={`icon icon-${currentLinkIcon}`}></i>
+                  </a>
+
+                  <ul className='list-unstyled d-flex flex-wrap gap-3 mt-2 justify-content-between list-icons hide'>
+                  {arrayIcons.map((icon, index) => (
+                    <li key={`l${index}`} className="preview-form-link-icon" onClick={(e) => handleShowIcons(e)}>
+                      <i className={`icon icon-${icon}`} onClick={() => setCurrentLinkIcon(icon)}></i>
+                    </li>
+                  ))}
+                  </ul>
+                </div>
+
+                <div className='col-6'>
+                  <label htmlFor="linkColor">Seleccione un color</label>
+                  <input
+                    id="linkColor"
+                    className={`mt-1 form-control form-control-color`}
+                    type="color"
+                    value={currentLinkColor}
+                    onChange={(e) => setCurrentLinkColor(e.target.value)}
+                  />
+                </div>
               </div>
 
-              <div className='col-6'>
-                <label htmlFor="link_title">Titulo del enlace</label>
-                <input className={`link-value mt-1 form-control${!currentLinkTitleError ? ' is-invalid' : ''}`} id="link_title" placeholder='Sígueme en Instagram' onBlur={(event) => setCurrentLinkTitle(event.target.value)} />
-                {!currentLinkTitleError && <span className="form-error">Debe ingresar un titulo</span>}
-              </div>
-
-              <div className='col-6 mb-4'>
-                <label htmlFor="link">Destino del enlace</label>
-                <input
-                  className={`link-value mt-1 form-control${!currentLinkError || currentLinkError?.message ? ' is-invalid' : ''}`}
-                  id="link"
-                  type="url"
-                  placeholder='http, https, mailto, tel'
-                  onBlur={(event) => setCurrentLink(event.target.value)}
-                />
-                {!currentLinkError && <span className="form-error">Debe ingresar un enlace</span>}
-                {currentLinkError?.message && <span className="form-error">
-                  { currentLinkError?.message }
-                </span>}
-              </div>
-
-              <div className='col-12'>
-                <label htmlFor="linkColor">Seleccione un color</label>
-                <input
-                  id="linkColor"
-                  className={`mt-1 form-control form-control-color`}
-                  type="color"
-                  value={currentLinkColor}
-                  onChange={(e) => setCurrentLinkColor(e.target.value)}
-                />
-              </div>
+              <a href="#" className='btn btn-dark' onClick={(e) => handleAddLink(e)}>
+                <i className='icon icon-link me-2'></i>
+                <span>Agregar enlace</span>
+              </a>
             </div>
-
-            <a href="#" className='btn btn-dark' onClick={(e) => handleAddLink(e)}>
-              <span>Agregar enlace</span>
-              <i className='icon icon-link ms-2'></i>
-            </a>
           </div>
         </div>
 
@@ -423,7 +430,7 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
       </div>
 
       {err && (
-        <div className='alert alert-danger mt-5 mb-5 pt-2 pb-2'>
+        <div className='alert alert-danger mt-4 mb-5 pt-2 pb-2'>
           <p className='m-0'>
             <small>
               <i className='icon icon-info-circle me-2'></i>
@@ -434,7 +441,7 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
       )}
 
       {success && (
-        <div className='alert alert-success mt-5 mb-5 pt-2 pb-2'>
+        <div className='alert alert-success mt-4 mb-5 pt-2 pb-2'>
           <p className='m-0'>
             <small>
               <i className='icon icon-info-circle me-2'></i>
