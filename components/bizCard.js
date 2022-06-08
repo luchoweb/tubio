@@ -11,7 +11,7 @@ export default function BizCard({ biz }) {
       >
         <h4 className="m-0 card-title">{biz.name}</h4>
       </div>
-      <div className="card-body">
+      <div className="card-body pt-4 pb-4">
         <p className="card-text">
           {biz.city && (
             <>
@@ -28,30 +28,30 @@ export default function BizCard({ biz }) {
       </div>
 
       <div className="card-footer pt-3">
-        <a href={`/${biz.username}`} className="btn btn-sm btn-outline-dark mb-2" target="_blank" title="Ver">
+        <a href={`/${biz.username}`} className="btn btn-outline-dark mb-2" target="_blank" title="Ver">
           <i className="icon icon-eye"></i>
         </a>
 
-        <span className="me-1 ms-1"></span>
+        <span className="me-2 ms-2"></span>
 
         <Link href={`/admin/profile/edit/${biz.id}`}>
-          <a className="btn btn-sm btn-primary mb-2" title="Editar">
+          <a className="btn btn-primary mb-2" title="Editar">
             <i className="icon icon-pencil"></i>
           </a>
         </Link>
 
-        <span className="me-1 ms-1"></span>
+        <span className="me-2 ms-2"></span>
 
         <Link href={`/admin/profile/delete/${biz.id}`}>
-          <a className="btn btn-sm btn-danger mb-2" title="Eliminar">
+          <a className="btn btn-danger mb-2" title="Eliminar">
             <i className="icon icon-trash"></i>
           </a>
         </Link>
 
-        <span className="me-1 ms-1"></span>
+        <span className="me-2 ms-2"></span>
 
         <Link href={`/admin/profile/stats/${biz.id}`}>
-          <a className="btn btn-sm btn-warning mb-2" title="Estadísticas">
+          <a className="btn btn-warning mb-2" title="Estadísticas">
             <i className="icon icon-area-chart"></i>
           </a>
         </Link>

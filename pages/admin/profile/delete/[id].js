@@ -32,17 +32,9 @@ function DeleteProfile() {
               </>
             ) : (
               <>
-                <div className="alert alert-danger pt-2 pb-2 mb-5 m-auto">
+                <div className="alert alert-warning pt-3 pb-3 mb-5 m-auto">
                   <p className="m-0">
-                    <i className="icon icon-warning me-2"></i>
-                    <strong>
-                      Esta acción es irreversible, la información se perderá y no se genera reembolso.
-                    </strong>
-                  </p>
-                  <p className="m-0">
-                    <small>
-                      Si el perfil a eliminar es <strong>pago</strong>, se deberá volver a pagar en el momento que se desee crear nuevamente.
-                    </small>
+                    Esta acción es irreversible, la información se eliminará y no hay lugar a reembolso.
                   </p>
                 </div>
 
