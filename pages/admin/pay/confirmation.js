@@ -12,7 +12,7 @@ function PayConfirmation({ info }) {
   const titlePage = 'Confirmación del pago';
 
   useEffect(() => {
-    localStorage.setItem('ref_epayco', info.data.referencePayco.toString());
+    localStorage.setItem('ref_epayco', info?.data?.referencePayco?.toString());
   }, []);
 
   return (
