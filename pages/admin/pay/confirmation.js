@@ -84,11 +84,11 @@ function PayConfirmation({ info, req, res }) {
 }
 
 export async function getServerSideProps({ res, req }) {
-  const data = await getTransactionDetails(context?.query?.ref_payco);
+  //const data = await getTransactionDetails(context?.query?.ref_payco);
 
   return {
     props: {
-      info: data || [],
+      info: [],
       res,
       req
     }
