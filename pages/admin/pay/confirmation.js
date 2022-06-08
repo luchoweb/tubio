@@ -8,8 +8,9 @@ import { epaycoStatusColor } from "../../../helpers";
 import PrivateLayout from "../../../components/layouts/private";
 
 
-function PayConfirmation({ info, context }) {
-  console.log('context', context)
+function PayConfirmation({ info, req, res }) {
+  console.log('req', req)
+  console.log('res', res)
   const titlePage = 'Confirmación del pago';
 
   useEffect(() => {
@@ -82,14 +83,14 @@ function PayConfirmation({ info, context }) {
   )
 }
 
-export async function getServerSideProps(context) {
-  console.log('context', context)
+export async function getServerSideProps({ res, req }) {
   const data = await getTransactionDetails(context?.query?.ref_payco);
 
   return {
     props: {
       info: data || [],
-      context
+      res,
+      req
     }
   }
 }
