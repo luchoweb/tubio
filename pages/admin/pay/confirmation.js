@@ -82,7 +82,8 @@ function PayConfirmation({ info }) {
 }
 
 export async function getServerSideProps({ query }) {
-  const data = await getTransactionDetails(query.ref_payco);
+  console.log('query', query)
+  const data = await getTransactionDetails(query.x_ref_payco);
 
   return {
     props: {
