@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -6,7 +5,6 @@ import { getTransactionDetails } from "../../../lib/api";
 import { epaycoStatusColor } from "../../../helpers";
 
 import PrivateLayout from "../../../components/layouts/private";
-
 
 function PayConfirmation({ info }) {
   const titlePage = 'Confirmación del pago';
