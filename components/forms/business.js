@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
@@ -459,13 +458,11 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
           <span>{action === 'save' ? 'Crear nuevo' : 'Actualizar'} perfil</span>
           <i className={`icon icon-${action === 'save' ? 'user-plus' : 'pencil'} ms-2`}></i>
         </button>
-
-        <Link href="/admin/dashboard">
-          <a className='btn btn-outline-dark'>
-            <i className='icon icon-chevron-left me-2'></i>
-            <span>Volver</span>
-          </a>
-        </Link>
+        
+        <a href="/admin/dashboard" className='btn btn-outline-dark'>
+          <i className='icon icon-chevron-left me-2'></i>
+          <span>Volver</span>
+        </a>
       </div>
     </form>
   )
