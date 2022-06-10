@@ -28,3 +28,34 @@ export const epaycoStatusColor = (response) => {
 
   return status[response];
 }
+
+export const faqs = [
+  {
+    question: '¿Qué es una cuenta y qué es un perfil?',
+    answer: 'La cuenta es la que creas cuando te registras en la plataforma, sea usando un correo o Facebook, esta información es privada. El perfil es el que creas después de haberte registrado y contiene la información pública de tu negocio o marca.'
+  },
+  {
+    question: '¿Cuántos enlaces puedo agregar a un perfil?',
+    answer: 'Hay un límite de 10 enlaces tanto para perfiles gratis como pagos. Hicimos pruebas de diseño y experiencia de usuario y más de 10 enlaces no soluciuona el problema que queremos eliminar con TuBio.'
+  },
+  {
+    question: '¿Puedo crear más de 1 perfil con una misma cuenta?',
+    answer: 'Claro que si. Cada perfil adicional solo te costará 4.99 USD por año, es decir, 0.014 USD por día.'
+  },
+  {
+    question: '¿Está segura mi información?',
+    answer: 'Claro que si. En TuBio la única información sensible que almacenamos es el correo y contraseña con el cual creas tu cuenta. Esa información reposa en servidores seguros de Google y no es pública. Recuerda que la información que si almacenamos es la de tus perfiles, la cual es 100% pública.'
+  },
+  {
+    question: '¿Es seguro comprar aquí?',
+    answer: 'Es 100% seguro. El pago de un perfil adicional se hace desde el checkout de ePayco, empresa legal colombiana con servidores de alta seguridad.'
+  },
+  {
+    question: '¿En que paises funcionan?',
+    answer: 'De momento no tenemos restricción en ningún lugar del mundo, así que podrás crear tu cuenta desde donde estés.'
+  },
+  {
+    question: '¿Puedo eliminar mi cuenta?',
+    answer: 'Si, pero no tenemos una forma automática por seguridad. Cuando desees irte totalmente de TuBio (que esperamos que no), por favor envía un correo a tubio.link@gmail.com solicitando la eliminación total de tu información y en máximo 24 horas hábiles será eliminada.'
+  }
+];
