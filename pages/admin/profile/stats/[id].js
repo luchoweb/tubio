@@ -3,8 +3,8 @@ import { getStatsBiz } from "../../../../lib/api";
 
 import PrivateLayout from "../../../../components/layouts/private";
 
-function StatsProfile({ biz }) {
-  console.log(biz)
+function StatsProfile({ stats }) {
+  console.log(stats);
   const titlePage = 'Estadísticas';
 
   return (
@@ -28,7 +28,7 @@ export async function getServerSideProps({ query }) {
 
   return {
     props: {
-      biz: data,
+      stats: data,
     }
   }
 }
