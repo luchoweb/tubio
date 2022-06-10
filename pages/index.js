@@ -47,7 +47,7 @@ function HomePage() {
                   </a>
                 </Link>
 
-                <a href="tubio" className="btn btn-outline-secondary d-block d-lg-inline-block mt-3 mt-lg-0 pt-2 pb-2" target="_blank">
+                <a href="hablemosdecodigo" className="btn btn-outline-secondary d-block d-lg-inline-block mt-3 mt-lg-0 pt-2 pb-2" target="_blank">
                   <i className="icon icon-tablet me-2"></i>
                   <span>Ver demo</span>
                 </a>
