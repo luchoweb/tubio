@@ -30,7 +30,7 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
   const [currentLinkTitleError, setCurrentLinkTitleError] = useState(true);
   const [currentLinkError, setCurrentLinkError] = useState(true);
 
-  const [links, setLinks] = useState(bizData?.links || [1,2,3,4,5,6,7,8,9,10]);
+  const [links, setLinks] = useState(bizData?.links || []);
 
   const onSubmit = async ( data ) => {
     setErr(null);
