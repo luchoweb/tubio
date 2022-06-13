@@ -6,6 +6,7 @@ export default function LinkBtn({ data }) {
     >
       <a
         style={{
+          backgroundColor: data.bgColor,
           borderColor: data.color,
           color: data.color
         }}

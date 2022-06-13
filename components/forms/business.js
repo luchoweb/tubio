@@ -26,6 +26,7 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
   const [currentLinkTitle, setCurrentLinkTitle] = useState(null);
   const [currentLink, setCurrentLink] = useState(null);
   const [currentLinkColor, setCurrentLinkColor] = useState('#000000');
+  const [currentLinkBgColor, setCurrentLinkBgColor] = useState('#F8F9FA');
 
   const [currentLinkTitleError, setCurrentLinkTitleError] = useState(true);
   const [currentLinkError, setCurrentLinkError] = useState(true);
@@ -110,6 +111,7 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
             icon: currentLinkIcon,
             title: currentLinkTitle,
             link: currentLink,
+            bgColor: currentLinkBgColor,
             color: currentLinkColor
           }
         ]);
@@ -118,6 +120,7 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
         setCurrentLink(null);
         setCurrentLinkIcon('link');
         setCurrentLinkColor('#000000');
+        setCurrentLinkBgColor('#F8F9FA');
 
         const inputs = document.querySelectorAll('.link-value');
         inputs.forEach(input => input.value = "");
@@ -391,8 +394,19 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
                     </ul>
                   </div>
 
-                  <div className='col-6'>
-                    <label htmlFor="linkColor">Seleccione un color</label>
+                  <div className='col-3'>
+                    <label htmlFor="linkBgColor">Fondo</label>
+                    <input
+                      id="linkBgColor"
+                      className={`mt-1 form-control form-control-color`}
+                      type="color"
+                      value={currentLinkBgColor}
+                      onChange={(e) => setCurrentLinkBgColor(e.target.value)}
+                    />
+                  </div>
+
+                  <div className='col-3'>
+                    <label htmlFor="linkColor">Color</label>
                     <input
                       id="linkColor"
                       className={`mt-1 form-control form-control-color`}
