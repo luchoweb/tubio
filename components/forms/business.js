@@ -1,4 +1,5 @@
-import { useRouter } from 'next/router'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
@@ -351,61 +352,71 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
               </div>
             )}
 
-            <div className='alert alert-light mt-4 add-links-box'>
-              <div className='row add-links mb-4'>
-                <div className='col-6'>
-                  <label htmlFor="link_title">Titulo del enlace</label>
-                  <input className={`link-value mt-1 form-control${!currentLinkTitleError ? ' is-invalid' : ''}`} id="link_title" placeholder='Sígueme en Instagram' onBlur={(event) => setCurrentLinkTitle(event.target.value)} />
-                  {!currentLinkTitleError && <span className="form-error">Debe ingresar un titulo</span>}
+            {links.length < 10 ? (
+              <div className='alert alert-light mt-4 add-links-box'>
+                <div className='row add-links mb-4'>
+                  <div className='col-6'>
+                    <label htmlFor="link_title">Titulo del enlace</label>
+                    <input className={`link-value mt-1 form-control${!currentLinkTitleError ? ' is-invalid' : ''}`} id="link_title" placeholder='Sígueme en Instagram' onBlur={(event) => setCurrentLinkTitle(event.target.value)} />
+                    {!currentLinkTitleError && <span className="form-error">Debe ingresar un titulo</span>}
+                  </div>
+
+                  <div className='col-6 mb-4'>
+                    <label htmlFor="link">Destino del enlace</label>
+                    <input
+                      className={`link-value mt-1 form-control${!currentLinkError || currentLinkError?.message ? ' is-invalid' : ''}`}
+                      id="link"
+                      type="url"
+                      placeholder='http, https, mailto, tel'
+                      onBlur={(event) => setCurrentLink(event.target.value)}
+                    />
+                    {!currentLinkError && <span className="form-error">Debe ingresar un enlace</span>}
+                    {currentLinkError?.message && <span className="form-error">
+                      { currentLinkError?.message }
+                    </span>}
+                  </div>
+
+                  <div className='col-6 mb-2'>
+                    <label className='d-block mb-2'>Seleccione un icono</label>
+                    <a href="#" onClick={(e) => handleShowIcons(e)} className="link-icon">
+                      <i className={`icon icon-${currentLinkIcon}`}></i>
+                    </a>
+
+                    <ul className='t-1 pb-1 ps-3 pe-3 list-unstyled d-flex flex-wrap gap-4 mt-2 justify-content-between list-icons hide'>
+                    {arrayIcons.map((icon, index) => (
+                      <li key={`l${index}`} className="preview-form-link-icon" onClick={(e) => handleShowIcons(e)}>
+                        <i className={`icon icon-${icon}`} onClick={() => setCurrentLinkIcon(icon)}></i>
+                      </li>
+                    ))}
+                    </ul>
+                  </div>
+
+                  <div className='col-6'>
+                    <label htmlFor="linkColor">Seleccione un color</label>
+                    <input
+                      id="linkColor"
+                      className={`mt-1 form-control form-control-color`}
+                      type="color"
+                      value={currentLinkColor}
+                      onChange={(e) => setCurrentLinkColor(e.target.value)}
+                    />
+                  </div>
                 </div>
 
-                <div className='col-6 mb-4'>
-                  <label htmlFor="link">Destino del enlace</label>
-                  <input
-                    className={`link-value mt-1 form-control${!currentLinkError || currentLinkError?.message ? ' is-invalid' : ''}`}
-                    id="link"
-                    type="url"
-                    placeholder='http, https, mailto, tel'
-                    onBlur={(event) => setCurrentLink(event.target.value)}
-                  />
-                  {!currentLinkError && <span className="form-error">Debe ingresar un enlace</span>}
-                  {currentLinkError?.message && <span className="form-error">
-                    { currentLinkError?.message }
-                  </span>}
-                </div>
-
-                <div className='col-6 mb-2'>
-                  <label className='d-block mb-2'>Seleccione un icono</label>
-                  <a href="#" onClick={(e) => handleShowIcons(e)} className="link-icon">
-                    <i className={`icon icon-${currentLinkIcon}`}></i>
-                  </a>
-
-                  <ul className='list-unstyled d-flex flex-wrap gap-3 mt-2 justify-content-between list-icons hide'>
-                  {arrayIcons.map((icon, index) => (
-                    <li key={`l${index}`} className="preview-form-link-icon" onClick={(e) => handleShowIcons(e)}>
-                      <i className={`icon icon-${icon}`} onClick={() => setCurrentLinkIcon(icon)}></i>
-                    </li>
-                  ))}
-                  </ul>
-                </div>
-
-                <div className='col-6'>
-                  <label htmlFor="linkColor">Seleccione un color</label>
-                  <input
-                    id="linkColor"
-                    className={`mt-1 form-control form-control-color`}
-                    type="color"
-                    value={currentLinkColor}
-                    onChange={(e) => setCurrentLinkColor(e.target.value)}
-                  />
-                </div>
+                <a href="#" className='btn btn-dark' onClick={(e) => handleAddLink(e)}>
+                  <i className='icon icon-link me-2'></i>
+                  <span>Agregar enlace</span>
+                </a>
               </div>
-
-              <a href="#" className='btn btn-dark' onClick={(e) => handleAddLink(e)}>
-                <i className='icon icon-link me-2'></i>
-                <span>Agregar enlace</span>
-              </a>
-            </div>
+            ) : (
+              <div className='alert alert-secondary pt-2 pb-2'>
+                <p className='m-0'>
+                  <small>
+                    Has alcanzado el lìmite de enlaces permitidos.
+                  </small>
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -460,10 +471,12 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
           <i className={`icon icon-${action === 'save' ? 'user-plus' : 'pencil'} ms-2`}></i>
         </button>
         
-        <a href="/admin/dashboard" className='btn btn-outline-dark'>
-          <i className='icon icon-chevron-left me-2'></i>
-          <span>Volver</span>
-        </a>
+        <Link href="/admin/dashboard">
+          <a className='btn btn-outline-dark'>
+            <i className='icon icon-chevron-left me-2'></i>
+            <span>Volver</span>
+          </a>
+        </Link>
       </div>
     </form>
   )
