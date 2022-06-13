@@ -7,7 +7,6 @@ import { getStatsBiz } from "../../../../lib/api";
 import PrivateLayout from "../../../../components/layouts/private";
 
 function StatsProfile({ stats }) {
-  console.log(stats);
   const titlePage = 'Estadísticas';
 
   const data = {
@@ -32,7 +31,7 @@ function StatsProfile({ stats }) {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: [stats.stats_data.visits, 0, 0]
+        data: [stats?.stats_data?.visits, 0, 0]
       },
       {
         label: 'Impresiones',
@@ -53,7 +52,7 @@ function StatsProfile({ stats }) {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: [stats.stats_data.impressions, 0, 0, stats.stats_data.impressions]
+        data: [stats?.stats_data?.impressions, 0, 0]
       }
     ]
   };
@@ -66,7 +65,7 @@ function StatsProfile({ stats }) {
       <PrivateLayout>
         <section>
           <div className="container">
-            <h3>{titlePage}</h3>
+            <h3>{titlePage} <small className="text-muted">(pronto disponibles)</small></h3>
 
             <Chart
               type="bar"

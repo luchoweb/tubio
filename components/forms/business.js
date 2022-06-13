@@ -65,12 +65,13 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
 
       data.links = links;
       data.user_uid = currentUser.uid;
-
-      data.verified = 0;
+      data.verified = bizData?.verified || 0;
       data.is_free = isPaid ? 0 : 1;
-      
-      if ( action === 'update' )
+
+      if ( action === 'update' ) {
         data.id = bizData?.id;
+        data.is_free = bizData?.is_free;
+      }
 
       // Prints output
       const formAction = action === 'save' ? await saveBiz(data) : await updateBiz(data);
