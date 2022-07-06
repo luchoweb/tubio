@@ -52,12 +52,13 @@ export default function MyApp({ Component, pageProps }) {
           </>
           ) : (
           <>
-            <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600&display=swap" rel="stylesheet" />
-            <link href="/fonts/icons/style.css" rel="stylesheet" />
             <meta property="og:type" content="website" />
             <meta property="og:image" content={`${process.env.NEXT_PUBLIC_APP_URL}/social.png`} />
           </>
           )}
+
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600&display=swap" rel="stylesheet" />
+        <link href="/fonts/icons/style.css" rel="stylesheet" />
 
         <script type="application/ld+json">
         {`{
