@@ -34,8 +34,8 @@ function TermsPage() {
                 </div>
                 <p>TuBio no usa cookies por el momento, ni para publicidad ni para mejorar la experiencia de uso.</p>
                 <p>TuBio usa licencias libres de programas (software) de código abierto para el funcionamiento de la aplicación y licencias gratuitas de otras plataformas como Google&reg; Fonts y Font Awesome de Fonticons, Inc.</p>
-                <p>TuBio ofrece 1 perfil totalmente gratis, si desea adicionar un perfil a la misma cuenta, se deberá pagar solo 4.99 dólares por año o crear otra cuenta con otro e-mail o perfil de Facebook&reg;.</p>
-                <p>Los pagos hechos por perfiles adicionales se hacen a través de la plataforma ePayco&reg;, empresa legalmente constituida en Colombia que cuenta con toda la seguridad en sus servidores para ofrecer pagos en línea seguros. TuBio no almacena ni almacenará su información bancaria o de medios de pago, al momento de pagar, siempre será dirigido al checkout de ePayco&reg;.</p>
+                <p className="d-none">TuBio ofrece 1 perfil totalmente gratis, si desea adicionar un perfil a la misma cuenta, se deberá pagar solo 4.99 dólares por año o crear otra cuenta con otro e-mail o perfil de Facebook&reg;.</p>
+                <p className="d-none">Los pagos hechos por perfiles adicionales se hacen a través de la plataforma ePayco&reg;, empresa legalmente constituida en Colombia que cuenta con toda la seguridad en sus servidores para ofrecer pagos en línea seguros. TuBio no almacena ni almacenará su información bancaria o de medios de pago, al momento de pagar, siempre será dirigido al checkout de ePayco&reg;.</p>
                 <p>TuBio podrá modificar estos términos y condiciones sin previo aviso.</p>
                 <p className="text-muted m-0 mt-5">
                   <small><strong>Última revisión</strong>: 10 de junio de 2022</small>
