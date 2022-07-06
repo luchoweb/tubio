@@ -4,10 +4,6 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600&display=swap" rel="stylesheet" />
-          <link href="/fonts/icons/style.css" rel="stylesheet" />
-        </Head>
         <body>
           <Main />
           <NextScript />
