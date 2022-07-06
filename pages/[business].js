@@ -90,7 +90,7 @@ const Business = ({ biz }) => {
                 border: `3px solid ${biz.text_color}`
               }}
             >
-              <img src={`/uploads/${username}/avatar.webp`} alt={biz.name} />
+              <img src={`https://media.tubio.co/${username}/avatar.webp`} alt={biz.name} />
             </figure>
             <h1 className='biz-info-name' style={{color: biz.text_color}}>
               {biz.name}
