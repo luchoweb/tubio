@@ -40,7 +40,7 @@ export const faqs = [
   },
   {
     question: '¿Puedo crear más de 1 perfil con una misma cuenta?',
-    answer: 'Claro que si. Cada perfil adicional solo te costará 4.99 USD por año, es decir, 0.014 USD por día.'
+    answer: 'Por el momento no es posible, esperamos implementar perfiles adicionales pagos muy pronto. Relax, será un precio muy bajito.'
   },
   {
     question: '¿Está segura mi información?',
