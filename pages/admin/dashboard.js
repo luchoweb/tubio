@@ -63,14 +63,14 @@ function DashboardPage() {
                   }} />
                 </div>
               ) : (
-                {/*<div className={`${freeProfile > 0 ? 'd-block' : 'd-none'} col-12 col-md-6 col-lg-4 mb-4`}>
+                <div className={`${freeProfile > 0 ? 'd-block' : 'd-none'} d-none col-12 col-md-6 col-lg-4 mb-4`}>
                   <AddProfileBtn info={{
                     text: 'Comprar nuevo perfil',
                     href: 'https://payco.link/1501324',
                     icon: 'user-plus',
                     price: '4.99'
                   }} />
-                </div> */}
+                </div>
               )}
               </>
               ) : (
