@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
-import { io } from 'socket.io-client';
+//import { io } from 'socket.io-client';
 import { useAuth } from '../../firebase/authUserContext';
 
 import ProfilePreview from '../profilePreview';
@@ -57,9 +57,9 @@ function FormBiz({ action, isPaid = false, bizData = {} }) {
         });
 
         if ( response.status === 200 ) {
-          const socket = io(process.env.NEXT_PUBLIC_API_URL, { transports : ['websocket'] });
+          //const socket = io(process.env.NEXT_PUBLIC_API_URL, { transports : ['websocket'] });
           // Restart tubio next app
-          socket.emit('upload');
+          //socket.emit('upload');
         } else {
           setErr("Ha ocurrido un error creando su perfil, por favor haga clic nuevamente en Crear perfil.");
         }
