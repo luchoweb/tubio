@@ -49,7 +49,6 @@ const Business = ({ biz }) => {
   }
 
   const avatarLoader = ({ src, width, quality }) => {
-    console.log('src', src);
     return `https://media.tubio.co/${src}/avatar.webp?w=${width}&q=${quality || 75}`
   }
 
