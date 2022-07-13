@@ -5,7 +5,6 @@ module.exports = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   images: {
-    domains: ['media.tubio.co'],
-    formats: ['image/webp', 'image/png'],
+    domains: ['media.tubio.co']
   },
 }
