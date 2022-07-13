@@ -48,6 +48,11 @@ const Business = ({ biz }) => {
     }
   }
 
+  const avatarLoader = ({ src, width, quality }) => {
+    console.log('src', src);
+    return `https://media.tubio.co/${src}/avatar.webp?w=${width}&q=${quality || 75}`
+  }
+
   return (
     loading ? (
       <div className='container pt-5 text-center'>
@@ -91,7 +96,14 @@ const Business = ({ biz }) => {
                 border: `3px solid ${biz.text_color}`
               }}
             >
-              <Image src={`https://media.tubio.co/${username}/avatar.webp`} alt={biz.name} priority={true} width={144} height={144} />
+              <Image
+                loader={avatarLoader}
+                src={`${username}`}
+                alt={biz.name}
+                priority={true}
+                width={144}
+                height={144}
+              />
             </figure>
             <h1 className='biz-info-name' style={{color: biz.text_color}}>
               {biz.name}
