@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import Layout from '../components/layouts/layout';
 import BusinessLayout from '../components/layouts/business';
@@ -90,7 +91,7 @@ const Business = ({ biz }) => {
                 border: `3px solid ${biz.text_color}`
               }}
             >
-              <img src={`https://media.tubio.co/${username}/avatar.webp`} alt={biz.name} />
+              <Image src={`https://media.tubio.co/${username}/avatar.webp`} alt={biz.name} priority={true} width={144} height={144} />
             </figure>
             <h1 className='biz-info-name' style={{color: biz.text_color}}>
               {biz.name}
