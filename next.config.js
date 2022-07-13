@@ -6,5 +6,6 @@ module.exports = {
   },
   images: {
     domains: ['media.tubio.co'],
+    formats: ['image/webp', 'image/png'],
   },
 }
