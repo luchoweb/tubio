@@ -1,11 +1,19 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { deleteBiz, getBizById } from "../../../../lib/api";
 
 import PrivateLayout from "../../../../components/layouts/private";
 
-function DeleteProfile() {
+function DeleteProfile({ biz }) {
   const [isRemoved, setIsRemoved] = useState(false);
+
+  const handleRemoveBiz = async (idBiz) => {
+    const response = await deleteBiz(idBiz);
+    if ( response?.code === 200 )
+      setIsRemoved(true);
+  }
+
   return (
     <>
       <Head>
@@ -16,7 +24,7 @@ function DeleteProfile() {
           <div className="container text-center pt-2">
             <h3 className="mb-5">Eliminar perfil</h3>
 
-            { isRemoved ? (
+            { isRemoved || !biz?.id ? (
               <>
                 <p className="m-0 mb-5">
                   <i className="icon icon-check-circle me-2"></i>
@@ -45,7 +53,7 @@ function DeleteProfile() {
                   </a>
                 </Link>
 
-                <button onClick={() => console.log('borrado')} className="btn btn-danger btn-lg ms-4">
+                <button onClick={() => handleRemoveBiz(biz?.id)} className="btn btn-danger btn-lg ms-4">
                   <span>Eliminar</span>
                   <i className="icon icon-trash ms-2"></i>
                 </button>
@@ -56,6 +64,16 @@ function DeleteProfile() {
       </PrivateLayout>
     </>
   )
+}
+
+export async function getServerSideProps({ query }) {
+  const data = await getBizById(query.id);
+
+  return {
+    props: {
+      biz: data,
+    }
+  }
 }
 
 export default DeleteProfile;
