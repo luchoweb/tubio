@@ -8,7 +8,6 @@ import { deleteBiz, getBizById } from "../../../../lib/api";
 import PrivateLayout from "../../../../components/layouts/private";
 
 function DeleteProfile({ biz }) {
-  console.log(biz)
   const { authUser, loading } = useAuth();
   const router = useRouter();
   const [isRemoved, setIsRemoved] = useState(false);
@@ -21,7 +20,6 @@ function DeleteProfile({ biz }) {
   }
 
   useEffect(() => {
-    console.log(authUser?.uid)
     if ( authUser && biz && authUser?.uid !== biz?.user_uid ) {
       router.push('/admin/dashboard');
     } else {
