@@ -47,10 +47,6 @@ export const faqs = [
     answer: 'Claro que si. En TuBio la única información sensible que almacenamos es el correo y contraseña con el cual creas tu cuenta. Esa información reposa en servidores seguros de Google y no es pública. Recuerda que la información que si almacenamos es la de tus perfiles, la cual es 100% pública.'
   },
   {
-    question: '¿Es seguro comprar aquí?',
-    answer: 'Es 100% seguro. El pago de un perfil adicional se hace desde el checkout de ePayco, empresa legal colombiana con servidores de alta seguridad.'
-  },
-  {
     question: '¿En que paises funcionan?',
     answer: 'De momento no tenemos restricción en ningún lugar del mundo, así que podrás crear tu cuenta desde donde estés.'
   },
