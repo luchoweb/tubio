@@ -45,7 +45,7 @@ export default function MyApp({ Component, pageProps }) {
             <meta property="og:description" content={`Perfil de @${pageProps?.biz.username} en TuBio`} />
             <meta property="og:url" content={`${process.env.NEXT_PUBLIC_APP_URL}/${pageProps?.biz.username}`} />
             <meta property="og:site_name" content={`@${pageProps?.biz.username} &bull; ${process.env.NEXT_PUBLIC_APP_NAME}`} />
-            <meta property="og:image" content={`${process.env.NEXT_PUBLIC_APP_URL}/uploads/${pageProps?.biz.username}/avatar.webp`} />
+            <meta property="og:image" content={`https://media.tubio.co/${pageProps?.biz.username}/avatar.webp`} />
             <meta property="og:type" content="profile" />
             <meta property="profile:username" content={pageProps?.biz.username} />
             <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600&display=swap" rel="stylesheet" />
@@ -55,7 +55,7 @@ export default function MyApp({ Component, pageProps }) {
             <meta property="og:type" content="website" />
             <meta property="og:image" content={`${process.env.NEXT_PUBLIC_APP_URL}/social.png`} />
           </>
-          )}
+        )}
 
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600&display=swap" rel="stylesheet" />
         <link href="/fonts/icons/style.css" rel="stylesheet" />
