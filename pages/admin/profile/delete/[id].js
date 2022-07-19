@@ -1,18 +1,33 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../../../firebase/authUserContext";
 import { deleteBiz, getBizById } from "../../../../lib/api";
 
 import PrivateLayout from "../../../../components/layouts/private";
 
 function DeleteProfile({ biz }) {
+  console.log(biz)
+  const { authUser, loading } = useAuth();
+  const router = useRouter();
   const [isRemoved, setIsRemoved] = useState(false);
+  const [ disableBtn, setDisableBtn ] = useState(true);
 
   const handleRemoveBiz = async (idBiz) => {
     const response = await deleteBiz(idBiz);
     if ( response?.code === 200 )
       setIsRemoved(true);
   }
+
+  useEffect(() => {
+    console.log(authUser?.uid)
+    if ( authUser && biz && authUser?.uid !== biz?.user_uid ) {
+      router.push('/admin/dashboard');
+    } else {
+      setDisableBtn(false);
+    }
+  }, [biz, authUser, loading]);
 
   return (
     <>
@@ -21,8 +36,8 @@ function DeleteProfile({ biz }) {
       </Head>
       <PrivateLayout>
         <section>
-          <div className="container text-center pt-2">
-            <h3 className="mb-5">Eliminar perfil</h3>
+          <div className={`container text-center pt-2 ${disableBtn ? 'd-none' : 'd-block'}`}>
+            <h3 className="mb-5">Eliminar perfil: <small>@{biz?.username}</small></h3>
 
             { isRemoved || !biz?.id ? (
               <>
@@ -42,7 +57,7 @@ function DeleteProfile({ biz }) {
               <>
                 <div className="alert alert-warning pt-3 pb-3 mb-5 m-auto">
                   <p className="m-0">
-                    Esta acción es irreversible, la información se eliminará y no hay lugar a reembolso.
+                    Esta a punto de eliminar el perfil. Esta acción es irreversible y deberá volver a crear el perfil.
                   </p>
                 </div>
 
@@ -53,7 +68,7 @@ function DeleteProfile({ biz }) {
                   </a>
                 </Link>
 
-                <button onClick={() => handleRemoveBiz(biz?.id)} className="btn btn-danger btn-lg ms-4">
+                <button onClick={() => handleRemoveBiz(biz?.id)} className="btn btn-danger btn-lg ms-4" disabled={disableBtn}>
                   <span>Eliminar</span>
                   <i className="icon icon-trash ms-2"></i>
                 </button>
