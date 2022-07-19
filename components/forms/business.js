@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
-//import { io } from 'socket.io-client';
 import { useAuth } from '../../firebase/authUserContext';
 
 import ProfilePreview from '../profilePreview';

@@ -14,7 +14,7 @@ function DeleteProfile({ biz }) {
   const [ disableBtn, setDisableBtn ] = useState(true);
 
   const handleRemoveBiz = async (idBiz) => {
-    const response = await deleteBiz(idBiz);
+    const response = await deleteBiz(idBiz, biz?.user_uid);
     if ( response?.code === 200 )
       setIsRemoved(true);
   }
