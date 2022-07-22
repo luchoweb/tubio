@@ -83,7 +83,7 @@ function LoginPage() {
                   <div className="row justify-content-center mb-5">
                     <div className="col-10 col-md-9 col-lg-6 col-xl-5">
                       <form className="form-horizontal" onSubmit={handleSubmit(onSubmit)}>
-                        <h4>Iniciar sersión</h4>
+                        <h4>Iniciar sesión</h4>
 
                         <p className="mb-4">Ingrese su correo electrónico y contraseña para acceder.</p>
 
