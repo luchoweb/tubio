@@ -26,7 +26,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-verified:before {
+.icon-tiktok:before {
   content: "\e900";
 }
 .icon-question:before {
@@ -284,8 +284,17 @@
 .icon-truck:before {
   content: "\f0d1";
 }
+.icon-money:before {
+  content: "\f0d6";
+}
 .icon-envelope:before {
   content: "\f0e0";
+}
+.icon-gavel:before {
+  content: "\f0e3";
+}
+.icon-legal:before {
+  content: "\f0e3";
 }
 .icon-dashboard:before {
   content: "\f0e4";
@@ -350,11 +359,29 @@
 .icon-ticket:before {
   content: "\f145";
 }
+.icon-thumbs-up:before {
+  content: "\f164";
+}
+.icon-thumbs-down:before {
+  content: "\f165";
+}
 .icon-youtube:before {
   content: "\f16a";
 }
+.icon-dropbox:before {
+  content: "\f16b";
+}
+.icon-stack-overflow:before {
+  content: "\f16c";
+}
 .icon-instagram:before {
   content: "\f16d";
+}
+.icon-bitbucket:before {
+  content: "\f171";
+}
+.icon-tumblr:before {
+  content: "\f173";
 }
 .icon-apple:before {
   content: "\f179";
@@ -367,6 +394,9 @@
 }
 .icon-linux:before {
   content: "\f17c";
+}
+.icon-skype:before {
+  content: "\f17e";
 }
 .icon-female:before {
   content: "\f182";
@@ -397,6 +427,9 @@
 }
 .icon-google:before {
   content: "\f1a0";
+}
+.icon-reddit:before {
+  content: "\f1a1";
 }
 .icon-language:before {
   content: "\f1ab";
@@ -460,6 +493,9 @@
 }
 .icon-twitch:before {
   content: "\f1e8";
+}
+.icon-wifi:before {
+  content: "\f1eb";
 }
 .icon-calculator:before {
   content: "\f1ec";
@@ -577,6 +613,9 @@
 }
 .icon-mouse-pointer:before {
   content: "\f245";
+}
+.icon-cc-diners-club:before {
+  content: "\f24c";
 }
 .icon-balance-scale:before {
   content: "\f24e";
